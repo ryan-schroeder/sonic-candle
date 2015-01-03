@@ -5,11 +5,11 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 
 import org.jtransforms.fft.DoubleFFT_1D;
 
-import co.uk.labbookpages.WavFile;
 import co.uk.labbookpages.WavFileException;
 
 import com.soniccandle.util.StereoData;
@@ -17,8 +17,8 @@ import com.soniccandle.util.Utils;
 
 public class SimpleRenderer extends SpectrumRenderer {
 
-	public SimpleRenderer(WavFile wavFile, int frameRate, int width, int height, String outputDir) {
-		super(wavFile, frameRate, width, height, outputDir);
+	public SimpleRenderer(File audioFile, int frameRate, int width, int height, File outputTo) throws IOException, WavFileException {
+		super(audioFile, frameRate, width, height, outputTo);
 	}
 
 	@Override
