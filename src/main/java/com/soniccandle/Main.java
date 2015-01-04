@@ -12,7 +12,7 @@ public class Main {
 	public static void main(String[] args) throws Exception {
 		ClassLoader loader = Thread.currentThread().getContextClassLoader();
 		File audioFile = new File(loader.getResource(SOUND_FILENAME).toURI());
-		File outputTo = new File ("c:/sonic-candle/frames");
+		File outputTo = new File ("c:/sonic-candle/frames.mp4");
 		if (!audioFile.exists()) {
 			throw new RuntimeException("no audio file found");
 		}

@@ -14,7 +14,9 @@ public class ImageSeqVideoOutputter extends VideoOutputter {
 	}
 
 	@Override
-	public void start() { }
+	public void start() {
+		frameNumber = 0;
+	}
 
 	@Override
 	public void addFrame(BufferedImage frame) throws Exception {

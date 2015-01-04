@@ -27,7 +27,10 @@ public abstract class SpectrumRenderer {
 		this.width = width;
 		this.height = height;
 		
-		this.outputter = new XuggleVideoOutputter(audioFile, outputTo);
+		outputter = new XuggleVideoOutputter(audioFile, outputTo);
+		outputter.width = width;
+		outputter.height = height;
+		outputter.frameRate = frameRate;
 		
 		sampleRate = wavFile.getSampleRate();
 		totalFrames = wavFile.getNumFrames();
