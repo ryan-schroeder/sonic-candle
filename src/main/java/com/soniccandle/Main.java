@@ -7,7 +7,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.net.URISyntaxException;
 
 import javax.imageio.ImageIO;
 import javax.swing.Box;
@@ -35,12 +34,6 @@ public class Main implements ActionListener {
             public void run() {
             	Main main = new Main();
             	ClassLoader loader = Thread.currentThread().getContextClassLoader();
-            	try {
-					main.audioFile  = new File(loader.getResource(SAMPLE_SOUNDFILE).toURI());
-				} catch (URISyntaxException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
             	main.createAndShowGUI();
             }
         });
@@ -85,7 +78,7 @@ public class Main implements ActionListener {
         c.gridy = 1;
         pane.add(button, c);
         
-        audioFileNameLabel = new JLabel(audioFile.getName());  // sample file
+        audioFileNameLabel = new JLabel("(no file chosen)");
         c.fill = GridBagConstraints.HORIZONTAL;
         c.weightx = 0.8;
         c.gridwidth = 1;
@@ -152,7 +145,7 @@ public class Main implements ActionListener {
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         BufferedImage header;
 		try {
-			header = ImageIO.read(new File(loader.getResource("header.png").toURI()));
+			header = ImageIO.read(loader.getResourceAsStream("header.png"));
 		} catch (Exception e) {
 			throw new RuntimeException("header image not found");
 		} 
