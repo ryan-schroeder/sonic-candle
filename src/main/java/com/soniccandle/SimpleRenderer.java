@@ -8,6 +8,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+import javax.swing.JProgressBar;
+
 import org.jtransforms.fft.DoubleFFT_1D;
 
 import co.uk.labbookpages.WavFileException;
@@ -17,8 +19,8 @@ import com.soniccandle.util.Utils;
 
 public class SimpleRenderer extends SpectrumRenderer {
 
-	public SimpleRenderer(File audioFile, int frameRate, int width, int height, File outputTo) throws IOException, WavFileException {
-		super(audioFile, frameRate, width, height, outputTo);
+	public SimpleRenderer(File audioFile, int frameRate, int width, int height, File outputTo, JProgressBar progressBar) throws IOException, WavFileException {
+		super(audioFile, frameRate, width, height, outputTo, progressBar);
 	}
 
 	@Override
