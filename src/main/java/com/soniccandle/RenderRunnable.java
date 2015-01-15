@@ -1,5 +1,6 @@
 package com.soniccandle;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 
 import javax.swing.JProgressBar;
@@ -13,11 +14,13 @@ public class RenderRunnable implements Runnable {
 	public File outputTo;
 	public VideoOutputter outputter;
 	public JProgressBar progressBar;
+	public BufferedImage backgroundImage;
 
 	public void run() {
-		SpectrumRenderer renderer;
+		SimpleRenderer renderer;
 		try {
 			renderer = new SimpleRenderer(audioFile, videoFrameRate, width, height, outputTo, progressBar);
+			renderer.backgroundImage = backgroundImage;
 			renderer.outputter = outputter;
 			renderer.render();
 		} catch (Exception e) {

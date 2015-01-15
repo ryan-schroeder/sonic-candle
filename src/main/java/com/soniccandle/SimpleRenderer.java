@@ -8,7 +8,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-import javax.imageio.ImageIO;
 import javax.swing.JProgressBar;
 
 import org.jtransforms.fft.DoubleFFT_1D;
@@ -19,6 +18,8 @@ import com.soniccandle.util.StereoData;
 import com.soniccandle.util.Utils;
 
 public class SimpleRenderer extends SpectrumRenderer {
+	
+	public BufferedImage backgroundImage;
 
 	public SimpleRenderer(File audioFile, int frameRate, int width, int height, File outputTo, JProgressBar progressBar) throws IOException, WavFileException {
 		super(audioFile, frameRate, width, height, outputTo, progressBar);
@@ -68,12 +69,8 @@ public class SimpleRenderer extends SpectrumRenderer {
 
 		// draw a spectrum
 		BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-		ClassLoader loader = Thread.currentThread().getContextClassLoader();
-		BufferedImage bg = ImageIO.read(loader.getResourceAsStream("rainbow_mesh.png"));
 		Graphics2D g = img.createGraphics();
-		g.drawImage(bg, 0, 0, width, height, 0, 0, width, height, null);
-		g.setColor(new Color(0));
-		//g.fillRect(0, 0, width, height);
+		g.drawImage(backgroundImage, 0, 0, width, height, 0, 0, width, height, null);
 		Color white = new Color(255,255,255);
 		g.setColor(white);
 		Stroke str = new BasicStroke(7);
