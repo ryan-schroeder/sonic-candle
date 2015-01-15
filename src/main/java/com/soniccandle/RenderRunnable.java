@@ -11,12 +11,14 @@ public class RenderRunnable implements Runnable {
 	public int height;
 	public File audioFile;
 	public File outputTo;
+	public VideoOutputter outputter;
 	public JProgressBar progressBar;
 
 	public void run() {
 		SpectrumRenderer renderer;
 		try {
 			renderer = new SimpleRenderer(audioFile, videoFrameRate, width, height, outputTo, progressBar);
+			renderer.outputter = outputter;
 			renderer.render();
 		} catch (Exception e) {
 			throw new RuntimeException(e);

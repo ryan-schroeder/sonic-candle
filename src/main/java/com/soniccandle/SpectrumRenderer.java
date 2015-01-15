@@ -32,11 +32,6 @@ public abstract class SpectrumRenderer {
 		this.height = height;
 		this.progressBar = progressBar;
 		
-		outputter = new XuggleVideoOutputter(audioFile, outputTo);
-		outputter.width = width;
-		outputter.height = height;
-		outputter.frameRate = frameRate;
-		
 		sampleRate = wavFile.getSampleRate();
 		totalFrames = wavFile.getNumFrames();
 		System.out.println("sample rate (frames [one frame = several samples, one for each channel] per second): "+sampleRate+", total frames: "+totalFrames);
