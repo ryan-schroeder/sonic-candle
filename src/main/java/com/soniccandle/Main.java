@@ -1,5 +1,9 @@
 package com.soniccandle;
 
+// -------------------------------------------------------------------------------
+// see this: http://stackoverflow.com/questions/5217611/the-mvc-pattern-and-swing 
+// -------------------------------------------------------------------------------
+
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -29,6 +33,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import com.soniccandle.controller.RenderSwingWorker;
 import com.soniccandle.model.ImageSeqVideoOutputter;
 import com.soniccandle.model.VideoOutputter;
 import com.soniccandle.model.XuggleVideoOutputter;
@@ -395,27 +400,28 @@ public class Main implements ActionListener {
 				outputter = new ImageSeqVideoOutputter(audioFile, outputTo);
 			}
 
-			RenderRunnable renderRunnable = new RenderRunnable();
-			renderRunnable.audioFile = audioFile;
-			renderRunnable.outputTo = outputTo;
-			renderRunnable.outputter = outputter;
-			renderRunnable.videoFrameRate = VIDEO_FRAME_RATE;
-			renderRunnable.width = WIDTH;
-			renderRunnable.height = HEIGHT;
+			RenderSwingWorker renderSwingWorker = new RenderSwingWorker();
+			renderSwingWorker.audioFile = audioFile;
+			renderSwingWorker.outputTo = outputTo;
+			renderSwingWorker.outputter = outputter;
+			renderSwingWorker.videoFrameRate = VIDEO_FRAME_RATE;
+			renderSwingWorker.width = WIDTH;
+			renderSwingWorker.height = HEIGHT;
 
-			renderRunnable.outputter = outputter;
-			renderRunnable.outputter.width = renderRunnable.width;
-			renderRunnable.outputter.height = renderRunnable.height;
-			renderRunnable.outputter.frameRate = renderRunnable.videoFrameRate;
+			renderSwingWorker.outputter = outputter;
+			renderSwingWorker.outputter.width = renderSwingWorker.width;
+			renderSwingWorker.outputter.height = renderSwingWorker.height;
+			renderSwingWorker.outputter.frameRate = renderSwingWorker.videoFrameRate;
+			renderSwingWorker.progressBar = progressBar;
 
 			if (flatColorRb.isSelected()) {
-				BufferedImage backgroundImage = new BufferedImage(renderRunnable.width, renderRunnable.height, BufferedImage.TYPE_INT_ARGB);
+				BufferedImage backgroundImage = new BufferedImage(renderSwingWorker.width, renderSwingWorker.height, BufferedImage.TYPE_INT_ARGB);
 				Graphics2D backgroundImageG = backgroundImage.createGraphics();
 				backgroundImageG.setColor(new Color(Integer.parseInt(bgColorRed.getText()), 
 						Integer.parseInt(bgColorGreen.getText()), 
 						Integer.parseInt(bgColorBlue.getText())));
-				backgroundImageG.fillRect(0, 0, renderRunnable.width, renderRunnable.height);
-				renderRunnable.backgroundImage = backgroundImage;
+				backgroundImageG.fillRect(0, 0, renderSwingWorker.width, renderSwingWorker.height);
+				renderSwingWorker.backgroundImage = backgroundImage;
 			}
 			else if (builtInIimageRb.isSelected()) {
 	    		ClassLoader loader = Thread.currentThread().getContextClassLoader();
@@ -426,7 +432,7 @@ public class Main implements ActionListener {
 					JOptionPane.showMessageDialog(pane, "Aah!  Could not read that built-in image.  Our fault!!  Sorry!");
 					return;
 				}
-	    		renderRunnable.backgroundImage = backgroundImage;
+	    		renderSwingWorker.backgroundImage = backgroundImage;
 			}
 			else if (otherImageRb.isSelected()) {
 				if (backgroundImageFile == null) {
@@ -444,14 +450,12 @@ public class Main implements ActionListener {
 					JOptionPane.showMessageDialog(pane, "The background image given could not be read");
 					return;
 				}
-	    		renderRunnable.backgroundImage = backgroundImage;
+	    		renderSwingWorker.backgroundImage = backgroundImage;
 			}
 
-			renderRunnable.progressBar = progressBar;
-			Thread t = new Thread(renderRunnable);
 			progressBar.setEnabled(true);
+			renderSwingWorker.execute();
 			JOptionPane.showMessageDialog(pane, "Takes a sec for progress bar to show: give it a moment.");
-			t.start();
 		}
 	} 
 

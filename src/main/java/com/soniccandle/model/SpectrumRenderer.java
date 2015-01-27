@@ -4,9 +4,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-import javax.swing.JOptionPane;
-import javax.swing.JProgressBar;
-
 import co.uk.labbookpages.WavFile;
 import co.uk.labbookpages.WavFileException;
 
@@ -22,21 +19,19 @@ public abstract class SpectrumRenderer {
 	public int framesPerVFrame;
 	public int numChannels;
 	
+	public VideoOutputter outputter;
+	
 	public double lengthInSeconds;
 	public long totalVFrames;
 	long currentVFrame;
 	public boolean isDone;
+	public int progress;
 	
-	public VideoOutputter outputter;
-	private JProgressBar progressBar;
-	private int progress;
-	
-	public SpectrumRenderer(File audioFile, int frameRate, int width, int height, File outputTo, JProgressBar progressBar) throws IOException, WavFileException {
+	public SpectrumRenderer(File audioFile, int frameRate, int width, int height, File outputTo) throws IOException, WavFileException {
 		this.wavFile = WavFile.openWavFile(audioFile);
 		this.frameRate = frameRate;
 		this.width = width;
 		this.height = height;
-		this.progressBar = progressBar;
 		
 		sampleRate = wavFile.getSampleRate();
 		totalFrames = wavFile.getNumFrames();
@@ -79,11 +74,8 @@ public abstract class SpectrumRenderer {
 		this.start();
 		while (!isDone) {
 			renderNextFrame();
-			progressBar.setValue(progress);
-			progressBar.repaint();
 		}
 		outputter.finish();
-		JOptionPane.showMessageDialog(null, "Done!");
 	}
 
 
