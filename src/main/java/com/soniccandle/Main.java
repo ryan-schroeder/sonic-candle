@@ -29,6 +29,10 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import com.soniccandle.model.ImageSeqVideoOutputter;
+import com.soniccandle.model.VideoOutputter;
+import com.soniccandle.model.XuggleVideoOutputter;
+
 public class Main implements ActionListener {
 
 	private static final String BG_OTHER_IMAGE = "other image";

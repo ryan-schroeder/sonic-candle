@@ -1,4 +1,4 @@
-package com.soniccandle;
+package com.soniccandle.model;
 
 import java.awt.image.BufferedImage;
 import java.io.File;

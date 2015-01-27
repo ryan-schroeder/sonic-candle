@@ -1,4 +1,4 @@
-package com.soniccandle;
+package com.soniccandle.model;
 
 import java.awt.BasicStroke;
 import java.awt.Color;

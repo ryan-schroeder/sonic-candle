@@ -1,4 +1,4 @@
-package com.soniccandle;
+package com.soniccandle.model;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -22,8 +22,14 @@ public abstract class SpectrumRenderer {
 	public int framesPerVFrame;
 	public int numChannels;
 	
+	public double lengthInSeconds;
+	public long totalVFrames;
+	long currentVFrame;
+	public boolean isDone;
+	
 	public VideoOutputter outputter;
 	private JProgressBar progressBar;
+	private int progress;
 	
 	public SpectrumRenderer(File audioFile, int frameRate, int width, int height, File outputTo, JProgressBar progressBar) throws IOException, WavFileException {
 		this.wavFile = WavFile.openWavFile(audioFile);
@@ -40,23 +46,46 @@ public abstract class SpectrumRenderer {
 		numChannels = wavFile.getNumChannels();
 	}
 	
-	public void render() throws Exception {
-		long currentVFrame = 0;
-		double lengthInSeconds = (((double) totalFrames) / ((double) sampleRate));
-		long totalVFrames = (long) (lengthInSeconds * frameRate);
-		System.out.println("audio is "+lengthInSeconds+" seconds long, which means we have " + totalVFrames+" total video frames ("+frameRate+" fps).");
+	public void start() throws Exception {
 		outputter.start();
-		int progress = 0;
-		while (currentVFrame < totalVFrames) {
-			System.out.println("on frame " + currentVFrame + " of " + totalVFrames);
-			outputter.addFrame(renderVFrame(currentVFrame));
-			currentVFrame ++;
-			progress = (int) (((double) currentVFrame) / ((double) totalVFrames) * 100);
+		lengthInSeconds = (((double) totalFrames) / ((double) sampleRate));
+		currentVFrame = 0;
+		totalVFrames = (long) (lengthInSeconds * frameRate);
+		System.out.println("audio is "+lengthInSeconds+" seconds long, which means we have " + totalVFrames+" total video frames ("+frameRate+" fps).");
+	}
+	
+	public void checkDone() {
+		if (currentVFrame >= totalVFrames) { 
+			isDone = true;
+		} else {
+			isDone = false;
+		}
+	}
+	
+	public void renderNextFrame() throws Exception {
+		checkDone();
+		if(isDone) { return; }
+		System.out.println("rendering frame " + currentVFrame + " of " + totalVFrames);
+		outputter.addFrame(renderVFrame(currentVFrame));
+		currentVFrame ++;
+		progress = (int) (((double) currentVFrame) / ((double) totalVFrames) * 100);
+	}
+	
+	public void finish() {
+		outputter.finish();
+	}
+	
+	public void renderAll() throws Exception {
+		this.start();
+		while (!isDone) {
+			renderNextFrame();
 			progressBar.setValue(progress);
 			progressBar.repaint();
 		}
 		outputter.finish();
 		JOptionPane.showMessageDialog(null, "Done!");
 	}
+
+
 	public abstract BufferedImage renderVFrame(long vFrameNum) throws IOException, WavFileException;
 }
