@@ -23,7 +23,7 @@ public class Main {
 				MainView v = new MainView();
 				MainController c = new MainController();
 				v.m = m;
-				v.cr = c;
+				v.c = c;
 				c.m = m;
 				c.v = v;
 				v.createAndShowGUI();

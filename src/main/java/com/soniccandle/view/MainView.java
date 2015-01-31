@@ -35,7 +35,7 @@ public class MainView {
 	public static final String OUTPUT_SEQUENCE_TITLE = "image sequence (select a folder for output)";
 	
 	public MainModel m;
-	public MainController cr;
+	public MainController c;
 	
 	public void createAndShowGUI() {
 		//Create and set up the window.
@@ -45,19 +45,19 @@ public class MainView {
 		m.pane = frame.getContentPane();
 		m.pane.setLayout(new GridBagLayout());
 
-		GridBagConstraints c = new GridBagConstraints();
-		c.fill = GridBagConstraints.HORIZONTAL;
+		GridBagConstraints topC = new GridBagConstraints();
+		topC.fill = GridBagConstraints.HORIZONTAL;
 		JButton button;
 		JLabel label;
 
 		JLabel headerLabel = getHeaderLabel();
-		c.gridwidth = 1;
-		c.weightx = 1;
-		c.gridx = 0;
-		c.gridy = 0;
-		m.pane.add(headerLabel, c);
+		topC.gridwidth = 1;
+		topC.weightx = 1;
+		topC.gridx = 0;
+		topC.gridy = 0;
+		m.pane.add(headerLabel, topC);
 
-		c.insets = new Insets(5, 5, 5, 5);
+		topC.insets = new Insets(5, 5, 5, 5);
 
 		JPanel inOutPanel = new JPanel();
 		inOutPanel.setLayout(new GridBagLayout());
@@ -68,7 +68,7 @@ public class MainView {
 
 		button = new JButton("set input wav");
 		button.setActionCommand(MainController.SET_INPUT_WAV);
-		button.addActionListener(cr);
+		button.addActionListener(c);
 		inOutC.weightx = 0.2;
 		inOutC.gridx = 0;
 		inOutC.gridy = 0;
@@ -100,7 +100,7 @@ public class MainView {
 
 		button = new JButton("set output location");
 		button.setActionCommand(MainController.SET_OUTPUT_MP4);
-		button.addActionListener(cr);
+		button.addActionListener(c);
 		inOutC.weightx = 0.2;
 		inOutC.gridx = 0;
 		inOutC.gridy = 2;
@@ -114,10 +114,10 @@ public class MainView {
 		inOutC.gridy = 2;
 		inOutPanel.add(m.outputToNameLabel, inOutC);
 
-		c.weightx = 1;
-		c.gridx = 0;
-		c.gridy = 1;
-		m.pane.add(inOutPanel, c);
+		topC.weightx = 1;
+		topC.gridx = 0;
+		topC.gridy = 1;
+		m.pane.add(inOutPanel, topC);
 
 
 		JPanel bgPanel = new JPanel();
@@ -131,7 +131,7 @@ public class MainView {
 		m.bgTypeGroup = new ButtonGroup();
 		m.flatColorRb = new JRadioButton(BG_FLAT_COLOR);
 		m.flatColorRb.setActionCommand(BG_FLAT_COLOR);
-		m.flatColorRb.addActionListener(cr);
+		m.flatColorRb.addActionListener(c);
 		m.flatColorRb.setSelected(true);
 		m.bgTypeGroup.add(m.flatColorRb);
 		bgC.gridx = 0;
@@ -140,7 +140,7 @@ public class MainView {
 
 		m.builtInIimageRb = new JRadioButton(BG_BUILT_IN_IMAGE);
 		m.builtInIimageRb.setActionCommand(BG_BUILT_IN_IMAGE);
-		m.builtInIimageRb.addActionListener(cr);
+		m.builtInIimageRb.addActionListener(c);
 		m.bgTypeGroup.add(m.builtInIimageRb);
 		bgC.gridx = 1;
 		bgC.gridy = 0;
@@ -148,7 +148,7 @@ public class MainView {
 
 		m.otherImageRb = new JRadioButton(BG_OTHER_IMAGE);
 		m.otherImageRb.setActionCommand(BG_OTHER_IMAGE);
-		m.otherImageRb.addActionListener(cr);
+		m.otherImageRb.addActionListener(c);
 		m.bgTypeGroup.add(m.otherImageRb);
 		bgC.gridx = 2;
 		bgC.gridy = 0;
@@ -197,7 +197,7 @@ public class MainView {
 
 		button = new JButton("set");
 		button.setActionCommand(MainController.SET_BG_OTHER_IMAGE);
-		button.addActionListener(cr);
+		button.addActionListener(c);
 		m.bgOtherImagePanel.add(button);
 
 		m.bgImageNamelabel = new JLabel("  (no file chosen)  ");
@@ -210,10 +210,10 @@ public class MainView {
 		bgC.gridy = 3;
 		bgPanel.add(m.bgOtherImagePanel, bgC);
 
-		c.weightx = 1;
-		c.gridx = 0;
-		c.gridy = 2;
-		m.pane.add(bgPanel, c);
+		topC.weightx = 1;
+		topC.gridx = 0;
+		topC.gridy = 2;
+		m.pane.add(bgPanel, topC);
 
 		JPanel renderPanel = new JPanel();
 		renderPanel.setLayout(new GridBagLayout());
@@ -225,8 +225,8 @@ public class MainView {
 		m.renderButton = new JButton("render");
 		m.renderButton.setEnabled(false);
 		m.renderButton.setActionCommand(MainController.RENDER);
-		m.renderButton.addActionListener(cr);
-		c.gridwidth = 2;
+		m.renderButton.addActionListener(c);
+		topC.gridwidth = 2;
 		renderC.weightx = 1;
 		renderC.gridx = 0;
 		renderC.gridy = 0;
@@ -242,10 +242,10 @@ public class MainView {
 		renderC.gridy = 1;
 		renderPanel.add(m.progressBar, renderC);
 
-		c.weightx = 1;
-		c.gridx = 0;
-		c.gridy = 3;
-		m.pane.add(renderPanel, c);
+		topC.weightx = 1;
+		topC.gridx = 0;
+		topC.gridy = 3;
+		m.pane.add(renderPanel, topC);
 
 		m.fc = new JFileChooser();
 		m.fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
