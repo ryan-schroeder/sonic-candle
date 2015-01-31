@@ -28,7 +28,7 @@ public abstract class SpectrumRenderer {
 	public int progress;
 	
 	public SpectrumRenderer(File audioFile, int frameRate, int width, int height, File outputTo) throws IOException, WavFileException {
-		this.wavFile = WavFile.openWavFile(audioFile);
+		this.wavFile = getWavFile(audioFile);
 		this.frameRate = frameRate;
 		this.width = width;
 		this.height = height;
@@ -39,6 +39,11 @@ public abstract class SpectrumRenderer {
 		framesPerVFrame =  (int) (sampleRate / frameRate); 
 		System.out.println("this means, at "+frameRate+" frames per second, we will have " + framesPerVFrame + " audio frames per each video frame.");
 		numChannels = wavFile.getNumChannels();
+	}
+	
+	// exposed for unit tests only!
+	public WavFile getWavFile(File audioFile) throws IOException, WavFileException {
+		return WavFile.openWavFile(audioFile);
 	}
 	
 	public void start() throws Exception {

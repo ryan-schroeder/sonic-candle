@@ -46,7 +46,8 @@ public class WavFile
 	private long frameCounter;				// Current number of frames read or written
 
 	// Cannot instantiate WavFile directly, must either use newWavFile() or openWavFile()
-	private WavFile()
+	// exposed for unit tests only!
+	protected WavFile()
 	{
 		buffer = new byte[BUFFER_SIZE];
 	}
