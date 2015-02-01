@@ -57,11 +57,7 @@ public class MainController implements ActionListener {
 
 		}
 
-		if (m.audioFile != null && m.outputTo != null) {
-			m.renderButton.setEnabled(true);
-		} else {
-			m.renderButton.setEnabled(false);
-		}
+		allowRenderIfReady();
 
 		if (MainView.BG_FLAT_COLOR.equals(e.getActionCommand())) {
 			m.bgColorPanel.setVisible(true);
@@ -169,6 +165,16 @@ public class MainController implements ActionListener {
 			m.progressBar.setEnabled(true);
 			renderSwingWorker.execute();
 			JOptionPane.showMessageDialog(m.pane, "Takes a sec for progress bar to show: give it a moment.");
+		}
+	}
+
+	// exposed for unit tests only!
+	public void allowRenderIfReady() {
+		// TODO Auto-generated method stub
+		if (m.audioFile != null && m.outputTo != null) {
+			m.renderButton.setEnabled(true);
+		} else {
+			m.renderButton.setEnabled(false);
 		}
 	} 
 }
