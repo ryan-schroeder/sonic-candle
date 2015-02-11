@@ -52,9 +52,10 @@ public class RenderSwingWorker extends SwingWorker<Boolean, Integer> {
     public void done() {
 		if (outputter instanceof XuggleVideoOutputter && outputTo.length() < 100) {
 			JOptionPane.showMessageDialog(null, "Ooof - looks like there was a problem, sorry.  Please check that your adio file is 16-bit wav, not 24 or 32, thanks!  Other bitrates coming soon, hopefully.");
-		} else {
-			JOptionPane.showMessageDialog(null, "Done!");
-		}
+			return;
+		} 
+		
+		JOptionPane.showMessageDialog(null, "Done!");
 	}
 	
 	
