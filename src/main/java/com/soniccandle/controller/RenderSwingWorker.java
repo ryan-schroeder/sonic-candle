@@ -10,6 +10,7 @@ import javax.swing.SwingWorker;
 
 import com.soniccandle.model.SimpleRenderer;
 import com.soniccandle.model.VideoOutputter;
+import com.soniccandle.model.XuggleVideoOutputter;
 
 public class RenderSwingWorker extends SwingWorker<Boolean, Integer> {
 
@@ -36,7 +37,7 @@ public class RenderSwingWorker extends SwingWorker<Boolean, Integer> {
 			}
 			renderer.finish();
 		} catch (Exception e) {
-			return false;
+			throw new RuntimeException(e);
 		}
 		return true;
 	}
@@ -49,7 +50,11 @@ public class RenderSwingWorker extends SwingWorker<Boolean, Integer> {
 	
 	@Override
     public void done() {
-		JOptionPane.showMessageDialog(null, "Done!");
+		if (outputter instanceof XuggleVideoOutputter && outputTo.length() < 100) {
+			JOptionPane.showMessageDialog(null, "Ooof - looks like there was a problem, sorry.  Please check that your adio file is 16-bit wav, not 24 or 32, thanks!  Other bitrates coming soon, hopefully.");
+		} else {
+			JOptionPane.showMessageDialog(null, "Done!");
+		}
 	}
 	
 	

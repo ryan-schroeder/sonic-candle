@@ -15,10 +15,8 @@ public class Main {
 	public static final int HEIGHT = 720;
 
 	public static void main(String[] args) throws Exception {
-		System.out.println("running!");
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				System.out.println("invoked!");
 				MainModel m = new MainModel();
 				MainView v = new MainView();
 				MainController c = new MainController();
