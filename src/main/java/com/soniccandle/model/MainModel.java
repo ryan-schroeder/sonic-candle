@@ -16,9 +16,11 @@ import javax.swing.JTextField;
 public class MainModel {
 	public JFileChooser fc;
 	public Container pane;
+	public JButton setAudioButton;
 	public JLabel audioFileNameLabel;
 	public File audioFile;
 	public File outputTo;
+	public JButton setOutputButton;
 	public JLabel outputToNameLabel;
 	public JButton renderButton;
 	public JProgressBar progressBar;
@@ -31,9 +33,10 @@ public class MainModel {
 	public JPanel bgOtherImagePanel;
 	public File backgroundImageFile;
 	public JLabel bgImageNamelabel;
+	public JButton setBgOtherImageButton;
 	public ButtonGroup bgTypeGroup;
 	public JComboBox<String> bgBuiltIn;
 	public JRadioButton flatColorRb;
-	public JRadioButton builtInIimageRb;
+	public JRadioButton builtInImageRb;
 	public JRadioButton otherImageRb;
 }

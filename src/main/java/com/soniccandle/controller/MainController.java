@@ -25,9 +25,11 @@ public class MainController implements ActionListener {
 	public static final String SET_OUTPUT_MP4 = "SET_OUTPUT_MP4";
 	public static final String SET_BG_OTHER_IMAGE = "SET_BG_OTHER_IMAGE";
 	public static final String RENDER = "RENDER";
+	public static final String CANCEL_RENDER = "CANCEL_RENDER";
 	
 	public MainModel m;
 	public MainView v;
+	private RenderSwingWorker renderSwingWorker;
 	
 	public void actionPerformed(ActionEvent e) {
 		if (SET_INPUT_WAV.equals(e.getActionCommand())) {
@@ -109,7 +111,9 @@ public class MainController implements ActionListener {
 				outputter = new ImageSeqVideoOutputter(m.audioFile, m.outputTo);
 			}
 
-			RenderSwingWorker renderSwingWorker = new RenderSwingWorker();
+			renderSwingWorker = new RenderSwingWorker();
+			renderSwingWorker.c = this;
+			renderSwingWorker.m = m;
 			renderSwingWorker.audioFile = m.audioFile;
 			renderSwingWorker.outputTo = m.outputTo;
 			renderSwingWorker.outputter = outputter;
@@ -121,7 +125,6 @@ public class MainController implements ActionListener {
 			renderSwingWorker.outputter.width = renderSwingWorker.width;
 			renderSwingWorker.outputter.height = renderSwingWorker.height;
 			renderSwingWorker.outputter.frameRate = renderSwingWorker.videoFrameRate;
-			renderSwingWorker.progressBar = m.progressBar;
 
 			if (m.flatColorRb.isSelected()) {
 				BufferedImage backgroundImage = new BufferedImage(renderSwingWorker.width, renderSwingWorker.height, BufferedImage.TYPE_INT_ARGB);
@@ -132,7 +135,7 @@ public class MainController implements ActionListener {
 				backgroundImageG.fillRect(0, 0, renderSwingWorker.width, renderSwingWorker.height);
 				renderSwingWorker.backgroundImage = backgroundImage;
 			}
-			else if (m.builtInIimageRb.isSelected()) {
+			else if (m.builtInImageRb.isSelected()) {
 	    		ClassLoader loader = Thread.currentThread().getContextClassLoader();
 	    		BufferedImage backgroundImage = null;
 	    		try {
@@ -163,8 +166,13 @@ public class MainController implements ActionListener {
 			}
 
 			m.progressBar.setEnabled(true);
+			lockWhileRendering();
 			renderSwingWorker.execute();
 			JOptionPane.showMessageDialog(m.pane, "Takes a sec for progress bar to show: give it a moment.");
+		}
+		
+		if (CANCEL_RENDER.equals(e.getActionCommand())) {
+			renderSwingWorker.cancel(true);
 		}
 	}
 
@@ -176,5 +184,37 @@ public class MainController implements ActionListener {
 		} else {
 			m.renderButton.setEnabled(false);
 		}
-	} 
+	}
+	
+	public void lockWhileRendering() {
+		m.setAudioButton.setEnabled(false);
+		m.setOutputButton.setEnabled(false);
+		m.renderButton.setText("cancel render");
+		m.renderButton.setActionCommand(CANCEL_RENDER);
+		m.outputMethod.setEnabled(false);
+		m.bgColorGreen.setEnabled(false);
+		m.bgColorBlue.setEnabled(false);
+		m.bgColorRed.setEnabled(false);
+		m.flatColorRb.setEnabled(false);
+		m.builtInImageRb.setEnabled(false);
+		m.bgBuiltIn.setEnabled(false);
+		m.otherImageRb.setEnabled(false);
+		m.setBgOtherImageButton.setEnabled(false);
+	}
+	
+	public void unlockAfterRender() {
+		m.setAudioButton.setEnabled(true);
+		m.setOutputButton.setEnabled(true);
+		m.renderButton.setText("render");
+		m.renderButton.setActionCommand(RENDER);
+		m.outputMethod.setEnabled(true);
+		m.bgColorGreen.setEnabled(true);
+		m.bgColorBlue.setEnabled(true);
+		m.bgColorRed.setEnabled(true);
+		m.flatColorRb.setEnabled(true);
+		m.builtInImageRb.setEnabled(true);
+		m.bgBuiltIn.setEnabled(true);
+		m.otherImageRb.setEnabled(true);
+		m.setBgOtherImageButton.setEnabled(true);
+	}
 }

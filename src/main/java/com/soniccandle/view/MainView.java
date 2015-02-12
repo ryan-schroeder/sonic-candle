@@ -47,7 +47,6 @@ public class MainView {
 
 		GridBagConstraints topC = new GridBagConstraints();
 		topC.fill = GridBagConstraints.HORIZONTAL;
-		JButton button;
 		JLabel label;
 
 		JLabel headerLabel = getHeaderLabel();
@@ -66,13 +65,13 @@ public class MainView {
 		inOutC.insets = new Insets(5, 5, 5, 5);
 		inOutC.fill = GridBagConstraints.BOTH;
 
-		button = new JButton("set input wav");
-		button.setActionCommand(MainController.SET_INPUT_WAV);
-		button.addActionListener(c);
+		m.setAudioButton = new JButton("set input wav");
+		m.setAudioButton.setActionCommand(MainController.SET_INPUT_WAV);
+		m.setAudioButton.addActionListener(c);
 		inOutC.weightx = 0.2;
 		inOutC.gridx = 0;
 		inOutC.gridy = 0;
-		inOutPanel.add(button, inOutC);
+		inOutPanel.add(m.setAudioButton, inOutC);
 
 		m.audioFileNameLabel = new JLabel("  (no file chosen)");
 		m.audioFileNameLabel.setOpaque(true);
@@ -98,13 +97,13 @@ public class MainView {
 		inOutC.gridy = 1;
 		inOutPanel.add(m.outputMethod, inOutC);
 
-		button = new JButton("set output location");
-		button.setActionCommand(MainController.SET_OUTPUT_MP4);
-		button.addActionListener(c);
+		m.setOutputButton = new JButton("set output location");
+		m.setOutputButton.setActionCommand(MainController.SET_OUTPUT_MP4);
+		m.setOutputButton.addActionListener(c);
 		inOutC.weightx = 0.2;
 		inOutC.gridx = 0;
 		inOutC.gridy = 2;
-		inOutPanel.add(button, inOutC);
+		inOutPanel.add(m.setOutputButton, inOutC);
 
 		m.outputToNameLabel = new JLabel("  (no file or folder chosen)");
 		m.outputToNameLabel.setOpaque(true);
@@ -138,13 +137,13 @@ public class MainView {
 		bgC.gridy = 0;
 		bgPanel.add(m.flatColorRb, bgC);
 
-		m.builtInIimageRb = new JRadioButton(BG_BUILT_IN_IMAGE);
-		m.builtInIimageRb.setActionCommand(BG_BUILT_IN_IMAGE);
-		m.builtInIimageRb.addActionListener(c);
-		m.bgTypeGroup.add(m.builtInIimageRb);
+		m.builtInImageRb = new JRadioButton(BG_BUILT_IN_IMAGE);
+		m.builtInImageRb.setActionCommand(BG_BUILT_IN_IMAGE);
+		m.builtInImageRb.addActionListener(c);
+		m.bgTypeGroup.add(m.builtInImageRb);
 		bgC.gridx = 1;
 		bgC.gridy = 0;
-		bgPanel.add(m.builtInIimageRb, bgC);
+		bgPanel.add(m.builtInImageRb, bgC);
 
 		m.otherImageRb = new JRadioButton(BG_OTHER_IMAGE);
 		m.otherImageRb.setActionCommand(BG_OTHER_IMAGE);
@@ -195,10 +194,10 @@ public class MainView {
 		label = new JLabel("background image, png or jpg, "+Main.WIDTH+"x"+Main.HEIGHT);
 		m.bgOtherImagePanel.add(label);
 
-		button = new JButton("set");
-		button.setActionCommand(MainController.SET_BG_OTHER_IMAGE);
-		button.addActionListener(c);
-		m.bgOtherImagePanel.add(button);
+		m.setBgOtherImageButton = new JButton("set");
+		m.setBgOtherImageButton.setActionCommand(MainController.SET_BG_OTHER_IMAGE);
+		m.setBgOtherImageButton.addActionListener(c);
+		m.bgOtherImagePanel.add(m.setBgOtherImageButton);
 
 		m.bgImageNamelabel = new JLabel("  (no file chosen)  ");
 		m.bgImageNamelabel.setOpaque(true);
