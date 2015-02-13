@@ -39,4 +39,5 @@ public class MainModel {
 	public JRadioButton flatColorRb;
 	public JRadioButton builtInImageRb;
 	public JRadioButton otherImageRb;
+	public JComboBox<String> barStyle;
 }

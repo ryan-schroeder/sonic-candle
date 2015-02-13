@@ -1,9 +1,7 @@
 package com.soniccandle.model;
 
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Stroke;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -12,12 +10,14 @@ import org.jtransforms.fft.DoubleFFT_1D;
 
 import co.uk.labbookpages.WavFileException;
 
+import com.soniccandle.controller.MainController;
 import com.soniccandle.util.StereoData;
 import com.soniccandle.util.Utils;
 
 public class SimpleRenderer extends SpectrumRenderer {
 	
 	public BufferedImage backgroundImage;
+	public String barStyle;
 
 	public SimpleRenderer(File audioFile, int frameRate, int width, int height, File outputTo) throws IOException, WavFileException {
 		super(audioFile, frameRate, width, height, outputTo);
@@ -71,15 +71,22 @@ public class SimpleRenderer extends SpectrumRenderer {
 		g.drawImage(backgroundImage, 0, 0, width, height, 0, 0, width, height, null);
 		Color white = new Color(255,255,255);
 		g.setColor(white);
-		Stroke str = new BasicStroke(7);
-		g.setStroke(str);
 		i = 0;
 		int x;
 		int half = height/2;
+		
+		BarDrawer barDrawer = null;
+		if (barStyle.equals(MainController.BAR_STYLE_THICK_BROCK)) {
+			barDrawer = new ThickBlockBarDrawer(g, half);
+		} else if (barStyle.equals(MainController.BAR_STYLE_OUTLINE_BLOCK)) {
+			barDrawer = new OutlinBlockBarDrawer(g, half);
+		} else if (barStyle.equals(MainController.BAR_STYLE_THIN)) {
+			barDrawer = new ThinBarDrawer(g, half);
+		}
+		
 		while (i < barCount) {
 			x = 40+(i*12);
-			g.drawLine(x, half, x, half+bars[i]); // draws down
-			g.drawLine(x, half, x, half-bars[i]); // draws up
+			barDrawer.drawBar(bars[i], x);
 			i ++;
 		}
 		return img;

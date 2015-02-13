@@ -213,6 +213,13 @@ public class MainView {
 		topC.gridx = 0;
 		topC.gridy = 2;
 		m.pane.add(bgPanel, topC);
+		
+		JPanel barsPanel = makeBarsPanel();
+		topC.weightx = 1;
+		topC.gridx = 0;
+		topC.gridy = 3;
+		m.pane.add(barsPanel, topC);
+		
 
 		JPanel renderPanel = new JPanel();
 		renderPanel.setLayout(new GridBagLayout());
@@ -243,7 +250,7 @@ public class MainView {
 
 		topC.weightx = 1;
 		topC.gridx = 0;
-		topC.gridy = 3;
+		topC.gridy = 4;
 		m.pane.add(renderPanel, topC);
 
 		m.fc = new JFileChooser();
@@ -254,7 +261,7 @@ public class MainView {
 		frame.pack();
 		frame.setVisible(true);
 	}
-	
+
 	private JLabel getHeaderLabel() {
 		ClassLoader loader = Thread.currentThread().getContextClassLoader();
 		BufferedImage header;
@@ -265,6 +272,29 @@ public class MainView {
 		} 
 		JLabel headerLabel = new JLabel(new ImageIcon(header));
 		return headerLabel;
+	}
+	
+	private JPanel makeBarsPanel() {
+		JPanel barsPanel = new JPanel();
+		barsPanel.setLayout(new GridBagLayout());
+		barsPanel.setBorder(BorderFactory.createTitledBorder("bars"));
+		GridBagConstraints barsC = new GridBagConstraints();
+		barsC.insets = new Insets(5, 5, 5, 5);
+		barsC.fill = GridBagConstraints.BOTH;
+		
+		JLabel label = new JLabel("bar style:");
+		barsC.gridwidth = 1;
+		barsC.gridx = 0;
+		barsC.gridy = 0;
+		barsPanel.add(label, barsC);
+		
+		String[] barStyles = {MainController.BAR_STYLE_THICK_BROCK, MainController.BAR_STYLE_OUTLINE_BLOCK, MainController.BAR_STYLE_THIN};
+		m.barStyle = new JComboBox<String>(barStyles);
+		barsC.gridx = 1;
+		barsC.gridy = 0;
+		barsPanel.add(m.barStyle, barsC);
+
+		return barsPanel;
 	}
 
 }

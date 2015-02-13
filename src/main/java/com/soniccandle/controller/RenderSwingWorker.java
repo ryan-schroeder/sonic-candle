@@ -30,7 +30,9 @@ public class RenderSwingWorker extends SwingWorker<Boolean, Integer> {
 		try {
 			renderer = new SimpleRenderer(audioFile, videoFrameRate, width, height, outputTo);
 			renderer.backgroundImage = backgroundImage;
+			renderer.barStyle = (String) m.barStyle.getSelectedItem();
 			renderer.outputter = outputter;
+			m.progressBar.setValue(1);
 			renderer.start();
 			while (!renderer.isDone && !Thread.currentThread().isInterrupted()) {
 				renderer.renderNextFrame();
@@ -52,14 +54,15 @@ public class RenderSwingWorker extends SwingWorker<Boolean, Integer> {
 	@Override
     public void done() {
 		c.unlockAfterRender();
-		if (m.progressBar.getValue() < 99) {
-			JOptionPane.showMessageDialog(null, "Canceled - may not have created entire video =\\");
-			return;
-		}
 		if (outputter instanceof XuggleVideoOutputter && outputTo.length() < 100) {
 			JOptionPane.showMessageDialog(null, "Ooof - looks like there was a problem, sorry.  Please check that your adio file is 16-bit wav, not 24 or 32, thanks!  Other bitrates coming soon, hopefully.");
 			return;
 		}
+		if (m.progressBar.getValue() < 99) {
+			JOptionPane.showMessageDialog(null, "Canceled - may not have created entire video =\\");
+			return;
+		}
+
 		
 		JOptionPane.showMessageDialog(null, "Done!");
 	}
