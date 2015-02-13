@@ -91,6 +91,10 @@ public class MainController implements ActionListener {
 		}
 
 		if (RENDER.equals(e.getActionCommand())) {
+			if (!m.audioFile.exists()) {
+				JOptionPane.showMessageDialog(m.pane, "That audio file does not exist.");
+				return;
+			}
 			if (m.outputTo.exists() && !m.outputTo.isDirectory()) {
 				int result = JOptionPane.showConfirmDialog(m.pane, "Are you sure you want to over-write "+m.outputTo.getName()+"?");
 				if (result != JOptionPane.OK_OPTION) {
