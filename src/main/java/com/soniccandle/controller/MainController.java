@@ -146,7 +146,7 @@ public class MainController implements ActionListener {
 	    		ClassLoader loader = Thread.currentThread().getContextClassLoader();
 	    		BufferedImage backgroundImage = null;
 	    		try {
-					backgroundImage = ImageIO.read(loader.getResourceAsStream((String)m.bgBuiltIn.getSelectedItem()));
+					backgroundImage = ImageIO.read(loader.getResourceAsStream("teneighty/" + (String)m.bgBuiltIn.getSelectedItem()));
 				} catch (IOException e1) {
 					JOptionPane.showMessageDialog(m.pane, "Aah!  Could not read that built-in image.  Our fault!!  Sorry!");
 					return;
@@ -199,15 +199,18 @@ public class MainController implements ActionListener {
 		m.renderButton.setText("cancel render");
 		m.renderButton.setActionCommand(CANCEL_RENDER);
 		m.outputMethod.setEnabled(false);
+		m.bgColorRed.setEnabled(false);
 		m.bgColorGreen.setEnabled(false);
 		m.bgColorBlue.setEnabled(false);
-		m.bgColorRed.setEnabled(false);
 		m.flatColorRb.setEnabled(false);
 		m.builtInImageRb.setEnabled(false);
 		m.bgBuiltIn.setEnabled(false);
 		m.otherImageRb.setEnabled(false);
 		m.setBgOtherImageButton.setEnabled(false);
 		m.barStyle.setEnabled(false);
+		m.barColorRed.setEnabled(false);
+		m.barColorGreen.setEnabled(false);
+		m.barColorBlue.setEnabled(false);
 	}
 	
 	public void unlockAfterRender() {
@@ -216,14 +219,17 @@ public class MainController implements ActionListener {
 		m.renderButton.setText("render");
 		m.renderButton.setActionCommand(RENDER);
 		m.outputMethod.setEnabled(true);
+		m.bgColorRed.setEnabled(true);
 		m.bgColorGreen.setEnabled(true);
 		m.bgColorBlue.setEnabled(true);
-		m.bgColorRed.setEnabled(true);
 		m.flatColorRb.setEnabled(true);
 		m.builtInImageRb.setEnabled(true);
 		m.bgBuiltIn.setEnabled(true);
 		m.otherImageRb.setEnabled(true);
 		m.setBgOtherImageButton.setEnabled(true);
 		m.barStyle.setEnabled(true);
+		m.barColorRed.setEnabled(true);
+		m.barColorGreen.setEnabled(true);
+		m.barColorBlue.setEnabled(true);
 	}
 }

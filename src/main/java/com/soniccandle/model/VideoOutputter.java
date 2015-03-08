@@ -7,9 +7,9 @@ public abstract class VideoOutputter {
 	
 	public File audioFile;
 	public File outputTo;
-	public int frameRate = 30;
-	public int width = 1080;
-	public int height = 720;
+	public int frameRate;
+	public int width;
+	public int height;
 	
 	public VideoOutputter(File audioFile, File outputTo) {
 		this.audioFile = audioFile;

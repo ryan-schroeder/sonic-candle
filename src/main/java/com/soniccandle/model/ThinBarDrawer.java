@@ -6,7 +6,7 @@ import java.awt.Stroke;
 
 public class ThinBarDrawer extends BarDrawer {
 
-	public ThinBarDrawer(Graphics2D g, int half) { super(g, half); }
+	public ThinBarDrawer(Graphics2D g, int half, int barWidth) { super(g, half, barWidth); }
 
 	@Override
 	public void drawBar(int height, int x) {

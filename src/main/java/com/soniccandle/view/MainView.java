@@ -179,8 +179,7 @@ public class MainView {
 		label = new JLabel("built-in image: ");
 		m.bgBuiltInPanel.add(label);
 
-		String[] builtInImages = {"blue_grid.png", "blue_soft_grid.png", "blue_soft.png", "blue.png", "dark_gray.png", "purple.png",
-				"rainbow_bright.png", "rainbow_faint.png", "rainbow_mesh.png", "rainbow.png", "red_grid.png", "red.png"};
+		String[] builtInImages = {"blue.png", "deep.png", "golden.png", "maroon.png", "red.png", "sea.png", "silver.png", "violet.png"};
 		m.bgBuiltIn = new JComboBox<String>(builtInImages);
 		m.bgBuiltInPanel.add(m.bgBuiltIn);
 
@@ -287,6 +286,30 @@ public class MainView {
 		barsC.gridx = 0;
 		barsC.gridy = 0;
 		barsPanel.add(label, barsC);
+		
+		label = new JLabel("bar color (RGB 0-255) ");
+		barsC.gridwidth = 1;
+		barsC.gridx = 0;
+		barsC.gridy = 1;
+		barsPanel.add(label, barsC);
+		
+		JPanel panel = new JPanel();
+		
+		m.barColorRed = new JTextField("255");
+		m.barColorRed.setColumns(3);
+		panel.add(m.barColorRed);
+
+		m.barColorGreen = new JTextField("255");
+		m.barColorGreen.setColumns(3);
+		panel.add(m.barColorGreen);
+
+		m.barColorBlue = new JTextField("255");
+		m.barColorBlue.setColumns(3);
+		panel.add(m.barColorBlue);
+		
+		barsC.gridx = 1;
+		barsC.gridy = 1;
+		barsPanel.add(panel, barsC);
 		
 		String[] barStyles = {MainController.BAR_STYLE_THICK_BROCK, MainController.BAR_STYLE_OUTLINE_BLOCK, MainController.BAR_STYLE_THIN};
 		m.barStyle = new JComboBox<String>(barStyles);

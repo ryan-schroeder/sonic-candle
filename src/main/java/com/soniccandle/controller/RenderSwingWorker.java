@@ -1,5 +1,6 @@
 package com.soniccandle.controller;
 
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.List;
@@ -31,6 +32,10 @@ public class RenderSwingWorker extends SwingWorker<Boolean, Integer> {
 			renderer = new SimpleRenderer(audioFile, videoFrameRate, width, height, outputTo);
 			renderer.backgroundImage = backgroundImage;
 			renderer.barStyle = (String) m.barStyle.getSelectedItem();
+			renderer.barColor = new Color(
+					Integer.parseInt(m.barColorRed.getText()), 
+					Integer.parseInt(m.barColorGreen.getText()), 
+					Integer.parseInt(m.barColorBlue.getText()));
 			renderer.outputter = outputter;
 			m.progressBar.setValue(1);
 			renderer.start();
@@ -44,15 +49,15 @@ public class RenderSwingWorker extends SwingWorker<Boolean, Integer> {
 		}
 		return true;
 	}
-	
-    @Override
-    protected void process(List<Integer> progresses) {
-    	Integer progress = progresses.get(progresses.size() - 1);
-    	m.progressBar.setValue(progress);
-    }
-	
+
 	@Override
-    public void done() {
+	protected void process(List<Integer> progresses) {
+		Integer progress = progresses.get(progresses.size() - 1);
+		m.progressBar.setValue(progress);
+	}
+
+	@Override
+	public void done() {
 		c.unlockAfterRender();
 		if (outputter instanceof XuggleVideoOutputter && outputTo.length() < 100) {
 			JOptionPane.showMessageDialog(null, "Ooof - looks like there was a problem, sorry.  Please check that your adio file is 16-bit wav, not 24 or 32, thanks!  Other bitrates coming soon, hopefully.");
@@ -63,10 +68,10 @@ public class RenderSwingWorker extends SwingWorker<Boolean, Integer> {
 			return;
 		}
 
-		
+
 		JOptionPane.showMessageDialog(null, "Done!");
 	}
-	
-	
-	
+
+
+
 }

@@ -18,6 +18,7 @@ public class SimpleRenderer extends SpectrumRenderer {
 	
 	public BufferedImage backgroundImage;
 	public String barStyle;
+	public Color barColor;
 
 	public SimpleRenderer(File audioFile, int frameRate, int width, int height, File outputTo) throws IOException, WavFileException {
 		super(audioFile, frameRate, width, height, outputTo);
@@ -69,23 +70,23 @@ public class SimpleRenderer extends SpectrumRenderer {
 		BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g = img.createGraphics();
 		g.drawImage(backgroundImage, 0, 0, width, height, 0, 0, width, height, null);
-		Color white = new Color(255,255,255);
-		g.setColor(white);
+		g.setColor(barColor);
 		i = 0;
 		int x;
 		int half = height/2;
+		int barWidth = 18;
 		
 		BarDrawer barDrawer = null;
 		if (barStyle.equals(MainController.BAR_STYLE_THICK_BROCK)) {
-			barDrawer = new ThickBlockBarDrawer(g, half);
+			barDrawer = new ThickBlockBarDrawer(g, half, barWidth);
 		} else if (barStyle.equals(MainController.BAR_STYLE_OUTLINE_BLOCK)) {
-			barDrawer = new OutlinBlockBarDrawer(g, half);
+			barDrawer = new OutlinBlockBarDrawer(g, half, barWidth);
 		} else if (barStyle.equals(MainController.BAR_STYLE_THIN)) {
-			barDrawer = new ThinBarDrawer(g, half);
+			barDrawer = new ThinBarDrawer(g, half, barWidth);
 		}
 		
 		while (i < barCount) {
-			x = 40+(i*12);
+			x = 60+(i*barWidth);
 			barDrawer.drawBar(bars[i], x);
 			i ++;
 		}

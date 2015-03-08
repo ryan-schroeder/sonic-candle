@@ -25,9 +25,9 @@ public class MainModel {
 	public JButton renderButton;
 	public JProgressBar progressBar;
 	public JComboBox<String> outputMethod;
+	public JTextField bgColorRed;
 	public JTextField bgColorGreen;
 	public JTextField bgColorBlue;
-	public JTextField bgColorRed;
 	public JPanel bgColorPanel;
 	public JPanel bgBuiltInPanel;
 	public JPanel bgOtherImagePanel;
@@ -40,4 +40,8 @@ public class MainModel {
 	public JRadioButton builtInImageRb;
 	public JRadioButton otherImageRb;
 	public JComboBox<String> barStyle;
+	public JTextField barColorRed;
+	public JTextField barColorGreen;
+	public JTextField barColorBlue;
+
 }

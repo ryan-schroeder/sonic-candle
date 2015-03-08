@@ -11,8 +11,8 @@ import com.soniccandle.view.MainView;
 public class Main {
 
 	public static final int VIDEO_FRAME_RATE = 30;
-	public static final int WIDTH = 1280;
-	public static final int HEIGHT = 720;
+	public static final int WIDTH = 1920; 
+	public static final int HEIGHT = 1080; 
 
 	public static void main(String[] args) throws Exception {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
