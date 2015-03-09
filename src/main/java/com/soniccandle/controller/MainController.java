@@ -33,6 +33,9 @@ public class MainController implements ActionListener {
 	public MainModel m;
 	public MainView v;
 	private RenderSwingWorker renderSwingWorker;
+	private boolean fpsCheck;
+//	private boolean widthCheck;
+//	private boolean heightCheck;
 	
 	public void actionPerformed(ActionEvent e) {
 		if (SET_INPUT_WAV.equals(e.getActionCommand())) {
@@ -60,6 +63,17 @@ public class MainController implements ActionListener {
 			m.outputTo = m.fc.getSelectedFile();
 			m.outputToNameLabel.setText(m.outputTo.getName());
 
+		}
+		
+		if (Integer.parseInt(m.videoSetFrameRate.getText()) > 0)
+		{
+			Main.setVideoFrameRate(Integer.parseInt(m.videoSetFrameRate.getText()));
+			fpsCheck = true;
+		}
+		else
+		{
+			JOptionPane.showMessageDialog(m.pane, "Please enter a real Frame Rate!");
+			fpsCheck = false;
 		}
 
 		allowRenderIfReady();
@@ -117,6 +131,7 @@ public class MainController implements ActionListener {
 				}
 				outputter = new ImageSeqVideoOutputter(m.audioFile, m.outputTo);
 			}
+			
 
 			renderSwingWorker = new RenderSwingWorker();
 			renderSwingWorker.c = this;
@@ -124,14 +139,15 @@ public class MainController implements ActionListener {
 			renderSwingWorker.audioFile = m.audioFile;
 			renderSwingWorker.outputTo = m.outputTo;
 			renderSwingWorker.outputter = outputter;
-			renderSwingWorker.videoFrameRate = Main.VIDEO_FRAME_RATE;
-			renderSwingWorker.width = Main.WIDTH;
-			renderSwingWorker.height = Main.HEIGHT;
+			renderSwingWorker.videoFrameRate = Main.getVideoFrameRate();
+			renderSwingWorker.width = Main.getVideoWidth();
+			renderSwingWorker.height = Main.getVideoHeight();
 
 			renderSwingWorker.outputter = outputter;
 			renderSwingWorker.outputter.width = renderSwingWorker.width;
 			renderSwingWorker.outputter.height = renderSwingWorker.height;
 			renderSwingWorker.outputter.frameRate = renderSwingWorker.videoFrameRate;
+			
 
 			if (m.flatColorRb.isSelected()) {
 				BufferedImage backgroundImage = new BufferedImage(renderSwingWorker.width, renderSwingWorker.height, BufferedImage.TYPE_INT_ARGB);
@@ -186,7 +202,7 @@ public class MainController implements ActionListener {
 	// exposed for unit tests only!
 	public void allowRenderIfReady() {
 		// TODO Auto-generated method stub
-		if (m.audioFile != null && m.outputTo != null) {
+		if (m.audioFile != null && m.outputTo != null && fpsCheck) {
 			m.renderButton.setEnabled(true);
 		} else {
 			m.renderButton.setEnabled(false);
@@ -211,6 +227,7 @@ public class MainController implements ActionListener {
 		m.barColorRed.setEnabled(false);
 		m.barColorGreen.setEnabled(false);
 		m.barColorBlue.setEnabled(false);
+		m.videoSetFrameRate.setEnabled(false);
 	}
 	
 	public void unlockAfterRender() {
@@ -231,5 +248,6 @@ public class MainController implements ActionListener {
 		m.barColorRed.setEnabled(true);
 		m.barColorGreen.setEnabled(true);
 		m.barColorBlue.setEnabled(true);
+		m.videoSetFrameRate.setEnabled(true);
 	}
 }
