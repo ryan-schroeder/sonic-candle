@@ -74,7 +74,12 @@ public class SimpleRenderer extends SpectrumRenderer {
 		i = 0;
 		int x;
 		int half = height/2;
-		int barWidth = 18;
+//		int barWidth = 18;
+		//Attempt to scale bars horizontally
+		int barWidth = (width / barCount);
+		int fftSize = (barCount*barWidth);
+		int whiteSpace = width - fftSize;
+		int offset = whiteSpace/2;
 		
 		BarDrawer barDrawer = null;
 		if (barStyle.equals(MainController.BAR_STYLE_THICK_BROCK)) {
@@ -85,8 +90,11 @@ public class SimpleRenderer extends SpectrumRenderer {
 			barDrawer = new ThinBarDrawer(g, half, barWidth);
 		}
 		
+		
 		while (i < barCount) {
-			x = 60+(i*barWidth);
+//			x = 60+(i*barWidth);
+			//Manage inset from left
+			x = (barWidth/2) + offset  + (i*barWidth); //barwidth/2 keeps bars from clipping on left, offset centers the fft as best it can (you using integers made a perfect scale really hard)
 			barDrawer.drawBar(bars[i], x);
 			i ++;
 		}

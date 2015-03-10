@@ -33,11 +33,43 @@ public class MainController implements ActionListener {
 	public MainModel m;
 	public MainView v;
 	private RenderSwingWorker renderSwingWorker;
-	private boolean fpsCheck;
-//	private boolean widthCheck;
-//	private boolean heightCheck;
 	
 	public void actionPerformed(ActionEvent e) {
+		
+		//set frame rate
+		if (Integer.parseInt(m.videoSetFrameRate.getText()) > 0)// set minimum to 1
+		{
+			Main.setVideoFrameRate(Integer.parseInt(m.videoSetFrameRate.getText()));
+		}
+		else
+		{
+			JOptionPane.showMessageDialog(m.pane, "Please enter a real Frame Rate!");
+			return;
+		}
+		
+		//set video width
+		if (Integer.parseInt(m.videoSetWidth.getText()) > 399)//set minimum to 400
+		{
+			Main.setVideoWidth(Integer.parseInt(m.videoSetWidth.getText()));
+		}
+		else
+		{
+			JOptionPane.showMessageDialog(m.pane, "Please enter a real Width!");
+			return;
+		}
+		
+		//set video height
+		if (Integer.parseInt(m.videoSetHeight.getText()) > 299)//set minimum to 300
+		{
+			Main.setVideoHeight(Integer.parseInt(m.videoSetHeight.getText()));
+		}
+		else
+		{
+			JOptionPane.showMessageDialog(m.pane, "Please enter a real Height!");
+			return;
+		}
+		
+		
 		if (SET_INPUT_WAV.equals(e.getActionCommand())) {
 			int returnVal = m.fc.showOpenDialog(m.pane);
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
@@ -63,17 +95,6 @@ public class MainController implements ActionListener {
 			m.outputTo = m.fc.getSelectedFile();
 			m.outputToNameLabel.setText(m.outputTo.getName());
 
-		}
-		
-		if (Integer.parseInt(m.videoSetFrameRate.getText()) > 0)
-		{
-			Main.setVideoFrameRate(Integer.parseInt(m.videoSetFrameRate.getText()));
-			fpsCheck = true;
-		}
-		else
-		{
-			JOptionPane.showMessageDialog(m.pane, "Please enter a real Frame Rate!");
-			fpsCheck = false;
 		}
 
 		allowRenderIfReady();
@@ -202,12 +223,13 @@ public class MainController implements ActionListener {
 	// exposed for unit tests only!
 	public void allowRenderIfReady() {
 		// TODO Auto-generated method stub
-		if (m.audioFile != null && m.outputTo != null && fpsCheck) {
+		if (m.audioFile != null && m.outputTo != null) {
 			m.renderButton.setEnabled(true);
 		} else {
 			m.renderButton.setEnabled(false);
 		}
 	}
+	
 	
 	public void lockWhileRendering() {
 		m.setAudioButton.setEnabled(false);
@@ -228,6 +250,9 @@ public class MainController implements ActionListener {
 		m.barColorGreen.setEnabled(false);
 		m.barColorBlue.setEnabled(false);
 		m.videoSetFrameRate.setEnabled(false);
+		m.videoSetHeight.setEnabled(false);
+		m.videoSetWidth.setEnabled(false);
+	
 	}
 	
 	public void unlockAfterRender() {
@@ -249,5 +274,7 @@ public class MainController implements ActionListener {
 		m.barColorGreen.setEnabled(true);
 		m.barColorBlue.setEnabled(true);
 		m.videoSetFrameRate.setEnabled(true);
+		m.videoSetHeight.setEnabled(true);
+		m.videoSetWidth.setEnabled(true);
 	}
 }

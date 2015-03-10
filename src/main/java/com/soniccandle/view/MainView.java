@@ -58,6 +58,60 @@ public class MainView {
 		m.pane.add(headerLabel, topC);
 
 		topC.insets = new Insets(5, 5, 5, 5);
+		
+		//Video Properties panel
+		JPanel vpPanel = new JPanel();
+		vpPanel.setLayout(new GridBagLayout());
+		vpPanel.setBorder(BorderFactory.createTitledBorder("Video Properties"));
+		GridBagConstraints vpC = new GridBagConstraints();
+		vpC.insets = new Insets(5, 5, 5, 5);
+		vpC.fill = GridBagConstraints.BOTH;
+		
+		JLabel fps = new JLabel("Frame Rate:");
+		vpC.gridwidth = 1;
+		vpC.gridx = 0;
+		vpC.gridy = 0;
+		vpPanel.add(fps, vpC);
+		
+		m.videoSetFrameRate = new JTextField("30");
+		m.videoSetFrameRate.setColumns(3);
+		vpC.gridwidth = 1;
+		vpC.gridx = 1;
+		vpC.gridy = 0;
+		vpPanel.add(m.videoSetFrameRate, vpC);
+		
+		JLabel frameWidth = new JLabel("Video Width:");
+		vpC.gridwidth = 1;
+		vpC.gridx = 0;
+		vpC.gridy = 1;
+		vpPanel.add(frameWidth, vpC);
+		
+		m.videoSetWidth = new JTextField("1920");
+		m.videoSetWidth.setColumns(3);
+		vpPanel.add(m.videoSetWidth);
+		vpC.gridwidth = 1;
+		vpC.gridx = 1;
+		vpC.gridy = 1;
+		vpPanel.add(m.videoSetWidth, vpC);
+		
+		JLabel frameHeight = new JLabel("Video Height:");
+		vpC.gridwidth = 1;
+		vpC.gridx = 0;
+		vpC.gridy = 2;
+		vpPanel.add(frameHeight, vpC);
+		
+		m.videoSetHeight = new JTextField("1080");
+		m.videoSetHeight.setColumns(3);
+		vpPanel.add(m.videoSetHeight);
+		vpC.gridwidth = 1;
+		vpC.gridx = 1;
+		vpC.gridy = 2;
+		vpPanel.add(m.videoSetHeight, vpC);
+		
+		topC.weightx = 1;
+		topC.gridx = 0;
+		topC.gridy = 1;
+		m.pane.add(vpPanel, topC);
 
 		//IO panel
 		JPanel inOutPanel = new JPanel();
@@ -117,31 +171,9 @@ public class MainView {
 
 		topC.weightx = 1;
 		topC.gridx = 0;
-		topC.gridy = 1;
+		topC.gridy = 2;
 		m.pane.add(inOutPanel, topC);
 		
-		//Video Properties panel
-		JPanel vpPanel = new JPanel();
-		vpPanel.setLayout(new GridBagLayout());
-		vpPanel.setBorder(BorderFactory.createTitledBorder("Video Properties"));
-		GridBagConstraints vpC = new GridBagConstraints();
-		vpC.insets = new Insets(5, 5, 5, 5);
-		vpC.fill = GridBagConstraints.BOTH;
-		
-		JLabel fps = new JLabel("Frame Rate:");
-		vpC.gridwidth = 1;
-		vpC.gridx = 0;
-		vpC.gridy = 0;
-		vpPanel.add(fps, vpC);
-		
-		m.videoSetFrameRate = new JTextField("30");
-		m.videoSetFrameRate.setColumns(3);
-		vpPanel.add(m.videoSetFrameRate);
-		
-		topC.weightx = 1;
-		topC.gridx = 0;
-		topC.gridy = 2;
-		m.pane.add(vpPanel, topC);
 		
 		//Background Panel
 		JPanel bgPanel = new JPanel();
