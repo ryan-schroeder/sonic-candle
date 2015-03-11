@@ -67,26 +67,26 @@ public class MainView {
 		vpC.insets = new Insets(5, 5, 5, 5);
 		vpC.fill = GridBagConstraints.BOTH;
 		
-		JLabel fps = new JLabel("Frame Rate:");
+		JLabel fps = new JLabel("Frame Rate (Minimum 1):");
 		vpC.gridwidth = 1;
 		vpC.gridx = 0;
 		vpC.gridy = 0;
 		vpPanel.add(fps, vpC);
 		
-		m.videoSetFrameRate = new JTextField("30");
+		m.videoSetFrameRate = new JTextField(Integer.toString(Main.VIDEO_FRAME_RATE)); // set default Frame Rate value with the constant
 		m.videoSetFrameRate.setColumns(3);
 		vpC.gridwidth = 1;
 		vpC.gridx = 1;
 		vpC.gridy = 0;
 		vpPanel.add(m.videoSetFrameRate, vpC);
 		
-		JLabel frameWidth = new JLabel("Video Width:");
+		JLabel frameWidth = new JLabel("Video Width (Minumum 400):");
 		vpC.gridwidth = 1;
 		vpC.gridx = 0;
 		vpC.gridy = 1;
 		vpPanel.add(frameWidth, vpC);
 		
-		m.videoSetWidth = new JTextField("1920");
+		m.videoSetWidth = new JTextField(Integer.toString(Main.WIDTH)); // set default width value with the constant
 		m.videoSetWidth.setColumns(3);
 		vpPanel.add(m.videoSetWidth);
 		vpC.gridwidth = 1;
@@ -94,13 +94,13 @@ public class MainView {
 		vpC.gridy = 1;
 		vpPanel.add(m.videoSetWidth, vpC);
 		
-		JLabel frameHeight = new JLabel("Video Height:");
+		JLabel frameHeight = new JLabel("Video Height (Minimum 300):");
 		vpC.gridwidth = 1;
 		vpC.gridx = 0;
 		vpC.gridy = 2;
 		vpPanel.add(frameHeight, vpC);
 		
-		m.videoSetHeight = new JTextField("1080");
+		m.videoSetHeight = new JTextField(Integer.toString(Main.HEIGHT)); // set default height value with the constant
 		m.videoSetHeight.setColumns(3);
 		vpPanel.add(m.videoSetHeight);
 		vpC.gridwidth = 1;
@@ -369,7 +369,7 @@ public class MainView {
 		barsC.gridy = 1;
 		barsPanel.add(panel, barsC);
 		
-		String[] barStyles = {MainController.BAR_STYLE_THICK_BROCK, MainController.BAR_STYLE_OUTLINE_BLOCK, MainController.BAR_STYLE_THIN};
+		String[] barStyles = {MainController.BAR_STYLE_THICK_BROCK, MainController.BAR_STYLE_OUTLINE_BLOCK, MainController.BAR_STYLE_THIN, MainController.BAR_STYLE_ROUND_BLOCK, MainController.BAR_STYLE_ROUND_OUTLINE};
 		m.barStyle = new JComboBox<String>(barStyles);
 		barsC.gridx = 1;
 		barsC.gridy = 0;

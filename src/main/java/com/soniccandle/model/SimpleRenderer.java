@@ -71,6 +71,8 @@ public class SimpleRenderer extends SpectrumRenderer {
 		Graphics2D g = img.createGraphics();
 		g.drawImage(backgroundImage, 0, 0, width, height, 0, 0, width, height, null);
 		g.setColor(barColor);
+		
+		
 		i = 0;
 		int x;
 		int half = height/2;
@@ -88,7 +90,12 @@ public class SimpleRenderer extends SpectrumRenderer {
 			barDrawer = new OutlinBlockBarDrawer(g, half, barWidth);
 		} else if (barStyle.equals(MainController.BAR_STYLE_THIN)) {
 			barDrawer = new ThinBarDrawer(g, half, barWidth);
+		}else if (barStyle.equals(MainController.BAR_STYLE_ROUND_BLOCK)) {
+			barDrawer = new RoundBlockBarDrawer(g, half, barWidth);
+		}else if (barStyle.equals(MainController.BAR_STYLE_ROUND_OUTLINE)) {
+			barDrawer = new RoundOutlineBarDrawer(g, half, barWidth);
 		}
+		
 		
 		
 		while (i < barCount) {
