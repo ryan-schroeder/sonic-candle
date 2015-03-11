@@ -29,12 +29,49 @@ public class MainController implements ActionListener {
 	public static final String BAR_STYLE_THICK_BROCK = "01 thick block";
 	public static final String BAR_STYLE_OUTLINE_BLOCK = "02 outline block";
 	public static final String BAR_STYLE_THIN = "03 thin";
+	public static final String BAR_STYLE_ROUND_BLOCK = "04 round filled";
+	public static final String BAR_STYLE_ROUND_OUTLINE = "05 round ouline";
 	
 	public MainModel m;
 	public MainView v;
 	private RenderSwingWorker renderSwingWorker;
 	
 	public void actionPerformed(ActionEvent e) {
+		
+		//set frame rate
+		if (Integer.parseInt(m.videoSetFrameRate.getText()) > 0)// set minimum to 1
+		{
+			Main.setVideoFrameRate(Integer.parseInt(m.videoSetFrameRate.getText()));
+		}
+		else
+		{
+			JOptionPane.showMessageDialog(m.pane, "Please enter a real Frame Rate!");
+			return;
+		}
+		
+		//set video width
+		if (Integer.parseInt(m.videoSetWidth.getText()) > 399)//set minimum to 400
+		{
+			Main.setVideoWidth(Integer.parseInt(m.videoSetWidth.getText()));
+		}
+		else
+		{
+			JOptionPane.showMessageDialog(m.pane, "Please enter a real Width!");
+			return;
+		}
+		
+		//set video height
+		if (Integer.parseInt(m.videoSetHeight.getText()) > 299)//set minimum to 300
+		{
+			Main.setVideoHeight(Integer.parseInt(m.videoSetHeight.getText()));
+		}
+		else
+		{
+			JOptionPane.showMessageDialog(m.pane, "Please enter a real Height!");
+			return;
+		}
+		
+		
 		if (SET_INPUT_WAV.equals(e.getActionCommand())) {
 			int returnVal = m.fc.showOpenDialog(m.pane);
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
@@ -117,6 +154,7 @@ public class MainController implements ActionListener {
 				}
 				outputter = new ImageSeqVideoOutputter(m.audioFile, m.outputTo);
 			}
+			
 
 			renderSwingWorker = new RenderSwingWorker();
 			renderSwingWorker.c = this;
@@ -124,14 +162,15 @@ public class MainController implements ActionListener {
 			renderSwingWorker.audioFile = m.audioFile;
 			renderSwingWorker.outputTo = m.outputTo;
 			renderSwingWorker.outputter = outputter;
-			renderSwingWorker.videoFrameRate = Main.VIDEO_FRAME_RATE;
-			renderSwingWorker.width = Main.WIDTH;
-			renderSwingWorker.height = Main.HEIGHT;
+			renderSwingWorker.videoFrameRate = Main.getVideoFrameRate();
+			renderSwingWorker.width = Main.getVideoWidth();
+			renderSwingWorker.height = Main.getVideoHeight();
 
 			renderSwingWorker.outputter = outputter;
 			renderSwingWorker.outputter.width = renderSwingWorker.width;
 			renderSwingWorker.outputter.height = renderSwingWorker.height;
 			renderSwingWorker.outputter.frameRate = renderSwingWorker.videoFrameRate;
+			
 
 			if (m.flatColorRb.isSelected()) {
 				BufferedImage backgroundImage = new BufferedImage(renderSwingWorker.width, renderSwingWorker.height, BufferedImage.TYPE_INT_ARGB);
@@ -193,6 +232,7 @@ public class MainController implements ActionListener {
 		}
 	}
 	
+	
 	public void lockWhileRendering() {
 		m.setAudioButton.setEnabled(false);
 		m.setOutputButton.setEnabled(false);
@@ -211,6 +251,10 @@ public class MainController implements ActionListener {
 		m.barColorRed.setEnabled(false);
 		m.barColorGreen.setEnabled(false);
 		m.barColorBlue.setEnabled(false);
+		m.videoSetFrameRate.setEnabled(false);
+		m.videoSetHeight.setEnabled(false);
+		m.videoSetWidth.setEnabled(false);
+	
 	}
 	
 	public void unlockAfterRender() {
@@ -231,5 +275,8 @@ public class MainController implements ActionListener {
 		m.barColorRed.setEnabled(true);
 		m.barColorGreen.setEnabled(true);
 		m.barColorBlue.setEnabled(true);
+		m.videoSetFrameRate.setEnabled(true);
+		m.videoSetHeight.setEnabled(true);
+		m.videoSetWidth.setEnabled(true);
 	}
 }

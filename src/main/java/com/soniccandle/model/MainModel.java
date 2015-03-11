@@ -43,5 +43,9 @@ public class MainModel {
 	public JTextField barColorRed;
 	public JTextField barColorGreen;
 	public JTextField barColorBlue;
+	public JTextField videoSetFrameRate;
+	public JTextField videoSetWidth;
+	public JTextField videoSetHeight;
+	public JPanel videoProperties;
 
 }

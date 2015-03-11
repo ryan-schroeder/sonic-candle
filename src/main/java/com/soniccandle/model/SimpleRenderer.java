@@ -71,10 +71,17 @@ public class SimpleRenderer extends SpectrumRenderer {
 		Graphics2D g = img.createGraphics();
 		g.drawImage(backgroundImage, 0, 0, width, height, 0, 0, width, height, null);
 		g.setColor(barColor);
+		
+		
 		i = 0;
 		int x;
 		int half = height/2;
-		int barWidth = 18;
+//		int barWidth = 18;
+		//Attempt to scale bars horizontally
+		int barWidth = (width / barCount);
+		int fftSize = (barCount*barWidth);
+		int whiteSpace = width - fftSize;
+		int offset = whiteSpace/2;
 		
 		BarDrawer barDrawer = null;
 		if (barStyle.equals(MainController.BAR_STYLE_THICK_BROCK)) {
@@ -83,10 +90,18 @@ public class SimpleRenderer extends SpectrumRenderer {
 			barDrawer = new OutlinBlockBarDrawer(g, half, barWidth);
 		} else if (barStyle.equals(MainController.BAR_STYLE_THIN)) {
 			barDrawer = new ThinBarDrawer(g, half, barWidth);
+		}else if (barStyle.equals(MainController.BAR_STYLE_ROUND_BLOCK)) {
+			barDrawer = new RoundBlockBarDrawer(g, half, barWidth);
+		}else if (barStyle.equals(MainController.BAR_STYLE_ROUND_OUTLINE)) {
+			barDrawer = new RoundOutlineBarDrawer(g, half, barWidth);
 		}
 		
+		
+		
 		while (i < barCount) {
-			x = 60+(i*barWidth);
+//			x = 60+(i*barWidth);
+			//Manage inset from left
+			x = (barWidth/2) + offset  + (i*barWidth); //barwidth/2 keeps bars from clipping on left, offset centers the fft as best it can (you using integers made a perfect scale really hard)
 			barDrawer.drawBar(bars[i], x);
 			i ++;
 		}

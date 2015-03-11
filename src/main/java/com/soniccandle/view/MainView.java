@@ -39,7 +39,7 @@ public class MainView {
 	
 	public void createAndShowGUI() {
 		//Create and set up the window.
-		JFrame frame = new JFrame("sonic candle");
+		JFrame frame = new JFrame("Sonic Candle");
 		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		m.pane = frame.getContentPane();
@@ -49,6 +49,7 @@ public class MainView {
 		topC.fill = GridBagConstraints.HORIZONTAL;
 		JLabel label;
 
+		//Header (Image)
 		JLabel headerLabel = getHeaderLabel();
 		topC.gridwidth = 1;
 		topC.weightx = 1;
@@ -57,15 +58,70 @@ public class MainView {
 		m.pane.add(headerLabel, topC);
 
 		topC.insets = new Insets(5, 5, 5, 5);
+		
+		//Video Properties panel
+		JPanel vpPanel = new JPanel();
+		vpPanel.setLayout(new GridBagLayout());
+		vpPanel.setBorder(BorderFactory.createTitledBorder("Video Properties"));
+		GridBagConstraints vpC = new GridBagConstraints();
+		vpC.insets = new Insets(5, 5, 5, 5);
+		vpC.fill = GridBagConstraints.BOTH;
+		
+		JLabel fps = new JLabel("Frame Rate (Minimum 1):");
+		vpC.gridwidth = 1;
+		vpC.gridx = 0;
+		vpC.gridy = 0;
+		vpPanel.add(fps, vpC);
+		
+		m.videoSetFrameRate = new JTextField(Integer.toString(Main.VIDEO_FRAME_RATE)); // set default Frame Rate value with the constant
+		m.videoSetFrameRate.setColumns(3);
+		vpC.gridwidth = 1;
+		vpC.gridx = 1;
+		vpC.gridy = 0;
+		vpPanel.add(m.videoSetFrameRate, vpC);
+		
+		JLabel frameWidth = new JLabel("Video Width (Minumum 400):");
+		vpC.gridwidth = 1;
+		vpC.gridx = 0;
+		vpC.gridy = 1;
+		vpPanel.add(frameWidth, vpC);
+		
+		m.videoSetWidth = new JTextField(Integer.toString(Main.WIDTH)); // set default width value with the constant
+		m.videoSetWidth.setColumns(3);
+		vpPanel.add(m.videoSetWidth);
+		vpC.gridwidth = 1;
+		vpC.gridx = 1;
+		vpC.gridy = 1;
+		vpPanel.add(m.videoSetWidth, vpC);
+		
+		JLabel frameHeight = new JLabel("Video Height (Minimum 300):");
+		vpC.gridwidth = 1;
+		vpC.gridx = 0;
+		vpC.gridy = 2;
+		vpPanel.add(frameHeight, vpC);
+		
+		m.videoSetHeight = new JTextField(Integer.toString(Main.HEIGHT)); // set default height value with the constant
+		m.videoSetHeight.setColumns(3);
+		vpPanel.add(m.videoSetHeight);
+		vpC.gridwidth = 1;
+		vpC.gridx = 1;
+		vpC.gridy = 2;
+		vpPanel.add(m.videoSetHeight, vpC);
+		
+		topC.weightx = 1;
+		topC.gridx = 0;
+		topC.gridy = 1;
+		m.pane.add(vpPanel, topC);
 
+		//IO panel
 		JPanel inOutPanel = new JPanel();
 		inOutPanel.setLayout(new GridBagLayout());
-		inOutPanel.setBorder(BorderFactory.createTitledBorder("input and output files"));
+		inOutPanel.setBorder(BorderFactory.createTitledBorder("Input and Output Files"));
 		GridBagConstraints inOutC = new GridBagConstraints();
 		inOutC.insets = new Insets(5, 5, 5, 5);
 		inOutC.fill = GridBagConstraints.BOTH;
 
-		m.setAudioButton = new JButton("set input wav");
+		m.setAudioButton = new JButton("Set Input .wav");
 		m.setAudioButton.setActionCommand(MainController.SET_INPUT_WAV);
 		m.setAudioButton.addActionListener(c);
 		inOutC.weightx = 0.2;
@@ -82,7 +138,7 @@ public class MainView {
 		inOutC.gridy = 0;
 		inOutPanel.add(m.audioFileNameLabel, inOutC);
 
-		label = new JLabel("  output format:");
+		label = new JLabel("  Output Format:");
 		label.setBorder(BorderFactory.createLineBorder(new Color(200, 200, 200)));
 		inOutC.weightx = 0.2;
 		inOutC.gridx = 0;
@@ -97,7 +153,7 @@ public class MainView {
 		inOutC.gridy = 1;
 		inOutPanel.add(m.outputMethod, inOutC);
 
-		m.setOutputButton = new JButton("set output location");
+		m.setOutputButton = new JButton("Set Output Location");
 		m.setOutputButton.setActionCommand(MainController.SET_OUTPUT_MP4);
 		m.setOutputButton.addActionListener(c);
 		inOutC.weightx = 0.2;
@@ -115,13 +171,14 @@ public class MainView {
 
 		topC.weightx = 1;
 		topC.gridx = 0;
-		topC.gridy = 1;
+		topC.gridy = 2;
 		m.pane.add(inOutPanel, topC);
-
-
+		
+		
+		//Background Panel
 		JPanel bgPanel = new JPanel();
 		bgPanel.setLayout(new GridBagLayout());
-		bgPanel.setBorder(BorderFactory.createTitledBorder("background"));
+		bgPanel.setBorder(BorderFactory.createTitledBorder("Background Options"));
 		GridBagConstraints bgC = new GridBagConstraints();
 		bgC.insets = new Insets(5, 5, 5, 5);
 		bgC.fill = GridBagConstraints.BOTH;
@@ -190,7 +247,7 @@ public class MainView {
 
 		m.bgOtherImagePanel = new JPanel();
 		m.bgOtherImagePanel.setVisible(false);
-		label = new JLabel("background image, png or jpg, "+Main.WIDTH+"x"+Main.HEIGHT);
+		label = new JLabel("background image, png or jpg, "+Main.getVideoWidth()+"x"+Main.getVideoHeight());
 		m.bgOtherImagePanel.add(label);
 
 		m.setBgOtherImageButton = new JButton("set");
@@ -210,16 +267,17 @@ public class MainView {
 
 		topC.weightx = 1;
 		topC.gridx = 0;
-		topC.gridy = 2;
+		topC.gridy = 3;
 		m.pane.add(bgPanel, topC);
 		
+		//Bars panel - search makeBarsPanel
 		JPanel barsPanel = makeBarsPanel();
 		topC.weightx = 1;
 		topC.gridx = 0;
-		topC.gridy = 3;
+		topC.gridy = 4;
 		m.pane.add(barsPanel, topC);
-		
 
+		//Render panel
 		JPanel renderPanel = new JPanel();
 		renderPanel.setLayout(new GridBagLayout());
 		renderPanel.setBorder(BorderFactory.createTitledBorder("render"));
@@ -249,7 +307,7 @@ public class MainView {
 
 		topC.weightx = 1;
 		topC.gridx = 0;
-		topC.gridy = 4;
+		topC.gridy = 5;
 		m.pane.add(renderPanel, topC);
 
 		m.fc = new JFileChooser();
@@ -276,7 +334,7 @@ public class MainView {
 	private JPanel makeBarsPanel() {
 		JPanel barsPanel = new JPanel();
 		barsPanel.setLayout(new GridBagLayout());
-		barsPanel.setBorder(BorderFactory.createTitledBorder("bars"));
+		barsPanel.setBorder(BorderFactory.createTitledBorder("Bar Customization"));
 		GridBagConstraints barsC = new GridBagConstraints();
 		barsC.insets = new Insets(5, 5, 5, 5);
 		barsC.fill = GridBagConstraints.BOTH;
@@ -311,7 +369,7 @@ public class MainView {
 		barsC.gridy = 1;
 		barsPanel.add(panel, barsC);
 		
-		String[] barStyles = {MainController.BAR_STYLE_THICK_BROCK, MainController.BAR_STYLE_OUTLINE_BLOCK, MainController.BAR_STYLE_THIN};
+		String[] barStyles = {MainController.BAR_STYLE_THICK_BROCK, MainController.BAR_STYLE_OUTLINE_BLOCK, MainController.BAR_STYLE_THIN, MainController.BAR_STYLE_ROUND_BLOCK, MainController.BAR_STYLE_ROUND_OUTLINE};
 		m.barStyle = new JComboBox<String>(barStyles);
 		barsC.gridx = 1;
 		barsC.gridy = 0;
