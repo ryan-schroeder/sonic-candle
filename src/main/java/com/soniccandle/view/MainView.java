@@ -4,8 +4,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -42,6 +45,18 @@ public class MainView {
 		JFrame frame = new JFrame("Sonic Candle");
 		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//Icon code
+		Image icon;
+		InputStream input = getClass().getResourceAsStream("/sonic-candle-icon.png");
+		try
+		{
+			icon = ImageIO.read(input);
+			frame.setIconImage(icon);
+		} catch (IOException e)
+		{
+			// Intentionally ignore exception (because it should never happen)
+		}
+		
 		m.pane = frame.getContentPane();
 		m.pane.setLayout(new GridBagLayout());
 
