@@ -35,7 +35,8 @@ public class RenderSwingWorker extends SwingWorker<Boolean, Integer> {
 			renderer.barColor = new Color(
 					Integer.parseInt(m.barColorRed.getText()), 
 					Integer.parseInt(m.barColorGreen.getText()), 
-					Integer.parseInt(m.barColorBlue.getText()));
+					Integer.parseInt(m.barColorBlue.getText()),
+					Integer.parseInt(m.barAlpha.getText()));
 			renderer.outputter = outputter;
 			m.progressBar.setValue(1);
 			renderer.start();

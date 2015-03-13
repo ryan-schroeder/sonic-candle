@@ -384,6 +384,24 @@ public class MainView {
 		barsC.gridy = 1;
 		barsPanel.add(panel, barsC);
 		
+		label = new JLabel("Alpha/Transparency (0-255): ");
+		barsC.gridwidth = 1;
+		barsC.gridx = 0;
+		barsC.gridy = 2;
+		barsPanel.add(label, barsC);
+		
+		JPanel panelAlpha = new JPanel();
+		
+		m.barAlpha = new JTextField("255");
+		m.barAlpha.setColumns(3);
+		panelAlpha.add(m.barAlpha);
+		
+		barsC.gridwidth = 1;
+		barsC.gridx = 1;
+		barsC.gridy = 2;
+		barsPanel.add(panelAlpha, barsC);
+		
+		
 		String[] barStyles = {MainController.BAR_STYLE_THICK_BROCK, MainController.BAR_STYLE_OUTLINE_BLOCK, MainController.BAR_STYLE_THIN, MainController.BAR_STYLE_ROUND_BLOCK, MainController.BAR_STYLE_ROUND_OUTLINE};
 		m.barStyle = new JComboBox<String>(barStyles);
 		barsC.gridx = 1;

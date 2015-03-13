@@ -254,6 +254,7 @@ public class MainController implements ActionListener {
 		m.videoSetFrameRate.setEnabled(false);
 		m.videoSetHeight.setEnabled(false);
 		m.videoSetWidth.setEnabled(false);
+		m.barAlpha.setEnabled(false);
 	
 	}
 	
@@ -278,5 +279,6 @@ public class MainController implements ActionListener {
 		m.videoSetFrameRate.setEnabled(true);
 		m.videoSetHeight.setEnabled(true);
 		m.videoSetWidth.setEnabled(true);
+		m.barAlpha.setEnabled(true);
 	}
 }

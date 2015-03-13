@@ -46,6 +46,7 @@ public class MainModel {
 	public JTextField videoSetFrameRate;
 	public JTextField videoSetWidth;
 	public JTextField videoSetHeight;
+	public JTextField barAlpha;
 	public JPanel videoProperties;
 
 }
