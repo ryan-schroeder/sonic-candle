@@ -202,13 +202,25 @@ public class MainController implements ActionListener {
 					return;
 				}
 				BufferedImage backgroundImage = null;
+				BufferedImage resizedBackgroundImage = null;
+				Graphics2D g = null;
 	    		try {
 					backgroundImage = ImageIO.read(m.backgroundImageFile);
+					//scale the bg image
+					int type = backgroundImage.getType() == 0? BufferedImage.TYPE_INT_ARGB : backgroundImage.getType();
+					resizedBackgroundImage = new BufferedImage(Main.getVideoWidth(), Main.getVideoHeight(), type);
+					g = resizedBackgroundImage.createGraphics();
+					g.drawImage(backgroundImage, 0, 0, Main.getVideoWidth(), Main.getVideoHeight(), null);
+					
+					
+					
 				} catch (IOException e1) {
 					JOptionPane.showMessageDialog(m.pane, "The background image given could not be read");
 					return;
 				}
-	    		renderSwingWorker.backgroundImage = backgroundImage;
+	    		renderSwingWorker.backgroundImage = resizedBackgroundImage;
+	    		g.dispose();
+	    		
 			}
 
 			m.progressBar.setEnabled(true);

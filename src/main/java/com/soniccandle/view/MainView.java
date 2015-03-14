@@ -248,7 +248,7 @@ public class MainView {
 
 		m.bgBuiltInPanel = new JPanel();
 		m.bgBuiltInPanel.setVisible(false);
-		label = new JLabel("built-in image: ");
+		label = new JLabel("built-in image(1920x1080): ");
 		m.bgBuiltInPanel.add(label);
 
 		String[] builtInImages = {"blue.png", "deep.png", "golden.png", "maroon.png", "red.png", "sea.png", "silver.png", "violet.png"};
@@ -262,7 +262,7 @@ public class MainView {
 
 		m.bgOtherImagePanel = new JPanel();
 		m.bgOtherImagePanel.setVisible(false);
-		label = new JLabel("background image, png or jpg, "+Main.getVideoWidth()+"x"+Main.getVideoHeight());
+		label = new JLabel("background image, png or jpg (Keep aspect ratio)");
 		m.bgOtherImagePanel.add(label);
 
 		m.setBgOtherImageButton = new JButton("set");
