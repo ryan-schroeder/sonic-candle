@@ -184,13 +184,23 @@ public class MainController implements ActionListener {
 			else if (m.builtInImageRb.isSelected()) {
 	    		ClassLoader loader = Thread.currentThread().getContextClassLoader();
 	    		BufferedImage backgroundImage = null;
+	    		BufferedImage resizedBackgroundImage = null;
+	    		Graphics2D g = null;
 	    		try {
 					backgroundImage = ImageIO.read(loader.getResourceAsStream("teneighty/" + (String)m.bgBuiltIn.getSelectedItem()));
+					
+					//scale image
+					int type = backgroundImage.getType() == 0? BufferedImage.TYPE_INT_ARGB : backgroundImage.getType();
+					resizedBackgroundImage = new BufferedImage(Main.getVideoWidth(), Main.getVideoHeight(), type);
+					g = resizedBackgroundImage.createGraphics();
+					g.drawImage(backgroundImage, 0, 0, Main.getVideoWidth(), Main.getVideoHeight(), null);
+					
+					
 				} catch (IOException e1) {
 					JOptionPane.showMessageDialog(m.pane, "Aah!  Could not read that built-in image.  Our fault!!  Sorry!");
 					return;
 				}
-	    		renderSwingWorker.backgroundImage = backgroundImage;
+	    		renderSwingWorker.backgroundImage = resizedBackgroundImage;
 			}
 			else if (m.otherImageRb.isSelected()) {
 				if (m.backgroundImageFile == null) {
