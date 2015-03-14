@@ -5,8 +5,11 @@ import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.awt.AlphaComposite;
+import java.awt.RenderingHints;//http://docs.oracle.com/javase/tutorial/2d/advanced/quality.html -- set in the specific bar drawing class
 import java.io.File;
 import java.io.IOException;
+
 
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
@@ -189,11 +192,21 @@ public class MainController implements ActionListener {
 	    		try {
 					backgroundImage = ImageIO.read(loader.getResourceAsStream("teneighty/" + (String)m.bgBuiltIn.getSelectedItem()));
 					
-					//scale image
+					//scale image -- http://www.mkyong.com/java/how-to-resize-an-image-in-java/
 					int type = backgroundImage.getType() == 0? BufferedImage.TYPE_INT_ARGB : backgroundImage.getType();
 					resizedBackgroundImage = new BufferedImage(Main.getVideoWidth(), Main.getVideoHeight(), type);
 					g = resizedBackgroundImage.createGraphics();
 					g.drawImage(backgroundImage, 0, 0, Main.getVideoWidth(), Main.getVideoHeight(), null);
+					
+					g.setComposite(AlphaComposite.Src);
+					 
+					g.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+					RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+					g.setRenderingHint(RenderingHints.KEY_RENDERING,
+					RenderingHints.VALUE_RENDER_QUALITY);
+					g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+					RenderingHints.VALUE_ANTIALIAS_ON);
+					
 					
 					
 				} catch (IOException e1) {
@@ -201,6 +214,7 @@ public class MainController implements ActionListener {
 					return;
 				}
 	    		renderSwingWorker.backgroundImage = resizedBackgroundImage;
+	    		g.dispose();
 			}
 			else if (m.otherImageRb.isSelected()) {
 				if (m.backgroundImageFile == null) {
@@ -221,6 +235,15 @@ public class MainController implements ActionListener {
 					resizedBackgroundImage = new BufferedImage(Main.getVideoWidth(), Main.getVideoHeight(), type);
 					g = resizedBackgroundImage.createGraphics();
 					g.drawImage(backgroundImage, 0, 0, Main.getVideoWidth(), Main.getVideoHeight(), null);
+					
+					g.setComposite(AlphaComposite.Src);
+					 
+					g.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+					RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+					g.setRenderingHint(RenderingHints.KEY_RENDERING,
+					RenderingHints.VALUE_RENDER_QUALITY);
+					g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+					RenderingHints.VALUE_ANTIALIAS_ON);
 					
 					
 					
