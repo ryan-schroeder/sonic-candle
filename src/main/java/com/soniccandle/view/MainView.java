@@ -85,19 +85,19 @@ public class MainView {
 		JPanel vpPanel = new JPanel();
 		vpPanel.setLayout(new GridBagLayout());
 		vpPanel.setBackground(PANELCOLOR);
-		vpPanel.setBorder(newTitledPanel("Video Properties: "));
+		vpPanel.setBorder(newTitledLabel("Video Properties: "));
 		vpPanel.setForeground(Color.WHITE);
 		GridBagConstraints vpC = new GridBagConstraints();
 		vpC.insets = new Insets(5, 5, 5, 5);
 		vpC.fill = GridBagConstraints.BOTH;
 
-		JLabel fps = SCLabel("Frame Rate (Minimum 1):");
+		JLabel fps = newSCLabel("Frame Rate (Minimum 1):");
 		vpC.gridwidth = 1;
 		vpC.gridx = 0;
 		vpC.gridy = 0;
 		vpPanel.add(fps, vpC);
 
-		m.videoSetFrameRate = SCTextField(Integer
+		m.videoSetFrameRate = newSCTextField(Integer
 				.toString(Main.VIDEO_FRAME_RATE)); // set default Frame
 													// Rate value with
 													// the constant
@@ -107,13 +107,13 @@ public class MainView {
 		vpC.gridy = 0;
 		vpPanel.add(m.videoSetFrameRate, vpC);
 
-		JLabel frameWidth = SCLabel("Video Width (Minumum 400):");
+		JLabel frameWidth = newSCLabel("Video Width (Minumum 400):");
 		vpC.gridwidth = 1;
 		vpC.gridx = 0;
 		vpC.gridy = 1;
 		vpPanel.add(frameWidth, vpC);
 
-		m.videoSetWidth = SCTextField(Integer.toString(Main.WIDTH)); // set
+		m.videoSetWidth = newSCTextField(Integer.toString(Main.WIDTH)); // set
 																		// default
 																		// width
 																		// value
@@ -127,19 +127,19 @@ public class MainView {
 		vpC.gridy = 1;
 		vpPanel.add(m.videoSetWidth, vpC);
 
-		JLabel frameHeight = SCLabel("Video Height (Minimum 300):");
+		JLabel frameHeight = newSCLabel("Video Height (Minimum 300):");
 		vpC.gridwidth = 1;
 		vpC.gridx = 0;
 		vpC.gridy = 2;
 		vpPanel.add(frameHeight, vpC);
 
-		m.videoSetHeight = SCTextField(Integer.toString(Main.HEIGHT)); // set
-																		// default
-																		// height
-																		// value
-																		// with
-																		// the
-																		// constant
+		m.videoSetHeight = newSCTextField(Integer.toString(Main.HEIGHT)); // set
+																			// default
+																			// height
+																			// value
+																			// with
+																			// the
+																			// constant
 		m.videoSetHeight.setColumns(3);
 		vpPanel.add(m.videoSetHeight);
 		vpC.gridwidth = 1;
@@ -155,7 +155,7 @@ public class MainView {
 		// IO panel
 		JPanel inOutPanel = new JPanel();
 		inOutPanel.setLayout(new GridBagLayout());
-		inOutPanel.setBorder(newTitledPanel("Input and Output Files"));
+		inOutPanel.setBorder(newTitledLabel("Input and Output Files"));
 		inOutPanel.setBackground(PANELCOLOR);
 		GridBagConstraints inOutC = new GridBagConstraints();
 		inOutC.insets = new Insets(5, 5, 5, 5);
@@ -218,7 +218,7 @@ public class MainView {
 		// Background Panel
 		JPanel bgPanel = new JPanel();
 		bgPanel.setLayout(new GridBagLayout());
-		bgPanel.setBorder(newTitledPanel("Background Options"));
+		bgPanel.setBorder(newTitledLabel("Background Options"));
 		bgPanel.setBackground(PANELCOLOR);
 		GridBagConstraints bgC = new GridBagConstraints();
 		bgC.insets = new Insets(5, 5, 5, 5);
@@ -323,7 +323,7 @@ public class MainView {
 		JPanel renderPanel = new JPanel();
 		renderPanel.setLayout(new GridBagLayout());
 		renderPanel.setBackground(PANELCOLOR);
-		renderPanel.setBorder(newTitledPanel("Render"));
+		renderPanel.setBorder(newTitledLabel("Render"));
 		GridBagConstraints renderC = new GridBagConstraints();
 		renderC.insets = new Insets(5, 5, 5, 5);
 		renderC.fill = GridBagConstraints.BOTH;
@@ -376,36 +376,36 @@ public class MainView {
 		JPanel barsPanel = new JPanel();
 		barsPanel.setLayout(new GridBagLayout());
 		barsPanel.setBackground(PANELCOLOR);
-		barsPanel.setBorder(newTitledPanel("Bar Customization"));
+		barsPanel.setBorder(newTitledLabel("Bar Customization"));
 		GridBagConstraints barsC = new GridBagConstraints();
 		barsC.insets = new Insets(5, 5, 5, 5);
 		barsC.fill = GridBagConstraints.BOTH;
 
-		JLabel label = SCLabel("Bar Style:");
+		JLabel label = newSCLabel("Bar Style:");
 		barsC.gridwidth = 1;
 		barsC.gridx = 0;
 		barsC.gridy = 0;
 		barsPanel.add(label, barsC);
 
-		label = SCLabel("Bar Color (RGB 0-255) ");
+		label = newSCLabel("Bar Color (RGB 0-255) ");
 		barsC.gridwidth = 1;
 		barsC.gridx = 0;
 		barsC.gridy = 1;
 		barsPanel.add(label, barsC);
 
 		JPanel panel = new JPanel();
-		
+
 		panel.setBackground(PANELCOLOR);
 
-		m.barColorRed = SCTextField("255");
+		m.barColorRed = newSCTextField("255");
 		m.barColorRed.setColumns(3);
 		panel.add(m.barColorRed);
 
-		m.barColorGreen = SCTextField("255");
+		m.barColorGreen = newSCTextField("255");
 		m.barColorGreen.setColumns(3);
 		panel.add(m.barColorGreen);
 
-		m.barColorBlue = SCTextField("255");
+		m.barColorBlue = newSCTextField("255");
 		m.barColorBlue.setColumns(3);
 		panel.add(m.barColorBlue);
 
@@ -413,17 +413,17 @@ public class MainView {
 		barsC.gridy = 1;
 		barsPanel.add(panel, barsC);
 
-		label = SCLabel("Alpha/Transparency (0-255): ");
+		label = newSCLabel("Alpha/Transparency (0-255): ");
 		barsC.gridwidth = 1;
 		barsC.gridx = 0;
 		barsC.gridy = 2;
 		barsPanel.add(label, barsC);
 
 		JPanel panelAlpha = new JPanel();
-		
+
 		panelAlpha.setBackground(PANELCOLOR);
 
-		m.barAlpha = SCTextField("255");
+		m.barAlpha = newSCTextField("255");
 		m.barAlpha.setColumns(3);
 		panelAlpha.add(m.barAlpha);
 
@@ -445,7 +445,7 @@ public class MainView {
 		return barsPanel;
 	}
 
-	private TitledBorder newTitledPanel(String title) {
+	private TitledBorder newTitledLabel(String title) {
 
 		javax.swing.border.Border normalBorder = (BorderFactory
 				.createEtchedBorder());
@@ -458,22 +458,22 @@ public class MainView {
 		return (SCBorder);
 	}
 
-	private JLabel SCLabel(String text) {
-		JLabel SCLabel = new JLabel(text);
+	private JLabel newSCLabel(String text) {
+		JLabel newSCLabel = new JLabel(text);
 
-		SCLabel.setForeground(Color.WHITE);
+		newSCLabel.setForeground(Color.WHITE);
 
-		return SCLabel;
+		return newSCLabel;
 
 	}
 
-	private JTextField SCTextField(String text) {
+	private JTextField newSCTextField(String text) {
 		javax.swing.border.Border normalBorder = (BorderFactory
 				.createEtchedBorder());
-		JTextField SCTextField = new JTextField(text);
-		SCTextField.setBackground(FRAMECOLOR);
-		SCTextField.setForeground(Color.WHITE);
-		SCTextField.setBorder(normalBorder);
-		return (SCTextField);
+		JTextField newSCTextField = new JTextField(text);
+		newSCTextField.setBackground(FRAMECOLOR);
+		newSCTextField.setForeground(Color.WHITE);
+		newSCTextField.setBorder(normalBorder);
+		return (newSCTextField);
 	}
 }
