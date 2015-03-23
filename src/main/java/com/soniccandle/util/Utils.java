@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import co.uk.labbookpages.WavFileException;
 
-
 public class Utils {
 	public static double[] doubleAddZeros(double[] input) {
 		double[] output = new double[input.length * 2];
@@ -12,10 +11,10 @@ public class Utils {
 		int j = 0;
 		while (i < input.length) {
 			output[j] = input[i];
-			j ++;
+			j++;
 			output[j] = 0; // complex component.
-			j ++;
-			i ++;
+			j++;
+			i++;
 		}
 		return output;
 	}
@@ -32,24 +31,27 @@ public class Utils {
 		while (i < input.length) {
 			if (isOdd) {
 				stereo.left[leftI] = input[i];
-				leftI ++;
+				leftI++;
 			} else {
 				stereo.right[rightI] = input[i];
-				rightI ++;
+				rightI++;
 			}
 			isOdd = !isOdd;
-			i ++;
+			i++;
 		}
 		return stereo;
 	}
-	
-	public static void printMinMax(double[] buffer) throws IOException, WavFileException {
+
+	public static void printMinMax(double[] buffer) throws IOException,
+			WavFileException {
 		double min = Double.MAX_VALUE;
 		double max = Double.MIN_VALUE;
-		int i = 0 ;
+		int i = 0;
 		while (i < buffer.length) {
-			if (buffer[i] > max) max = buffer[i];
-			if (buffer[i] < min) min = buffer[i];
+			if (buffer[i] > max)
+				max = buffer[i];
+			if (buffer[i] < min)
+				min = buffer[i];
 			i++;
 		}
 		System.out.printf("Min: %f, Max: %f\n", min, max);

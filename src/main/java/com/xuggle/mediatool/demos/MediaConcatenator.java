@@ -13,8 +13,7 @@ import com.xuggle.mediatool.event.VideoPictureEvent;
 import com.xuggle.xuggler.IAudioSamples;
 import com.xuggle.xuggler.IVideoPicture;
 
-public class MediaConcatenator extends MediaToolAdapter 
-{
+public class MediaConcatenator extends MediaToolAdapter {
 	// the current offset
 	private long mOffset = 0;
 	// the next video timestamp
@@ -30,18 +29,18 @@ public class MediaConcatenator extends MediaToolAdapter
 	/**
 	 * Create a concatenator.
 	 * 
-	 * @param audioStreamIndex index of audio stream
-	 * @param videoStreamIndex index of video stream
+	 * @param audioStreamIndex
+	 *            index of audio stream
+	 * @param videoStreamIndex
+	 *            index of video stream
 	 */
 
-	public MediaConcatenator(int audioStreamIndex, int videoStreamIndex)
-	{
+	public MediaConcatenator(int audioStreamIndex, int videoStreamIndex) {
 		mAudoStreamIndex = audioStreamIndex;
 		mVideoStreamIndex = videoStreamIndex;
 	}
 
-	public void onAudioSamples(IAudioSamplesEvent event)
-	{
+	public void onAudioSamples(IAudioSamplesEvent event) {
 		IAudioSamples samples = event.getAudioSamples();
 
 		// set the new time stamp to the original plus the offset established
@@ -66,8 +65,7 @@ public class MediaConcatenator extends MediaToolAdapter
 				mAudoStreamIndex));
 	}
 
-	public void onVideoPicture(IVideoPictureEvent event)
-	{
+	public void onVideoPicture(IVideoPictureEvent event) {
 		IVideoPicture picture = event.getMediaData();
 		long originalTimeStamp = picture.getTimeStamp();
 
@@ -81,12 +79,12 @@ public class MediaConcatenator extends MediaToolAdapter
 		// to this this time.
 		//
 		// You'll note in the audio samples listener above we used
-		// a method called getNextPts().  Video pictures don't have
+		// a method called getNextPts(). Video pictures don't have
 		// a similar method because frame-rates can be variable, so
-		// we don't now.  The minimum thing we do know though (since
+		// we don't now. The minimum thing we do know though (since
 		// all media containers require media to have monotonically
 		// increasing time stamps), is that the next video timestamp
-		// should be at least one tick ahead.  So, we fake it.
+		// should be at least one tick ahead. So, we fake it.
 
 		mNextVideo = originalTimeStamp + 1;
 
@@ -101,15 +99,13 @@ public class MediaConcatenator extends MediaToolAdapter
 				mVideoStreamIndex));
 	}
 
-	public void onClose(ICloseEvent event)
-	{
+	public void onClose(ICloseEvent event) {
 		// update the offset by the larger of the next expected audio or video
 		// frame time
 
 		mOffset = Math.max(mNextVideo, mNextAudio);
 
-		if (mNextAudio < mNextVideo)
-		{
+		if (mNextAudio < mNextVideo) {
 			// In this case we know that there is more video in the
 			// last file that we read than audio. Technically you
 			// should pad the audio in the output file with enough
@@ -125,26 +121,22 @@ public class MediaConcatenator extends MediaToolAdapter
 		}
 	}
 
-	public void onAddStream(IAddStreamEvent event)
-	{
+	public void onAddStream(IAddStreamEvent event) {
 		// overridden to ensure that add stream events are not passed down
 		// the tool chain to the writer, which could cause problems
 	}
 
-	public void onOpen(IOpenEvent event)
-	{
+	public void onOpen(IOpenEvent event) {
 		// overridden to ensure that open events are not passed down the tool
 		// chain to the writer, which could cause problems
 	}
 
-	public void onOpenCoder(IOpenCoderEvent event)
-	{
+	public void onOpenCoder(IOpenCoderEvent event) {
 		// overridden to ensure that open coder events are not passed down the
 		// tool chain to the writer, which could cause problems
 	}
 
-	public void onCloseCoder(ICloseCoderEvent event)
-	{
+	public void onCloseCoder(ICloseCoderEvent event) {
 		// overridden to ensure that close coder events are not passed down the
 		// tool chain to the writer, which could cause problems
 	}

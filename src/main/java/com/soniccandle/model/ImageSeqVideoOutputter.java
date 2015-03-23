@@ -6,7 +6,7 @@ import java.io.File;
 import javax.imageio.ImageIO;
 
 public class ImageSeqVideoOutputter extends VideoOutputter {
-	
+
 	public long frameNumber = 0;
 
 	public ImageSeqVideoOutputter(File wavFile, File outputTo) {
@@ -20,12 +20,13 @@ public class ImageSeqVideoOutputter extends VideoOutputter {
 
 	@Override
 	public void addFrame(BufferedImage frame) throws Exception {
-		File outputfile = new File(outputTo, "frame_"+frameNumber+".png");
+		File outputfile = new File(outputTo, "frame_" + frameNumber + ".png");
 		ImageIO.write(frame, "png", outputfile);
-		frameNumber ++;
+		frameNumber++;
 	}
 
 	@Override
-	public void finish() { }
+	public void finish() {
+	}
 
 }

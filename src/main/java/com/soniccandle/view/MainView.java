@@ -30,33 +30,35 @@ import com.soniccandle.controller.MainController;
 import com.soniccandle.model.MainModel;
 
 public class MainView {
-	
+
+	// color constants
+	public static final Color FRAMECOLOR = new Color(17, 17, 17);// dark grey
+
 	public static final String BG_OTHER_IMAGE = "other image";
 	public static final String BG_BUILT_IN_IMAGE = "built-in image";
 	public static final String BG_FLAT_COLOR = "flat color";
 	public static final String OUTPUT_MP4_TITLE = "mp4 file";
 	public static final String OUTPUT_SEQUENCE_TITLE = "image sequence (select a folder for output)";
-	
+
 	public MainModel m;
 	public MainController c;
-	
+
 	public void createAndShowGUI() {
-		//Create and set up the window.
+		// Create and set up the window.
 		JFrame frame = new JFrame("Sonic Candle");
 		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//Icon code
+		// Icon code
 		Image icon;
-		InputStream input = getClass().getResourceAsStream("/sonic-candle-icon.png");
-		try
-		{
+		InputStream input = getClass().getResourceAsStream(
+				"/sonic-candle-icon.png");
+		try {
 			icon = ImageIO.read(input);
 			frame.setIconImage(icon);
-		} catch (IOException e)
-		{
+		} catch (IOException e) {
 			// Intentionally ignore exception (because it should never happen)
 		}
-		
+
 		m.pane = frame.getContentPane();
 		m.pane.setLayout(new GridBagLayout());
 
@@ -64,7 +66,7 @@ public class MainView {
 		topC.fill = GridBagConstraints.HORIZONTAL;
 		JLabel label;
 
-		//Header (Image)
+		// Header (Image)
 		JLabel headerLabel = getHeaderLabel();
 		topC.gridwidth = 1;
 		topC.weightx = 1;
@@ -73,65 +75,81 @@ public class MainView {
 		m.pane.add(headerLabel, topC);
 
 		topC.insets = new Insets(5, 5, 5, 5);
-		
-		//Video Properties panel
+
+		// Video Properties panel
 		JPanel vpPanel = new JPanel();
 		vpPanel.setLayout(new GridBagLayout());
 		vpPanel.setBorder(BorderFactory.createTitledBorder("Video Properties"));
 		GridBagConstraints vpC = new GridBagConstraints();
 		vpC.insets = new Insets(5, 5, 5, 5);
 		vpC.fill = GridBagConstraints.BOTH;
-		
+
 		JLabel fps = new JLabel("Frame Rate (Minimum 1):");
 		vpC.gridwidth = 1;
 		vpC.gridx = 0;
 		vpC.gridy = 0;
 		vpPanel.add(fps, vpC);
-		
-		m.videoSetFrameRate = new JTextField(Integer.toString(Main.VIDEO_FRAME_RATE)); // set default Frame Rate value with the constant
+
+		m.videoSetFrameRate = new JTextField(
+				Integer.toString(Main.VIDEO_FRAME_RATE)); // set default Frame
+															// Rate value with
+															// the constant
 		m.videoSetFrameRate.setColumns(3);
 		vpC.gridwidth = 1;
 		vpC.gridx = 1;
 		vpC.gridy = 0;
 		vpPanel.add(m.videoSetFrameRate, vpC);
-		
+
 		JLabel frameWidth = new JLabel("Video Width (Minumum 400):");
 		vpC.gridwidth = 1;
 		vpC.gridx = 0;
 		vpC.gridy = 1;
 		vpPanel.add(frameWidth, vpC);
-		
-		m.videoSetWidth = new JTextField(Integer.toString(Main.WIDTH)); // set default width value with the constant
+
+		m.videoSetWidth = new JTextField(Integer.toString(Main.WIDTH)); // set
+																		// default
+																		// width
+																		// value
+																		// with
+																		// the
+																		// constant
 		m.videoSetWidth.setColumns(3);
 		vpPanel.add(m.videoSetWidth);
 		vpC.gridwidth = 1;
 		vpC.gridx = 1;
 		vpC.gridy = 1;
 		vpPanel.add(m.videoSetWidth, vpC);
-		
+
 		JLabel frameHeight = new JLabel("Video Height (Minimum 300):");
 		vpC.gridwidth = 1;
 		vpC.gridx = 0;
 		vpC.gridy = 2;
 		vpPanel.add(frameHeight, vpC);
-		
-		m.videoSetHeight = new JTextField(Integer.toString(Main.HEIGHT)); // set default height value with the constant
+
+		m.videoSetHeight = new JTextField(Integer.toString(Main.HEIGHT)); // set
+																			// default
+																			// height
+																			// value
+																			// with
+																			// the
+																			// constant
 		m.videoSetHeight.setColumns(3);
 		vpPanel.add(m.videoSetHeight);
 		vpC.gridwidth = 1;
 		vpC.gridx = 1;
 		vpC.gridy = 2;
 		vpPanel.add(m.videoSetHeight, vpC);
-		
+
 		topC.weightx = 1;
 		topC.gridx = 0;
 		topC.gridy = 1;
 		m.pane.add(vpPanel, topC);
 
-		//IO panel
+		// IO panel
 		JPanel inOutPanel = new JPanel();
 		inOutPanel.setLayout(new GridBagLayout());
-		inOutPanel.setBorder(BorderFactory.createTitledBorder("Input and Output Files"));
+		inOutPanel.setBorder(BorderFactory
+				.createTitledBorder("Input and Output Files"));
 		GridBagConstraints inOutC = new GridBagConstraints();
 		inOutC.insets = new Insets(5, 5, 5, 5);
 		inOutC.fill = GridBagConstraints.BOTH;
@@ -154,13 +172,14 @@ public class MainView {
 		inOutPanel.add(m.audioFileNameLabel, inOutC);
 
 		label = new JLabel("  Output Format:");
-		label.setBorder(BorderFactory.createLineBorder(new Color(200, 200, 200)));
+		label.setBorder(BorderFactory
+				.createLineBorder(new Color(200, 200, 200)));
 		inOutC.weightx = 0.2;
 		inOutC.gridx = 0;
 		inOutC.gridy = 1;
 		inOutPanel.add(label, inOutC);
 
-		String[] outputMethods = {OUTPUT_MP4_TITLE, OUTPUT_SEQUENCE_TITLE};
+		String[] outputMethods = { OUTPUT_MP4_TITLE, OUTPUT_SEQUENCE_TITLE };
 		m.outputMethod = new JComboBox<String>(outputMethods);
 		inOutC.weightx = 0.2;
 		inOutC.gridwidth = 1;
@@ -188,16 +207,15 @@ public class MainView {
 		topC.gridx = 0;
 		topC.gridy = 2;
 		m.pane.add(inOutPanel, topC);
-		
-		
-		//Background Panel
+
+		// Background Panel
 		JPanel bgPanel = new JPanel();
 		bgPanel.setLayout(new GridBagLayout());
-		bgPanel.setBorder(BorderFactory.createTitledBorder("Background Options"));
+		bgPanel.setBorder(BorderFactory
+				.createTitledBorder("Background Options"));
 		GridBagConstraints bgC = new GridBagConstraints();
 		bgC.insets = new Insets(5, 5, 5, 5);
 		bgC.fill = GridBagConstraints.BOTH;
-
 
 		m.bgTypeGroup = new ButtonGroup();
 		m.flatColorRb = new JRadioButton(BG_FLAT_COLOR);
@@ -251,7 +269,8 @@ public class MainView {
 		label = new JLabel("built-in image(1920x1080): ");
 		m.bgBuiltInPanel.add(label);
 
-		String[] builtInImages = {"blue.png", "deep.png", "golden.png", "maroon.png", "red.png", "sea.png", "silver.png", "violet.png"};
+		String[] builtInImages = { "blue.png", "deep.png", "golden.png",
+				"maroon.png", "red.png", "sea.png", "silver.png", "violet.png" };
 		m.bgBuiltIn = new JComboBox<String>(builtInImages);
 		m.bgBuiltInPanel.add(m.bgBuiltIn);
 
@@ -266,7 +285,8 @@ public class MainView {
 		m.bgOtherImagePanel.add(label);
 
 		m.setBgOtherImageButton = new JButton("set");
-		m.setBgOtherImageButton.setActionCommand(MainController.SET_BG_OTHER_IMAGE);
+		m.setBgOtherImageButton
+				.setActionCommand(MainController.SET_BG_OTHER_IMAGE);
 		m.setBgOtherImageButton.addActionListener(c);
 		m.bgOtherImagePanel.add(m.setBgOtherImageButton);
 
@@ -284,15 +304,15 @@ public class MainView {
 		topC.gridx = 0;
 		topC.gridy = 3;
 		m.pane.add(bgPanel, topC);
-		
-		//Bars panel - search makeBarsPanel
+
+		// Bars panel - search makeBarsPanel
 		JPanel barsPanel = makeBarsPanel();
 		topC.weightx = 1;
 		topC.gridx = 0;
 		topC.gridy = 4;
 		m.pane.add(barsPanel, topC);
 
-		//Render panel
+		// Render panel
 		JPanel renderPanel = new JPanel();
 		renderPanel.setLayout(new GridBagLayout());
 		renderPanel.setBorder(BorderFactory.createTitledBorder("render"));
@@ -309,7 +329,6 @@ public class MainView {
 		renderC.gridx = 0;
 		renderC.gridy = 0;
 		renderPanel.add(m.renderButton, renderC);
-
 
 		m.progressBar = new JProgressBar(SwingConstants.HORIZONTAL, 0, 100);
 		m.progressBar.setValue(0);
@@ -328,8 +347,7 @@ public class MainView {
 		m.fc = new JFileChooser();
 		m.fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 
-
-		//Display the window.
+		// Display the window.
 		frame.pack();
 		frame.setVisible(true);
 	}
@@ -341,33 +359,34 @@ public class MainView {
 			header = ImageIO.read(loader.getResourceAsStream("header.png"));
 		} catch (Exception e) {
 			throw new RuntimeException("header image not found");
-		} 
+		}
 		JLabel headerLabel = new JLabel(new ImageIcon(header));
 		return headerLabel;
 	}
-	
+
 	private JPanel makeBarsPanel() {
 		JPanel barsPanel = new JPanel();
 		barsPanel.setLayout(new GridBagLayout());
-		barsPanel.setBorder(BorderFactory.createTitledBorder("Bar Customization"));
+		barsPanel.setBorder(BorderFactory
+				.createTitledBorder("Bar Customization"));
 		GridBagConstraints barsC = new GridBagConstraints();
 		barsC.insets = new Insets(5, 5, 5, 5);
 		barsC.fill = GridBagConstraints.BOTH;
-		
+
 		JLabel label = new JLabel("bar style:");
 		barsC.gridwidth = 1;
 		barsC.gridx = 0;
 		barsC.gridy = 0;
 		barsPanel.add(label, barsC);
-		
+
 		label = new JLabel("bar color (RGB 0-255) ");
 		barsC.gridwidth = 1;
 		barsC.gridx = 0;
 		barsC.gridy = 1;
 		barsPanel.add(label, barsC);
-		
+
 		JPanel panel = new JPanel();
-		
+
 		m.barColorRed = new JTextField("255");
 		m.barColorRed.setColumns(3);
 		panel.add(m.barColorRed);
@@ -379,30 +398,33 @@ public class MainView {
 		m.barColorBlue = new JTextField("255");
 		m.barColorBlue.setColumns(3);
 		panel.add(m.barColorBlue);
-		
+
 		barsC.gridx = 1;
 		barsC.gridy = 1;
 		barsPanel.add(panel, barsC);
-		
+
 		label = new JLabel("Alpha/Transparency (0-255): ");
 		barsC.gridwidth = 1;
 		barsC.gridx = 0;
 		barsC.gridy = 2;
 		barsPanel.add(label, barsC);
-		
+
 		JPanel panelAlpha = new JPanel();
-		
+
 		m.barAlpha = new JTextField("255");
 		m.barAlpha.setColumns(3);
 		panelAlpha.add(m.barAlpha);
-		
+
 		barsC.gridwidth = 1;
 		barsC.gridx = 1;
 		barsC.gridy = 2;
 		barsPanel.add(panelAlpha, barsC);
-		
-		
-		String[] barStyles = {MainController.BAR_STYLE_THICK_BROCK, MainController.BAR_STYLE_OUTLINE_BLOCK, MainController.BAR_STYLE_THIN, MainController.BAR_STYLE_ROUND_BLOCK, MainController.BAR_STYLE_ROUND_OUTLINE};
+
+		String[] barStyles = { MainController.BAR_STYLE_THICK_BROCK,
+				MainController.BAR_STYLE_OUTLINE_BLOCK,
+				MainController.BAR_STYLE_THIN,
+				MainController.BAR_STYLE_ROUND_BLOCK,
+				MainController.BAR_STYLE_ROUND_OUTLINE };
 		m.barStyle = new JComboBox<String>(barStyles);
 		barsC.gridx = 1;
 		barsC.gridy = 0;

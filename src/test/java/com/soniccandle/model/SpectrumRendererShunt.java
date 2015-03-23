@@ -14,8 +14,8 @@ public class SpectrumRendererShunt extends SpectrumRenderer {
 			int height, File outputTo) throws IOException, WavFileException {
 		super(audioFile, frameRate, width, height, outputTo);
 	}
-	
-	@Override 
+
+	@Override
 	public WavFile getWavFile(File audioFile) {
 		return new WavFileMock();
 	}
