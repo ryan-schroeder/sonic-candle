@@ -97,10 +97,10 @@ public class MainView {
 		vpC.gridy = 0;
 		vpPanel.add(fps, vpC);
 
-		m.videoSetFrameRate = new JTextField(
-				Integer.toString(Main.VIDEO_FRAME_RATE)); // set default Frame
-															// Rate value with
-															// the constant
+		m.videoSetFrameRate = SCTextField(Integer
+				.toString(Main.VIDEO_FRAME_RATE)); // set default Frame
+													// Rate value with
+													// the constant
 		m.videoSetFrameRate.setColumns(3);
 		vpC.gridwidth = 1;
 		vpC.gridx = 1;
@@ -113,7 +113,7 @@ public class MainView {
 		vpC.gridy = 1;
 		vpPanel.add(frameWidth, vpC);
 
-		m.videoSetWidth = new JTextField(Integer.toString(Main.WIDTH)); // set
+		m.videoSetWidth = SCTextField(Integer.toString(Main.WIDTH)); // set
 																		// default
 																		// width
 																		// value
@@ -133,13 +133,13 @@ public class MainView {
 		vpC.gridy = 2;
 		vpPanel.add(frameHeight, vpC);
 
-		m.videoSetHeight = new JTextField(Integer.toString(Main.HEIGHT)); // set
-																			// default
-																			// height
-																			// value
-																			// with
-																			// the
-																			// constant
+		m.videoSetHeight = SCTextField(Integer.toString(Main.HEIGHT)); // set
+																		// default
+																		// height
+																		// value
+																		// with
+																		// the
+																		// constant
 		m.videoSetHeight.setColumns(3);
 		vpPanel.add(m.videoSetHeight);
 		vpC.gridwidth = 1;
@@ -394,16 +394,18 @@ public class MainView {
 		barsPanel.add(label, barsC);
 
 		JPanel panel = new JPanel();
+		
+		panel.setBackground(PANELCOLOR);
 
-		m.barColorRed = new JTextField("255");
+		m.barColorRed = SCTextField("255");
 		m.barColorRed.setColumns(3);
 		panel.add(m.barColorRed);
 
-		m.barColorGreen = new JTextField("255");
+		m.barColorGreen = SCTextField("255");
 		m.barColorGreen.setColumns(3);
 		panel.add(m.barColorGreen);
 
-		m.barColorBlue = new JTextField("255");
+		m.barColorBlue = SCTextField("255");
 		m.barColorBlue.setColumns(3);
 		panel.add(m.barColorBlue);
 
@@ -418,8 +420,10 @@ public class MainView {
 		barsPanel.add(label, barsC);
 
 		JPanel panelAlpha = new JPanel();
+		
+		panelAlpha.setBackground(PANELCOLOR);
 
-		m.barAlpha = new JTextField("255");
+		m.barAlpha = SCTextField("255");
 		m.barAlpha.setColumns(3);
 		panelAlpha.add(m.barAlpha);
 
@@ -461,5 +465,15 @@ public class MainView {
 
 		return SCLabel;
 
+	}
+
+	private JTextField SCTextField(String text) {
+		javax.swing.border.Border normalBorder = (BorderFactory
+				.createEtchedBorder());
+		JTextField SCTextField = new JTextField(text);
+		SCTextField.setBackground(FRAMECOLOR);
+		SCTextField.setForeground(Color.WHITE);
+		SCTextField.setBorder(normalBorder);
+		return (SCTextField);
 	}
 }
