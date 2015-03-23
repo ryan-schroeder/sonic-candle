@@ -14,6 +14,7 @@ import java.io.InputStream;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
+import javax.swing.ComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -169,9 +170,10 @@ public class MainView {
 		inOutC.gridy = 0;
 		inOutPanel.add(m.setAudioButton, inOutC);
 
-		m.audioFileNameLabel = new JLabel("  (no file chosen)");
+		m.audioFileNameLabel = newSCLabel("  (no file chosen)");
 		m.audioFileNameLabel.setOpaque(true);
-		m.audioFileNameLabel.setBackground(new Color(255, 255, 255));
+		m.audioFileNameLabel.setBackground(FRAMECOLOR);
+		m.audioFileNameLabel.setForeground(Color.WHITE);
 		inOutC.gridwidth = 1;
 		inOutC.weightx = 0.8;
 		inOutC.gridx = 1;
@@ -187,7 +189,7 @@ public class MainView {
 		inOutPanel.add(label, inOutC);
 
 		String[] outputMethods = { OUTPUT_MP4_TITLE, OUTPUT_SEQUENCE_TITLE };
-		m.outputMethod = new JComboBox<String>(outputMethods);
+		m.outputMethod = newSCComboBoxString(outputMethods);
 		inOutC.weightx = 0.2;
 		inOutC.gridwidth = 1;
 		inOutC.gridx = 1;
@@ -202,9 +204,10 @@ public class MainView {
 		inOutC.gridy = 2;
 		inOutPanel.add(m.setOutputButton, inOutC);
 
-		m.outputToNameLabel = new JLabel("  (no file or folder chosen)");
+		m.outputToNameLabel = newSCLabel("  (no file or folder chosen)");
 		m.outputToNameLabel.setOpaque(true);
-		m.outputToNameLabel.setBackground(new Color(255, 255, 255));
+		m.outputToNameLabel.setBackground(FRAMECOLOR);
+		m.outputToNameLabel.setForeground(Color.WHITE);
 		inOutC.weightx = 0.8;
 		inOutC.gridx = 1;
 		inOutC.gridy = 2;
@@ -225,7 +228,7 @@ public class MainView {
 		bgC.fill = GridBagConstraints.BOTH;
 
 		m.bgTypeGroup = new ButtonGroup();
-		m.flatColorRb = new JRadioButton(BG_FLAT_COLOR);
+		m.flatColorRb = newSCRadioButton(BG_FLAT_COLOR);
 		m.flatColorRb.setActionCommand(BG_FLAT_COLOR);
 		m.flatColorRb.addActionListener(c);
 		m.flatColorRb.setSelected(true);
@@ -234,7 +237,7 @@ public class MainView {
 		bgC.gridy = 0;
 		bgPanel.add(m.flatColorRb, bgC);
 
-		m.builtInImageRb = new JRadioButton(BG_BUILT_IN_IMAGE);
+		m.builtInImageRb = newSCRadioButton(BG_BUILT_IN_IMAGE);
 		m.builtInImageRb.setActionCommand(BG_BUILT_IN_IMAGE);
 		m.builtInImageRb.addActionListener(c);
 		m.bgTypeGroup.add(m.builtInImageRb);
@@ -242,7 +245,7 @@ public class MainView {
 		bgC.gridy = 0;
 		bgPanel.add(m.builtInImageRb, bgC);
 
-		m.otherImageRb = new JRadioButton(BG_OTHER_IMAGE);
+		m.otherImageRb = newSCRadioButton(BG_OTHER_IMAGE);
 		m.otherImageRb.setActionCommand(BG_OTHER_IMAGE);
 		m.otherImageRb.addActionListener(c);
 		m.bgTypeGroup.add(m.otherImageRb);
@@ -251,18 +254,19 @@ public class MainView {
 		bgPanel.add(m.otherImageRb, bgC);
 
 		m.bgColorPanel = new JPanel();
-		label = new JLabel("RGB values (0-255 for each color): ");
+		label = newSCLabel("RGB values (0-255 for each color): ");
+		m.bgColorPanel.setBackground(PANELCOLOR);
 		m.bgColorPanel.add(label);
 
-		m.bgColorRed = new JTextField("0");
+		m.bgColorRed = newSCTextField("0");
 		m.bgColorRed.setColumns(3);
 		m.bgColorPanel.add(m.bgColorRed);
 
-		m.bgColorGreen = new JTextField("0");
+		m.bgColorGreen = newSCTextField("0");
 		m.bgColorGreen.setColumns(3);
 		m.bgColorPanel.add(m.bgColorGreen);
 
-		m.bgColorBlue = new JTextField("0");
+		m.bgColorBlue = newSCTextField("0");
 		m.bgColorBlue.setColumns(3);
 		m.bgColorPanel.add(m.bgColorBlue);
 
@@ -273,7 +277,8 @@ public class MainView {
 
 		m.bgBuiltInPanel = new JPanel();
 		m.bgBuiltInPanel.setVisible(false);
-		label = new JLabel("built-in image(1920x1080): ");
+		label = newSCLabel("Built-in Image(1920x1080): ");
+		m.bgBuiltInPanel.setBackground(PANELCOLOR);
 		m.bgBuiltInPanel.add(label);
 
 		String[] builtInImages = { "blue.png", "deep.png", "golden.png",
@@ -288,7 +293,8 @@ public class MainView {
 
 		m.bgOtherImagePanel = new JPanel();
 		m.bgOtherImagePanel.setVisible(false);
-		label = new JLabel("background image, png or jpg (Keep aspect ratio)");
+		label = newSCLabel("Background Image, png or jpg");
+		m.bgOtherImagePanel.setBackground(PANELCOLOR);
 		m.bgOtherImagePanel.add(label);
 
 		m.setBgOtherImageButton = new JButton("set");
@@ -299,7 +305,8 @@ public class MainView {
 
 		m.bgImageNamelabel = new JLabel("  (no file chosen)  ");
 		m.bgImageNamelabel.setOpaque(true);
-		m.bgImageNamelabel.setBackground(new Color(255, 255, 255));
+		m.bgImageNamelabel.setBackground(FRAMECOLOR);
+		m.bgImageNamelabel.setForeground(Color.WHITE);
 		m.bgOtherImagePanel.add(m.bgImageNamelabel);
 
 		bgC.gridwidth = 3;
@@ -475,5 +482,20 @@ public class MainView {
 		newSCTextField.setForeground(Color.WHITE);
 		newSCTextField.setBorder(normalBorder);
 		return (newSCTextField);
+	}
+	
+	private JRadioButton newSCRadioButton(String text){
+		JRadioButton newSCRadioButton = new JRadioButton(text);
+		newSCRadioButton.setBackground(PANELCOLOR);
+		newSCRadioButton.setForeground(Color.WHITE);
+		
+		return newSCRadioButton;
+	}
+	
+	private JComboBox<String> newSCComboBoxString (String[] outputMethods){
+		JComboBox<String> newSCComboBox = new JComboBox<String>(outputMethods);
+		newSCComboBox.setBackground(FRAMECOLOR);
+		newSCComboBox.setForeground(Color.WHITE);
+		return newSCComboBox;
 	}
 }
