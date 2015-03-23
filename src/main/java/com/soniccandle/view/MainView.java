@@ -14,7 +14,6 @@ import java.io.InputStream;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
-import javax.swing.ComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -38,6 +37,11 @@ public class MainView {
 	public static final Color FRAMECOLOR = new Color(17, 17, 17);// dark grey
 	public static final Color PANELCOLOR = new Color(45, 45, 45); // lighter
 																	// grey
+	public static final Color DARKBLUE = new Color(95, 115, 133);// dark blue
+
+	// border
+	javax.swing.border.Border normalBorder = (BorderFactory
+			.createEtchedBorder());
 
 	public static final String BG_OTHER_IMAGE = "other image";
 	public static final String BG_BUILT_IN_IMAGE = "built-in image";
@@ -162,7 +166,7 @@ public class MainView {
 		inOutC.insets = new Insets(5, 5, 5, 5);
 		inOutC.fill = GridBagConstraints.BOTH;
 
-		m.setAudioButton = new JButton("Set Input .wav");
+		m.setAudioButton = newSCButton("Set Input .wav");
 		m.setAudioButton.setActionCommand(MainController.SET_INPUT_WAV);
 		m.setAudioButton.addActionListener(c);
 		inOutC.weightx = 0.2;
@@ -196,7 +200,7 @@ public class MainView {
 		inOutC.gridy = 1;
 		inOutPanel.add(m.outputMethod, inOutC);
 
-		m.setOutputButton = new JButton("Set Output Location");
+		m.setOutputButton = newSCButton("Set Output Location");
 		m.setOutputButton.setActionCommand(MainController.SET_OUTPUT_MP4);
 		m.setOutputButton.addActionListener(c);
 		inOutC.weightx = 0.2;
@@ -283,7 +287,7 @@ public class MainView {
 
 		String[] builtInImages = { "blue.png", "deep.png", "golden.png",
 				"maroon.png", "red.png", "sea.png", "silver.png", "violet.png" };
-		m.bgBuiltIn = new JComboBox<String>(builtInImages);
+		m.bgBuiltIn = newSCComboBoxString(builtInImages);
 		m.bgBuiltInPanel.add(m.bgBuiltIn);
 
 		bgC.gridwidth = 3;
@@ -297,7 +301,7 @@ public class MainView {
 		m.bgOtherImagePanel.setBackground(PANELCOLOR);
 		m.bgOtherImagePanel.add(label);
 
-		m.setBgOtherImageButton = new JButton("set");
+		m.setBgOtherImageButton = newSCButton("Set Image");
 		m.setBgOtherImageButton
 				.setActionCommand(MainController.SET_BG_OTHER_IMAGE);
 		m.setBgOtherImageButton.addActionListener(c);
@@ -335,7 +339,7 @@ public class MainView {
 		renderC.insets = new Insets(5, 5, 5, 5);
 		renderC.fill = GridBagConstraints.BOTH;
 
-		m.renderButton = new JButton("render");
+		m.renderButton = newSCButton("render");
 		m.renderButton.setEnabled(false);
 		m.renderButton.setActionCommand(MainController.RENDER);
 		m.renderButton.addActionListener(c);
@@ -346,6 +350,8 @@ public class MainView {
 		renderPanel.add(m.renderButton, renderC);
 
 		m.progressBar = new JProgressBar(SwingConstants.HORIZONTAL, 0, 100);
+		m.progressBar.setBackground(FRAMECOLOR);
+		m.progressBar.setForeground(DARKBLUE);
 		m.progressBar.setValue(0);
 		m.progressBar.setEnabled(false);
 		m.progressBar.setMinimumSize(new Dimension(30, 30));
@@ -444,7 +450,7 @@ public class MainView {
 				MainController.BAR_STYLE_THIN,
 				MainController.BAR_STYLE_ROUND_BLOCK,
 				MainController.BAR_STYLE_ROUND_OUTLINE };
-		m.barStyle = new JComboBox<String>(barStyles);
+		m.barStyle = newSCComboBoxString(barStyles);
 		barsC.gridx = 1;
 		barsC.gridy = 0;
 		barsPanel.add(m.barStyle, barsC);
@@ -475,27 +481,35 @@ public class MainView {
 	}
 
 	private JTextField newSCTextField(String text) {
-		javax.swing.border.Border normalBorder = (BorderFactory
-				.createEtchedBorder());
 		JTextField newSCTextField = new JTextField(text);
 		newSCTextField.setBackground(FRAMECOLOR);
 		newSCTextField.setForeground(Color.WHITE);
 		newSCTextField.setBorder(normalBorder);
 		return (newSCTextField);
 	}
-	
-	private JRadioButton newSCRadioButton(String text){
+
+	private JRadioButton newSCRadioButton(String text) {
 		JRadioButton newSCRadioButton = new JRadioButton(text);
 		newSCRadioButton.setBackground(PANELCOLOR);
 		newSCRadioButton.setForeground(Color.WHITE);
-		
+		newSCRadioButton.setBorder(normalBorder);
+
 		return newSCRadioButton;
 	}
-	
-	private JComboBox<String> newSCComboBoxString (String[] outputMethods){
+
+	private JComboBox<String> newSCComboBoxString(String[] outputMethods) {
 		JComboBox<String> newSCComboBox = new JComboBox<String>(outputMethods);
 		newSCComboBox.setBackground(FRAMECOLOR);
 		newSCComboBox.setForeground(Color.WHITE);
+		newSCComboBox.setBorder(normalBorder);
 		return newSCComboBox;
+	}
+
+	private JButton newSCButton(String text) {
+		JButton newSCButton = new JButton(text);
+		newSCButton.setBackground(FRAMECOLOR);
+		newSCButton.setForeground(Color.WHITE);
+		newSCButton.setBorder(normalBorder);
+		return newSCButton;
 	}
 }
