@@ -2,6 +2,7 @@ package com.soniccandle.view;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
@@ -24,6 +25,7 @@ import javax.swing.JProgressBar;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.border.TitledBorder;
 
 import com.soniccandle.Main;
 import com.soniccandle.controller.MainController;
@@ -33,6 +35,8 @@ public class MainView {
 
 	// color constants
 	public static final Color FRAMECOLOR = new Color(17, 17, 17);// dark grey
+	public static final Color PANELCOLOR = new Color(45, 45, 45); // lighter
+																	// grey
 
 	public static final String BG_OTHER_IMAGE = "other image";
 	public static final String BG_BUILT_IN_IMAGE = "built-in image";
@@ -61,6 +65,7 @@ public class MainView {
 
 		m.pane = frame.getContentPane();
 		m.pane.setLayout(new GridBagLayout());
+		m.pane.setBackground(FRAMECOLOR);
 
 		GridBagConstraints topC = new GridBagConstraints();
 		topC.fill = GridBagConstraints.HORIZONTAL;
@@ -79,12 +84,14 @@ public class MainView {
 		// Video Properties panel
 		JPanel vpPanel = new JPanel();
 		vpPanel.setLayout(new GridBagLayout());
-		vpPanel.setBorder(BorderFactory.createTitledBorder("Video Properties"));
+		vpPanel.setBackground(PANELCOLOR);
+		vpPanel.setBorder(newTitledPanel("Video Properties: "));
+		vpPanel.setForeground(Color.WHITE);
 		GridBagConstraints vpC = new GridBagConstraints();
 		vpC.insets = new Insets(5, 5, 5, 5);
 		vpC.fill = GridBagConstraints.BOTH;
 
-		JLabel fps = new JLabel("Frame Rate (Minimum 1):");
+		JLabel fps = SCLabel("Frame Rate (Minimum 1):");
 		vpC.gridwidth = 1;
 		vpC.gridx = 0;
 		vpC.gridy = 0;
@@ -100,7 +107,7 @@ public class MainView {
 		vpC.gridy = 0;
 		vpPanel.add(m.videoSetFrameRate, vpC);
 
-		JLabel frameWidth = new JLabel("Video Width (Minumum 400):");
+		JLabel frameWidth = SCLabel("Video Width (Minumum 400):");
 		vpC.gridwidth = 1;
 		vpC.gridx = 0;
 		vpC.gridy = 1;
@@ -120,7 +127,7 @@ public class MainView {
 		vpC.gridy = 1;
 		vpPanel.add(m.videoSetWidth, vpC);
 
-		JLabel frameHeight = new JLabel("Video Height (Minimum 300):");
+		JLabel frameHeight = SCLabel("Video Height (Minimum 300):");
 		vpC.gridwidth = 1;
 		vpC.gridx = 0;
 		vpC.gridy = 2;
@@ -148,8 +155,8 @@ public class MainView {
 		// IO panel
 		JPanel inOutPanel = new JPanel();
 		inOutPanel.setLayout(new GridBagLayout());
-		inOutPanel.setBorder(BorderFactory
-				.createTitledBorder("Input and Output Files"));
+		inOutPanel.setBorder(newTitledPanel("Input and Output Files"));
+		inOutPanel.setBackground(PANELCOLOR);
 		GridBagConstraints inOutC = new GridBagConstraints();
 		inOutC.insets = new Insets(5, 5, 5, 5);
 		inOutC.fill = GridBagConstraints.BOTH;
@@ -172,8 +179,8 @@ public class MainView {
 		inOutPanel.add(m.audioFileNameLabel, inOutC);
 
 		label = new JLabel("  Output Format:");
-		label.setBorder(BorderFactory
-				.createLineBorder(new Color(200, 200, 200)));
+		label.setBorder(BorderFactory.createLineBorder(FRAMECOLOR));
+		label.setForeground(Color.WHITE);
 		inOutC.weightx = 0.2;
 		inOutC.gridx = 0;
 		inOutC.gridy = 1;
@@ -211,8 +218,8 @@ public class MainView {
 		// Background Panel
 		JPanel bgPanel = new JPanel();
 		bgPanel.setLayout(new GridBagLayout());
-		bgPanel.setBorder(BorderFactory
-				.createTitledBorder("Background Options"));
+		bgPanel.setBorder(newTitledPanel("Background Options"));
+		bgPanel.setBackground(PANELCOLOR);
 		GridBagConstraints bgC = new GridBagConstraints();
 		bgC.insets = new Insets(5, 5, 5, 5);
 		bgC.fill = GridBagConstraints.BOTH;
@@ -315,7 +322,8 @@ public class MainView {
 		// Render panel
 		JPanel renderPanel = new JPanel();
 		renderPanel.setLayout(new GridBagLayout());
-		renderPanel.setBorder(BorderFactory.createTitledBorder("render"));
+		renderPanel.setBackground(PANELCOLOR);
+		renderPanel.setBorder(newTitledPanel("Render"));
 		GridBagConstraints renderC = new GridBagConstraints();
 		renderC.insets = new Insets(5, 5, 5, 5);
 		renderC.fill = GridBagConstraints.BOTH;
@@ -367,19 +375,19 @@ public class MainView {
 	private JPanel makeBarsPanel() {
 		JPanel barsPanel = new JPanel();
 		barsPanel.setLayout(new GridBagLayout());
-		barsPanel.setBorder(BorderFactory
-				.createTitledBorder("Bar Customization"));
+		barsPanel.setBackground(PANELCOLOR);
+		barsPanel.setBorder(newTitledPanel("Bar Customization"));
 		GridBagConstraints barsC = new GridBagConstraints();
 		barsC.insets = new Insets(5, 5, 5, 5);
 		barsC.fill = GridBagConstraints.BOTH;
 
-		JLabel label = new JLabel("bar style:");
+		JLabel label = SCLabel("Bar Style:");
 		barsC.gridwidth = 1;
 		barsC.gridx = 0;
 		barsC.gridy = 0;
 		barsPanel.add(label, barsC);
 
-		label = new JLabel("bar color (RGB 0-255) ");
+		label = SCLabel("Bar Color (RGB 0-255) ");
 		barsC.gridwidth = 1;
 		barsC.gridx = 0;
 		barsC.gridy = 1;
@@ -403,7 +411,7 @@ public class MainView {
 		barsC.gridy = 1;
 		barsPanel.add(panel, barsC);
 
-		label = new JLabel("Alpha/Transparency (0-255): ");
+		label = SCLabel("Alpha/Transparency (0-255): ");
 		barsC.gridwidth = 1;
 		barsC.gridx = 0;
 		barsC.gridy = 2;
@@ -433,4 +441,25 @@ public class MainView {
 		return barsPanel;
 	}
 
+	private TitledBorder newTitledPanel(String title) {
+
+		javax.swing.border.Border normalBorder = (BorderFactory
+				.createEtchedBorder());
+		Font myFont = new Font("Plain", Font.PLAIN, 12);
+
+		TitledBorder SCBorder = (BorderFactory
+				.createTitledBorder(normalBorder, title, TitledBorder.LEFT,
+						TitledBorder.TOP, myFont, Color.WHITE));
+
+		return (SCBorder);
+	}
+
+	private JLabel SCLabel(String text) {
+		JLabel SCLabel = new JLabel(text);
+
+		SCLabel.setForeground(Color.WHITE);
+
+		return SCLabel;
+
+	}
 }
