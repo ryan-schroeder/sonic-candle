@@ -78,6 +78,7 @@ public class MainView {
 
 		// Header (Image)
 		JLabel headerLabel = getHeaderLabel();
+		headerLabel.setPreferredSize(new Dimension(500,141));
 		topC.gridwidth = 1;
 		topC.weightx = 1;
 		topC.gridx = 0;
@@ -319,15 +320,15 @@ public class MainView {
 		bgPanel.add(m.bgOtherImagePanel, bgC);
 
 		topC.weightx = 1;
-		topC.gridx = 0;
-		topC.gridy = 3;
+		topC.gridx = 1;
+		topC.gridy = 1;
 		m.pane.add(bgPanel, topC);
 
 		// Bars panel - search makeBarsPanel
 		JPanel barsPanel = makeBarsPanel();
 		topC.weightx = 1;
-		topC.gridx = 0;
-		topC.gridy = 4;
+		topC.gridx = 1;
+		topC.gridy = 2;
 		m.pane.add(barsPanel, topC);
 
 		// Render panel
@@ -362,7 +363,7 @@ public class MainView {
 
 		topC.weightx = 1;
 		topC.gridx = 0;
-		topC.gridy = 5;
+		topC.gridy = 3;
 		m.pane.add(renderPanel, topC);
 
 		m.fc = new JFileChooser();
