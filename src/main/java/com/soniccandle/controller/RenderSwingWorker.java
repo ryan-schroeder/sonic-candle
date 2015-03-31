@@ -1,6 +1,5 @@
 package com.soniccandle.controller;
 
-import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.List;
@@ -9,6 +8,7 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 
 import com.soniccandle.model.MainModel;
+import com.soniccandle.model.RenderSettings;
 import com.soniccandle.model.SimpleRenderer;
 import com.soniccandle.model.VideoOutputter;
 import com.soniccandle.model.XuggleVideoOutputter;
@@ -24,20 +24,13 @@ public class RenderSwingWorker extends SwingWorker<Boolean, Integer> {
 	public BufferedImage backgroundImage;
 	public MainController c;
 	public MainModel m;
+	public RenderSettings rs;
 
 	@Override
 	public Boolean doInBackground() {
 		SimpleRenderer renderer;
 		try {
-			renderer = new SimpleRenderer(audioFile, videoFrameRate, width,
-					height, outputTo);
-			renderer.backgroundImage = backgroundImage;
-			renderer.barStyle = (String) m.barStyle.getSelectedItem();
-			renderer.barColor = new Color(Integer.parseInt(m.barColorRed
-					.getText()), Integer.parseInt(m.barColorGreen.getText()),
-					Integer.parseInt(m.barColorBlue.getText()),
-					Integer.parseInt(m.barAlpha.getText()));
-			renderer.outputter = outputter;
+			renderer = rs.bakeSimpleRenderer(m);
 			m.progressBar.setValue(1);
 			renderer.start();
 			while (!renderer.isDone && !Thread.currentThread().isInterrupted()) {

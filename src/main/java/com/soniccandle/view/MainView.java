@@ -78,8 +78,8 @@ public class MainView {
 
 		// Header (Image)
 		JLabel headerLabel = getHeaderLabel();
-		headerLabel.setPreferredSize(new Dimension(500,141));
-		topC.gridwidth = 1;
+		headerLabel.setPreferredSize(new Dimension(862,75));
+		topC.gridwidth = 2;
 		topC.weightx = 1;
 		topC.gridx = 0;
 		topC.gridy = 0;
@@ -152,7 +152,7 @@ public class MainView {
 		vpC.gridx = 1;
 		vpC.gridy = 2;
 		vpPanel.add(m.videoSetHeight, vpC);
-
+		topC.gridwidth = 1;
 		topC.weightx = 1;
 		topC.gridx = 0;
 		topC.gridy = 1;
@@ -344,11 +344,31 @@ public class MainView {
 		m.renderButton.setEnabled(false);
 		m.renderButton.setActionCommand(MainController.RENDER);
 		m.renderButton.addActionListener(c);
-		topC.gridwidth = 2;
+		renderC.gridwidth = 3;
 		renderC.weightx = 1;
 		renderC.gridx = 0;
 		renderC.gridy = 0;
 		renderPanel.add(m.renderButton, renderC);
+		
+		label = newSCLabel("preview at frame: ");
+		renderC.gridwidth = 1;
+		renderC.weightx = 0;
+		renderC.gridx = 3;
+		renderC.gridy = 0;
+		renderPanel.add(label, renderC);
+		
+		m.previewFrame = newSCTextField("1");
+		m.previewFrame.setColumns(4);
+		renderC.gridx = 4;
+		renderC.gridy = 0;
+		renderPanel.add(m.previewFrame, renderC);	
+		
+		m.previewButton = newSCButton(" preview ");
+		m.previewButton.setActionCommand(MainController.PREVIEW);
+		m.previewButton.addActionListener(c);
+		renderC.gridx = 5;
+		renderC.gridy = 0;
+		renderPanel.add(m.previewButton, renderC);
 
 		m.progressBar = new JProgressBar(SwingConstants.HORIZONTAL, 0, 100);
 		m.progressBar.setBackground(FRAMECOLOR);
@@ -357,10 +377,12 @@ public class MainView {
 		m.progressBar.setEnabled(false);
 		m.progressBar.setMinimumSize(new Dimension(30, 30));
 		renderC.weightx = 1;
+		renderC.gridwidth = 6;
 		renderC.gridx = 0;
 		renderC.gridy = 1;
 		renderPanel.add(m.progressBar, renderC);
-
+		
+		topC.gridwidth = 2;
 		topC.weightx = 1;
 		topC.gridx = 0;
 		topC.gridy = 3;
@@ -378,7 +400,7 @@ public class MainView {
 		ClassLoader loader = Thread.currentThread().getContextClassLoader();
 		BufferedImage header;
 		try {
-			header = ImageIO.read(loader.getResourceAsStream("header.png"));
+			header = ImageIO.read(loader.getResourceAsStream("longheader.png"));
 		} catch (Exception e) {
 			throw new RuntimeException("header image not found");
 		}

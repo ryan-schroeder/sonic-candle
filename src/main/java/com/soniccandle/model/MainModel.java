@@ -48,5 +48,6 @@ public class MainModel {
 	public JTextField videoSetHeight;
 	public JTextField barAlpha;
 	public JPanel videoProperties;
-
+	public JTextField previewFrame;
+	public JButton previewButton;
 }
