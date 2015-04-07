@@ -3,12 +3,14 @@ package com.soniccandle.controller;
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.RenderingHints;//http://docs.oracle.com/javase/tutorial/2d/advanced/quality.html -- set in the specific bar drawing class
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -155,6 +157,16 @@ public class MainController implements ActionListener {
 				BufferedImage preview = renderer.renderVFrame(currentFrame);
 				JLabel previewLabel = new JLabel(new ImageIcon(preview));
 				JFrame previewFrame = new JFrame("Preview");
+				// Icon code
+				Image icon;
+				InputStream input = getClass().getResourceAsStream(
+						"/sonic-candle-icon.png");
+				try {
+					icon = ImageIO.read(input);
+					previewFrame.setIconImage(icon);
+				} catch (IOException iconE) {
+					// Intentionally ignore exception (because it should never happen)
+				}
 				previewFrame.setResizable(false);
 				previewFrame.getContentPane().add(previewLabel);
 				previewFrame.pack();

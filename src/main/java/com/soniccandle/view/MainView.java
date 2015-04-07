@@ -55,7 +55,19 @@ public class MainView {
 	public MainController c;
 
 	public void createAndShowGUI() {
-		//use nimbus theme
+
+		// customize Nimbus
+//		UIManager.put("text",Color.WHITE);
+//		UIManager.put("TextField.background", FRAMECOLOR);
+//		UIManager.put("ProgressBar.background", FRAMECOLOR);
+//		UIManager.put("ProgressBar.disabled", FRAMECOLOR);
+//		UIManager.put("ProgressBar[Disabled].backgroundPainter", null);
+//		UIManager.put("ProgressBar[Enabled].backgroundPainter", null);
+//		UIManager.put("Button.background", FRAMECOLOR);
+//		UIManager.put("Button.foreground", FRAMECOLOR);
+		
+		
+		//use Nimbus
 		try {
 		    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
 		        if ("Nimbus".equals(info.getName())) {
@@ -64,7 +76,7 @@ public class MainView {
 		        }
 		    }
 		} catch (Exception e) {
-		    System.out.println("Nimbus look and feel not found (MainVIew.java line 67)");
+		    System.out.println("Nimbus look and feel not found (MainView.java)");
 		}
 		
 		// Create and set up the window.
@@ -84,7 +96,7 @@ public class MainView {
 
 		m.pane = frame.getContentPane();
 		m.pane.setLayout(new GridBagLayout());
-		m.pane.setBackground(FRAMECOLOR);
+//		m.pane.setBackground(FRAMECOLOR);
 
 		GridBagConstraints topC = new GridBagConstraints();
 		topC.fill = GridBagConstraints.HORIZONTAL;
@@ -104,9 +116,9 @@ public class MainView {
 		// Video Properties panel
 		JPanel vpPanel = new JPanel();
 		vpPanel.setLayout(new GridBagLayout());
-		vpPanel.setBackground(PANELCOLOR);
+//		vpPanel.setBackground(PANELCOLOR);
 		vpPanel.setBorder(newTitledLabel("Video Properties: "));
-		vpPanel.setForeground(Color.WHITE);
+//		vpPanel.setForeground(Color.WHITE);
 		vpPanel.setPreferredSize(new Dimension(460,115));
 		GridBagConstraints vpC = new GridBagConstraints();
 		vpC.insets = new Insets(5, 5, 5, 5);
@@ -177,7 +189,7 @@ public class MainView {
 		JPanel inOutPanel = new JPanel();
 		inOutPanel.setLayout(new GridBagLayout());
 		inOutPanel.setBorder(newTitledLabel("Input and Output Files"));
-		inOutPanel.setBackground(PANELCOLOR);
+//		inOutPanel.setBackground(PANELCOLOR);
 		inOutPanel.setPreferredSize(new Dimension(460,150));
 		GridBagConstraints inOutC = new GridBagConstraints();
 		inOutC.insets = new Insets(5, 5, 5, 5);
@@ -193,8 +205,8 @@ public class MainView {
 
 		m.audioFileNameLabel = newSCLabel("  (no file chosen)");
 		m.audioFileNameLabel.setOpaque(true);
-		m.audioFileNameLabel.setBackground(FRAMECOLOR);
-		m.audioFileNameLabel.setForeground(Color.WHITE);
+//		m.audioFileNameLabel.setBackground(FRAMECOLOR);
+//		m.audioFileNameLabel.setForeground(Color.WHITE);
 		inOutC.gridwidth = 1;
 		inOutC.weightx = 0.8;
 		inOutC.gridx = 1;
@@ -203,7 +215,7 @@ public class MainView {
 
 		label = new JLabel("  Output Format:");
 		label.setBorder(BorderFactory.createLineBorder(FRAMECOLOR));
-		label.setForeground(Color.WHITE);
+//		label.setForeground(Color.WHITE);
 		inOutC.weightx = 0.2;
 		inOutC.gridx = 0;
 		inOutC.gridy = 1;
@@ -227,8 +239,8 @@ public class MainView {
 
 		m.outputToNameLabel = newSCLabel("  (no file or folder chosen)");
 		m.outputToNameLabel.setOpaque(true);
-		m.outputToNameLabel.setBackground(FRAMECOLOR);
-		m.outputToNameLabel.setForeground(Color.WHITE);
+//		m.outputToNameLabel.setBackground(FRAMECOLOR);
+//		m.outputToNameLabel.setForeground(Color.WHITE);
 		inOutC.weightx = 0.8;
 		inOutC.gridx = 1;
 		inOutC.gridy = 2;
@@ -243,7 +255,7 @@ public class MainView {
 		JPanel bgPanel = new JPanel();
 		bgPanel.setLayout(new GridBagLayout());
 		bgPanel.setBorder(newTitledLabel("Background Options"));
-		bgPanel.setBackground(PANELCOLOR);
+//		bgPanel.setBackground(PANELCOLOR);
 		bgPanel.setPreferredSize(new Dimension(460,115));
 		GridBagConstraints bgC = new GridBagConstraints();
 		bgC.insets = new Insets(5, 5, 5, 5);
@@ -277,7 +289,7 @@ public class MainView {
 
 		m.bgColorPanel = new JPanel();
 		label = newSCLabel("RGB values (0-255 for each color): ");
-		m.bgColorPanel.setBackground(PANELCOLOR);
+//		m.bgColorPanel.setBackground(PANELCOLOR);
 		m.bgColorPanel.add(label);
 
 		m.bgColorRed = newSCTextField("0");
@@ -300,7 +312,7 @@ public class MainView {
 		m.bgBuiltInPanel = new JPanel();
 		m.bgBuiltInPanel.setVisible(false);
 		label = newSCLabel("Built-in Image(1920x1080): ");
-		m.bgBuiltInPanel.setBackground(PANELCOLOR);
+//		m.bgBuiltInPanel.setBackground(PANELCOLOR);
 		m.bgBuiltInPanel.add(label);
 
 		String[] builtInImages = { "blue.png", "deep.png", "golden.png",
@@ -316,7 +328,7 @@ public class MainView {
 		m.bgOtherImagePanel = new JPanel();
 		m.bgOtherImagePanel.setVisible(false);
 		label = newSCLabel("Background Image, png or jpg");
-		m.bgOtherImagePanel.setBackground(PANELCOLOR);
+//		m.bgOtherImagePanel.setBackground(PANELCOLOR);
 		m.bgOtherImagePanel.add(label);
 
 		m.setBgOtherImageButton = newSCButton("Set Image");
@@ -327,8 +339,8 @@ public class MainView {
 
 		m.bgImageNamelabel = new JLabel("  (no file chosen)  ");
 		m.bgImageNamelabel.setOpaque(true);
-		m.bgImageNamelabel.setBackground(FRAMECOLOR);
-		m.bgImageNamelabel.setForeground(Color.WHITE);
+//		m.bgImageNamelabel.setBackground(FRAMECOLOR);
+//		m.bgImageNamelabel.setForeground(Color.WHITE);
 		m.bgOtherImagePanel.add(m.bgImageNamelabel);
 
 		bgC.gridwidth = 3;
@@ -351,7 +363,7 @@ public class MainView {
 		// Render panel
 		JPanel renderPanel = new JPanel();
 		renderPanel.setLayout(new GridBagLayout());
-		renderPanel.setBackground(PANELCOLOR);
+//		renderPanel.setBackground(PANELCOLOR);
 		renderPanel.setBorder(newTitledLabel("Render"));
 		GridBagConstraints renderC = new GridBagConstraints();
 		renderC.insets = new Insets(5, 5, 5, 5);
@@ -388,8 +400,8 @@ public class MainView {
 		renderPanel.add(m.previewButton, renderC);
 
 		m.progressBar = new JProgressBar(SwingConstants.HORIZONTAL, 0, 100);
-		m.progressBar.setBackground(FRAMECOLOR);
-		m.progressBar.setForeground(DARKBLUE);
+//		m.progressBar.setBackground(FRAMECOLOR);
+//		m.progressBar.setForeground(DARKBLUE);
 		m.progressBar.setValue(0);
 		m.progressBar.setEnabled(false);
 		m.progressBar.setMinimumSize(new Dimension(30, 30));
@@ -428,7 +440,7 @@ public class MainView {
 	private JPanel makeBarsPanel() {
 		JPanel barsPanel = new JPanel();
 		barsPanel.setLayout(new GridBagLayout());
-		barsPanel.setBackground(PANELCOLOR);
+//		barsPanel.setBackground(PANELCOLOR);
 		barsPanel.setBorder(newTitledLabel("Bar Customization"));
 		barsPanel.setPreferredSize(new Dimension(460,150));
 		GridBagConstraints barsC = new GridBagConstraints();
@@ -449,7 +461,7 @@ public class MainView {
 
 		JPanel panel = new JPanel();
 
-		panel.setBackground(PANELCOLOR);
+//		panel.setBackground(PANELCOLOR);
 
 		m.barColorRed = newSCTextField("255");
 		m.barColorRed.setColumns(3);
@@ -475,7 +487,7 @@ public class MainView {
 
 		JPanel panelAlpha = new JPanel();
 
-		panelAlpha.setBackground(PANELCOLOR);
+//		panelAlpha.setBackground(PANELCOLOR);
 
 		m.barAlpha = newSCTextField("255");
 		m.barAlpha.setColumns(3);
@@ -501,13 +513,15 @@ public class MainView {
 
 	private TitledBorder newTitledLabel(String title) {
 
-		javax.swing.border.Border normalBorder = (BorderFactory
-				.createEtchedBorder());
-		Font myFont = new Font("Plain", Font.PLAIN, 12);
+//		javax.swing.border.Border normalBorder = (BorderFactory
+//				.createEtchedBorder());
+//		Font myFont = new Font("Plain", Font.PLAIN, 12);
 
-		TitledBorder SCBorder = (BorderFactory
-				.createTitledBorder(normalBorder, title, TitledBorder.LEFT,
-						TitledBorder.TOP, myFont, Color.WHITE));
+//		TitledBorder SCBorder = (BorderFactory
+//				.createTitledBorder(normalBorder, title, TitledBorder.LEFT,
+//						TitledBorder.TOP, myFont, Color.WHITE));
+		
+		TitledBorder SCBorder = new TitledBorder(title);
 
 		return (SCBorder);
 	}
@@ -515,7 +529,7 @@ public class MainView {
 	private JLabel newSCLabel(String text) {
 		JLabel newSCLabel = new JLabel(text);
 
-		newSCLabel.setForeground(Color.WHITE);
+//		newSCLabel.setForeground(Color.WHITE);
 
 		return newSCLabel;
 
@@ -523,34 +537,35 @@ public class MainView {
 
 	private JTextField newSCTextField(String text) {
 		JTextField newSCTextField = new JTextField(text);
-		newSCTextField.setBackground(FRAMECOLOR);
-		newSCTextField.setForeground(Color.WHITE);
-		newSCTextField.setBorder(normalBorder);
+		newSCTextField.setMinimumSize(new Dimension(46,24));
+//		newSCTextField.setBackground(FRAMECOLOR);
+//		newSCTextField.setForeground(Color.WHITE);
+//		newSCTextField.setBorder(normalBorder);
 		return (newSCTextField);
 	}
 
 	private JRadioButton newSCRadioButton(String text) {
 		JRadioButton newSCRadioButton = new JRadioButton(text);
-		newSCRadioButton.setBackground(PANELCOLOR);
-		newSCRadioButton.setForeground(Color.WHITE);
-		newSCRadioButton.setBorder(normalBorder);
+//		newSCRadioButton.setBackground(PANELCOLOR);
+//		newSCRadioButton.setForeground(Color.WHITE);
+//		newSCRadioButton.setBorder(normalBorder);
 
 		return newSCRadioButton;
 	}
 
 	private JComboBox<String> newSCComboBoxString(String[] outputMethods) {
 		JComboBox<String> newSCComboBox = new JComboBox<String>(outputMethods);
-		newSCComboBox.setBackground(FRAMECOLOR);
-		newSCComboBox.setForeground(Color.WHITE);
-		newSCComboBox.setBorder(normalBorder);
+//		newSCComboBox.setBackground(FRAMECOLOR);
+//		newSCComboBox.setForeground(Color.WHITE);
+//		newSCComboBox.setBorder(normalBorder);
 		return newSCComboBox;
 	}
 
 	private JButton newSCButton(String text) {
 		JButton newSCButton = new JButton(text);
-		newSCButton.setBackground(FRAMECOLOR);
-		newSCButton.setForeground(Color.WHITE);
-		newSCButton.setBorder(normalBorder);
+//		newSCButton.setBackground(FRAMECOLOR);
+//		newSCButton.setForeground(Color.WHITE);
+//		newSCButton.setBorder(normalBorder);
 		return newSCButton;
 	}
 }
