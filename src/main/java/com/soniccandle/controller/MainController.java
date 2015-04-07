@@ -147,6 +147,7 @@ public class MainController implements ActionListener {
 				SimpleRenderer renderer;
 				renderer = rs.bakeSimpleRenderer(m);
 				int previewFrameInt = Integer.parseInt(m.previewFrame.getText());
+				if (previewFrameInt < 1){JOptionPane.showMessageDialog(m.pane, "Please enter a real frame to preview"); return;}
 				System.out.println("previewing frame: " + previewFrameInt);
 				// this is a temp fix.  Eventually, we should fast-forward inside the file to save time.
 				Integer currentFrame = 0; 
