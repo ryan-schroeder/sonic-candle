@@ -25,7 +25,9 @@ import javax.swing.JProgressBar;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
+import javax.swing.UIManager.*;
 
 import com.soniccandle.Main;
 import com.soniccandle.controller.MainController;
@@ -53,6 +55,18 @@ public class MainView {
 	public MainController c;
 
 	public void createAndShowGUI() {
+		//use nimbus theme
+		try {
+		    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+		        if ("Nimbus".equals(info.getName())) {
+		            UIManager.setLookAndFeel(info.getClassName());
+		            break;
+		        }
+		    }
+		} catch (Exception e) {
+		    System.out.println("Nimbus look and feel not found (MainVIew.java line 67)");
+		}
+		
 		// Create and set up the window.
 		JFrame frame = new JFrame("Sonic Candle");
 		frame.setResizable(false);
@@ -93,6 +107,7 @@ public class MainView {
 		vpPanel.setBackground(PANELCOLOR);
 		vpPanel.setBorder(newTitledLabel("Video Properties: "));
 		vpPanel.setForeground(Color.WHITE);
+		vpPanel.setPreferredSize(new Dimension(460,115));
 		GridBagConstraints vpC = new GridBagConstraints();
 		vpC.insets = new Insets(5, 5, 5, 5);
 		vpC.fill = GridBagConstraints.BOTH;
@@ -163,6 +178,7 @@ public class MainView {
 		inOutPanel.setLayout(new GridBagLayout());
 		inOutPanel.setBorder(newTitledLabel("Input and Output Files"));
 		inOutPanel.setBackground(PANELCOLOR);
+		inOutPanel.setPreferredSize(new Dimension(460,150));
 		GridBagConstraints inOutC = new GridBagConstraints();
 		inOutC.insets = new Insets(5, 5, 5, 5);
 		inOutC.fill = GridBagConstraints.BOTH;
@@ -228,6 +244,7 @@ public class MainView {
 		bgPanel.setLayout(new GridBagLayout());
 		bgPanel.setBorder(newTitledLabel("Background Options"));
 		bgPanel.setBackground(PANELCOLOR);
+		bgPanel.setPreferredSize(new Dimension(460,115));
 		GridBagConstraints bgC = new GridBagConstraints();
 		bgC.insets = new Insets(5, 5, 5, 5);
 		bgC.fill = GridBagConstraints.BOTH;
@@ -413,6 +430,7 @@ public class MainView {
 		barsPanel.setLayout(new GridBagLayout());
 		barsPanel.setBackground(PANELCOLOR);
 		barsPanel.setBorder(newTitledLabel("Bar Customization"));
+		barsPanel.setPreferredSize(new Dimension(460,150));
 		GridBagConstraints barsC = new GridBagConstraints();
 		barsC.insets = new Insets(5, 5, 5, 5);
 		barsC.fill = GridBagConstraints.BOTH;
