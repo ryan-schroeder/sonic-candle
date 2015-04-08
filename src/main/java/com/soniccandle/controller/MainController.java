@@ -36,11 +36,13 @@ public class MainController implements ActionListener {
 	public static final String SET_BG_OTHER_IMAGE = "SET_BG_OTHER_IMAGE";
 	public static final String RENDER = "RENDER";
 	public static final String CANCEL_RENDER = "CANCEL_RENDER";
-	public static final String BAR_STYLE_THICK_BROCK = "01 thick block";
-	public static final String BAR_STYLE_OUTLINE_BLOCK = "02 outline block";
-	public static final String BAR_STYLE_THIN = "03 thin";
-	public static final String BAR_STYLE_ROUND_BLOCK = "04 round filled";
-	public static final String BAR_STYLE_ROUND_OUTLINE = "05 round ouline";
+	public static final String BAR_STYLE_THICK_BROCK = "01 Thick Block";
+	public static final String BAR_STYLE_OUTLINE_BLOCK = "02 Outline Block";
+	public static final String BAR_STYLE_THIN = "03 Thin";
+	public static final String BAR_STYLE_ROUND_BLOCK = "04 Round Filled";
+	public static final String BAR_STYLE_ROUND_OUTLINE = "05 Round Outline";
+	public static final String BAR_STYLE_DEPTH_BLOCK = "06 Pop Up Block";
+	public static final String BAR_STYLE_DEPTH_BLOCK2 = "07 Etched Block";
 	public static final String PREVIEW = "PREVIEW";
 
 	public MainModel m;

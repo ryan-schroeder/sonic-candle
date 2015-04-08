@@ -473,7 +473,9 @@ public class MainView {
 				MainController.BAR_STYLE_OUTLINE_BLOCK,
 				MainController.BAR_STYLE_THIN,
 				MainController.BAR_STYLE_ROUND_BLOCK,
-				MainController.BAR_STYLE_ROUND_OUTLINE };
+				MainController.BAR_STYLE_ROUND_OUTLINE,
+				MainController.BAR_STYLE_DEPTH_BLOCK,
+				MainController.BAR_STYLE_DEPTH_BLOCK2};
 		m.barStyle = newSCComboBoxString(barStyles);
 		barsC.gridx = 1;
 		barsC.gridy = 0;

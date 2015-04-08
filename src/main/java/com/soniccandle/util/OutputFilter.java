@@ -5,7 +5,7 @@ import javax.swing.filechooser.*;
 
 public class OutputFilter extends FileFilter{
 
-	//Accept all directories and all mp4 files.
+	//Accept all directories and all mp4 and png files.
     public boolean accept(File f) {
         if (f.isDirectory()) {
             return true;
