@@ -34,8 +34,8 @@ import com.soniccandle.model.MainModel;
 public class MainView {
 
 	// color constants
-	public static final Color BGCOLOR = new Color(70, 75, 80);
-	public static final Color PANELCOLOR = new Color(45, 45, 45);
+	public static final Color BGCOLOR = new Color(36, 36, 36);
+	public static final Color PANELCOLOR = new Color(70, 70, 70);
 	public static final Color SCBLUE = new Color(95, 115, 133);
 
 	public static final String BG_OTHER_IMAGE = "Other Image";
@@ -49,14 +49,12 @@ public class MainView {
 
 	public void createAndShowGUI() {
 
-		//customize Nimbus
-		//Main Customization
-//		UIManager.put("control", BGCOLOR);
-		
+
 		//use Nimbus
 		try {
 		    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
 		        if ("Nimbus".equals(info.getName())) {
+		        	customizeNimbus();
 		            UIManager.setLookAndFeel(info.getClassName());
 		            break;
 		        }
@@ -70,6 +68,7 @@ public class MainView {
 		JFrame frame = new JFrame("Sonic Candle");
 		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 		// Icon code
 		Image icon;
 		InputStream input = getClass().getResourceAsStream(
@@ -83,6 +82,7 @@ public class MainView {
 
 		m.pane = frame.getContentPane();
 		m.pane.setLayout(new GridBagLayout());
+		m.pane.setBackground(BGCOLOR);
 
 		GridBagConstraints topC = new GridBagConstraints();
 		topC.fill = GridBagConstraints.HORIZONTAL;
@@ -505,5 +505,21 @@ public class MainView {
 	private JButton newSCButton(String text) {
 		JButton newSCButton = new JButton(text);
 		return newSCButton;
+	}
+	private void customizeNimbus(){
+		//General Changes
+		UIManager.put("control", PANELCOLOR);
+		UIManager.put("text", Color.WHITE);
+		UIManager.put("nimbusLightBackground", BGCOLOR);
+		UIManager.put("nimbusFocus", Color.DARK_GRAY);
+		UIManager.put("nimbusBase", Color.BLACK);
+		UIManager.put("nimbusOrange", Color.GRAY);
+		UIManager.put("nimbusBorder", Color.BLACK);
+		UIManager.put("background", BGCOLOR);
+		UIManager.put("nimbusSelection", Color.GRAY);
+		UIManager.put("textHighlight", Color.GRAY);
+		UIManager.put("nimbusSelectionBackground", Color.DARK_GRAY);
+		
+		
 	}
 }
