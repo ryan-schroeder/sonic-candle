@@ -133,12 +133,12 @@ public class MainController implements ActionListener {
 		}
 
 		if (SET_BG_OTHER_IMAGE.equals(e.getActionCommand())) {
-			int returnVal = m.fc.showDialog(m.pane, "set background image");
+			int returnVal = m.fcBG.showDialog(m.pane, "Set Background Image");
 
 			if (returnVal != JFileChooser.APPROVE_OPTION) { // they hit cancel
 				return;
 			}
-			m.backgroundImageFile = m.fc.getSelectedFile();
+			m.backgroundImageFile = m.fcBG.getSelectedFile();
 			m.bgImageNamelabel.setText(" " + m.backgroundImageFile.getName());
 		}
 		

@@ -6,9 +6,13 @@ import java.io.IOException;
 import co.uk.labbookpages.WavFileException;
 
 public class Utils {
-	
+	//Audio file types
 	public final static String wav = "wav";
+	//Video file types
 	public final static String mp4 = "mp4";
+	//Image file types
+	public final static String png = "png";
+	public final static String jpg = "jpg";
 	
 	//Get file extension
     public static String getExtension(File f) {

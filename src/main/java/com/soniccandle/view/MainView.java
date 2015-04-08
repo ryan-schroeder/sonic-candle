@@ -42,8 +42,8 @@ public class MainView {
 	public static final String BG_OTHER_IMAGE = "Other Image";
 	public static final String BG_BUILT_IN_IMAGE = "Built-in Image";
 	public static final String BG_FLAT_COLOR = "Flat Color";
-	public static final String OUTPUT_MP4_TITLE = "mp4 file";
-	public static final String OUTPUT_SEQUENCE_TITLE = "image sequence (select a folder for output)";
+	public static final String OUTPUT_MP4_TITLE = "Mp4 video file";
+	public static final String OUTPUT_SEQUENCE_TITLE = "Image Sequence (png) (select a folder for output)";
 
 	public MainModel m;
 	public MainController c;
@@ -209,7 +209,7 @@ public class MainView {
 		inOutC.gridy = 1;
 		inOutPanel.add(m.outputMethod, inOutC);
 
-		m.setOutputButton = newSCButton("Set Output Location");
+		m.setOutputButton = newSCButton("Set Output");
 		m.setOutputButton.setActionCommand(MainController.SET_OUTPUT_MP4);
 		m.setOutputButton.addActionListener(c);
 		inOutC.weightx = 0.2;
@@ -386,14 +386,15 @@ public class MainView {
 		topC.gridy = 3;
 		m.pane.add(renderPanel, topC);
 
-		m.fc = new JFileChooser();
-		m.fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+		m.fcBG = new JFileChooser();
+		m.fcBG.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+		m.fcBG.setFileFilter(new ImageFilter());
 		m.fcIn = new JFileChooser();
 		m.fcIn.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 		m.fcIn.setFileFilter(new WavFilter());
 		m.fcOut = new JFileChooser();
 		m.fcOut.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-		m.fcOut.setFileFilter(new Mp4Filter());
+		m.fcOut.setFileFilter(new OutputFilter());
 
 		// Display the window.
 		frame.pack();

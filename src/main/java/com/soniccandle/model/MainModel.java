@@ -14,7 +14,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 public class MainModel {
-	public JFileChooser fc;
+	public JFileChooser fcBG;
 	public JFileChooser fcIn;
 	public JFileChooser fcOut;
 	public Container pane;
