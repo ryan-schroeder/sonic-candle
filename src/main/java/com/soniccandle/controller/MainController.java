@@ -27,7 +27,7 @@ import com.soniccandle.model.SimpleRenderer;
 import com.soniccandle.model.VideoOutputter;
 import com.soniccandle.model.XuggleVideoOutputter;
 import com.soniccandle.view.MainView;
-import com.soniccandle.util.*;
+
 
 public class MainController implements ActionListener {
 
@@ -81,38 +81,37 @@ public class MainController implements ActionListener {
 					.showMessageDialog(m.pane, "Please enter a real Height!");
 			return;
 		}
-
+		
 		if (SET_INPUT_WAV.equals(e.getActionCommand())) {
-			m.fc.setFileFilter(new WavFilter());
-			int returnVal = m.fc.showOpenDialog(m.pane);
+			int returnVal = m.fcIn.showOpenDialog(m.pane);
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
-				m.audioFile = m.fc.getSelectedFile();
+				m.audioFile = m.fcIn.getSelectedFile();
 				m.audioFileNameLabel.setText(m.audioFile.getName());
 			}
 		}
+		
 		if (SET_OUTPUT_MP4.equals(e.getActionCommand())) {
-			m.fc.setFileFilter(new Mp4Filter());
-			int returnVal = m.fc.showDialog(m.pane, "Set Output");
+			int returnVal = m.fcOut.showDialog(m.pane, "Set Output");
 
 			if (returnVal != JFileChooser.APPROVE_OPTION) { // they hit cancel
 				return;
 			}
 
-			if (!m.fc.getSelectedFile().getName().endsWith(".mp4")
+			if (!m.fcOut.getSelectedFile().getName().endsWith(".mp4")
 					&& (m.outputMethod.getSelectedItem()
 							.equals(MainView.OUTPUT_MP4_TITLE))) {
-				File addedMp4 = new File(m.fc.getSelectedFile().getParent(),
-						m.fc.getSelectedFile().getName() + ".mp4");
-				m.fc.setSelectedFile(addedMp4);
+				File addedMp4 = new File(m.fcOut.getSelectedFile().getParent(),
+						m.fcOut.getSelectedFile().getName() + ".mp4");
+				m.fcOut.setSelectedFile(addedMp4);
 			}
 
-			if (m.fc.getSelectedFile().exists()
-					&& !m.fc.getSelectedFile().isDirectory()) {
+			if (m.fcOut.getSelectedFile().exists()
+					&& !m.fcOut.getSelectedFile().isDirectory()) {
 				JOptionPane
 						.showMessageDialog(m.pane,
 								"That file exists already: if you render it will be overwritten.");
 			}
-			m.outputTo = m.fc.getSelectedFile();
+			m.outputTo = m.fcOut.getSelectedFile();
 			m.outputToNameLabel.setText(m.outputTo.getName());
 
 		}

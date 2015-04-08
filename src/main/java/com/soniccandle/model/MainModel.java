@@ -15,6 +15,8 @@ import javax.swing.JTextField;
 
 public class MainModel {
 	public JFileChooser fc;
+	public JFileChooser fcIn;
+	public JFileChooser fcOut;
 	public Container pane;
 	public JButton setAudioButton;
 	public JLabel audioFileNameLabel;

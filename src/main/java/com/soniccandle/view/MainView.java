@@ -30,6 +30,7 @@ import javax.swing.border.TitledBorder;
 import com.soniccandle.Main;
 import com.soniccandle.controller.MainController;
 import com.soniccandle.model.MainModel;
+import com.soniccandle.util.*;
 
 public class MainView {
 
@@ -387,6 +388,12 @@ public class MainView {
 
 		m.fc = new JFileChooser();
 		m.fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+		m.fcIn = new JFileChooser();
+		m.fcIn.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+		m.fcIn.setFileFilter(new WavFilter());
+		m.fcOut = new JFileChooser();
+		m.fcOut.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+		m.fcOut.setFileFilter(new Mp4Filter());
 
 		// Display the window.
 		frame.pack();
