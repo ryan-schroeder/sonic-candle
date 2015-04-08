@@ -27,6 +27,7 @@ import com.soniccandle.model.SimpleRenderer;
 import com.soniccandle.model.VideoOutputter;
 import com.soniccandle.model.XuggleVideoOutputter;
 import com.soniccandle.view.MainView;
+import com.soniccandle.util.*;
 
 public class MainController implements ActionListener {
 
@@ -82,6 +83,7 @@ public class MainController implements ActionListener {
 		}
 
 		if (SET_INPUT_WAV.equals(e.getActionCommand())) {
+			m.fc.setFileFilter(new WavFilter());
 			int returnVal = m.fc.showOpenDialog(m.pane);
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
 				m.audioFile = m.fc.getSelectedFile();
@@ -89,7 +91,8 @@ public class MainController implements ActionListener {
 			}
 		}
 		if (SET_OUTPUT_MP4.equals(e.getActionCommand())) {
-			int returnVal = m.fc.showDialog(m.pane, "set output");
+			m.fc.setFileFilter(new Mp4Filter());
+			int returnVal = m.fc.showDialog(m.pane, "Set Output");
 
 			if (returnVal != JFileChooser.APPROVE_OPTION) { // they hit cancel
 				return;

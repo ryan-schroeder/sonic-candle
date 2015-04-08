@@ -34,8 +34,8 @@ import com.soniccandle.model.MainModel;
 public class MainView {
 
 	// color constants
-	public static final Color BGCOLOR = new Color(36, 36, 36);
-	public static final Color PANELCOLOR = new Color(70, 70, 70);
+	public static final Color BGCOLOR = new Color(17, 17, 17);
+	public static final Color PANELCOLOR = new Color(45, 45, 45);
 	public static final Color SCBLUE = new Color(95, 115, 133);
 
 	public static final String BG_OTHER_IMAGE = "Other Image";

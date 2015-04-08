@@ -1,10 +1,27 @@
 package com.soniccandle.util;
 
+import java.io.File;
 import java.io.IOException;
 
 import co.uk.labbookpages.WavFileException;
 
 public class Utils {
+	
+	public final static String wav = "wav";
+	public final static String mp4 = "mp4";
+	
+	//Get file extension
+    public static String getExtension(File f) {
+        String ext = null;
+        String s = f.getName();
+        int i = s.lastIndexOf('.');
+
+        if (i > 0 &&  i < s.length() - 1) {
+            ext = s.substring(i+1).toLowerCase();
+        }
+        return ext;
+    }
+	
 	public static double[] doubleAddZeros(double[] input) {
 		double[] output = new double[input.length * 2];
 		int i = 0;
