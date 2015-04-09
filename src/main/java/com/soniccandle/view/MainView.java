@@ -2,6 +2,7 @@ package com.soniccandle.view;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
@@ -11,6 +12,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -30,7 +32,9 @@ import javax.swing.border.TitledBorder;
 import com.soniccandle.Main;
 import com.soniccandle.controller.MainController;
 import com.soniccandle.model.MainModel;
-import com.soniccandle.util.*;
+import com.soniccandle.util.ImageFilter;
+import com.soniccandle.util.OutputFilter;
+import com.soniccandle.util.WavFilter;
 
 public class MainView {
 
@@ -103,7 +107,7 @@ public class MainView {
 		// Video Properties panel
 		JPanel vpPanel = new JPanel();
 		vpPanel.setLayout(new GridBagLayout());
-		vpPanel.setBorder(newTitledLabel("Video Properties: "));
+		vpPanel.setBorder(newTitledLabel("Video Properties"));
 		vpPanel.setPreferredSize(new Dimension(460,115));
 		GridBagConstraints vpC = new GridBagConstraints();
 		vpC.insets = new Insets(5, 5, 5, 5);
@@ -416,7 +420,7 @@ public class MainView {
 	private JPanel makeBarsPanel() {
 		JPanel barsPanel = new JPanel();
 		barsPanel.setLayout(new GridBagLayout());
-		barsPanel.setBorder(newTitledLabel("Bar Customization"));
+		barsPanel.setBorder(newTitledLabel("Bar Customization (More options coming soon!)"));
 		barsPanel.setPreferredSize(new Dimension(460,150));
 		GridBagConstraints barsC = new GridBagConstraints();
 		barsC.insets = new Insets(5, 5, 5, 5);
@@ -475,7 +479,9 @@ public class MainView {
 				MainController.BAR_STYLE_ROUND_BLOCK,
 				MainController.BAR_STYLE_ROUND_OUTLINE,
 				MainController.BAR_STYLE_DEPTH_BLOCK,
-				MainController.BAR_STYLE_DEPTH_BLOCK2};
+				MainController.BAR_STYLE_DEPTH_BLOCK2,
+				MainController.BAR_STYLE_OVAL_FILLED,
+				MainController.BAR_STYLE_OVAL_OUTLINE};
 		m.barStyle = newSCComboBoxString(barStyles);
 		barsC.gridx = 1;
 		barsC.gridy = 0;
@@ -485,7 +491,13 @@ public class MainView {
 	}
 
 	private TitledBorder newTitledLabel(String title) {		
-		TitledBorder SCBorder = new TitledBorder(title);
+		
+		javax.swing.border.Border normalBorder = (BorderFactory.createSoftBevelBorder(2));
+		Font myFont = new Font("Plain", Font.BOLD, 12);
+
+		TitledBorder SCBorder = (BorderFactory
+				.createTitledBorder(normalBorder, title, TitledBorder.LEFT,
+						TitledBorder.ABOVE_TOP, myFont, Color.WHITE));
 
 		return (SCBorder);
 	}

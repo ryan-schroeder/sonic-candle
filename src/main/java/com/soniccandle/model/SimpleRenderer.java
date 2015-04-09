@@ -152,6 +152,10 @@ public class SimpleRenderer extends SpectrumRenderer {
 			barDrawer = new PopUpBlockDrawer(g, half, barWidth);
 		}else if (barStyle.equals(MainController.BAR_STYLE_DEPTH_BLOCK2)) {
 			barDrawer = new EtchedBlockDrawer(g, half, barWidth);
+		}else if (barStyle.equals(MainController.BAR_STYLE_OVAL_FILLED)) {
+			barDrawer = new OvalFilledDrawer(g, half, barWidth);
+		}else if (barStyle.equals(MainController.BAR_STYLE_OVAL_OUTLINE)) {
+			barDrawer = new OvalOutlineDrawer(g, half, barWidth);
 		}
 
 		while (i < barCount) {

@@ -43,6 +43,8 @@ public class MainController implements ActionListener {
 	public static final String BAR_STYLE_ROUND_OUTLINE = "05 Round Outline";
 	public static final String BAR_STYLE_DEPTH_BLOCK = "06 Pop Up Block";
 	public static final String BAR_STYLE_DEPTH_BLOCK2 = "07 Etched Block";
+	public static final String BAR_STYLE_OVAL_FILLED = "08 Oval Filled";
+	public static final String BAR_STYLE_OVAL_OUTLINE = "09 Oval Outline";
 	public static final String PREVIEW = "PREVIEW";
 
 	public MainModel m;
