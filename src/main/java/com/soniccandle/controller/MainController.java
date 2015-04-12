@@ -26,6 +26,7 @@ import com.soniccandle.model.RenderSettings;
 import com.soniccandle.model.SimpleRenderer;
 import com.soniccandle.model.VideoOutputter;
 import com.soniccandle.model.XuggleVideoOutputter;
+import com.soniccandle.util.ImageFilter;
 import com.soniccandle.util.InputFilter;
 import com.soniccandle.util.Utils;
 import com.soniccandle.view.MainView;
@@ -93,9 +94,9 @@ public class MainController implements ActionListener {
 		if (SET_INPUT_WAV.equals(e.getActionCommand())) {
 			int returnVal = m.fcIn.showOpenDialog(m.pane);
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
-				m.audioFile = m.fcIn.getSelectedFile();
-				audioType = Utils.getExtension(m.audioFile);
-				if (InputFilter.supportedType(m.audioFile)){
+				if (InputFilter.supportedType(m.fcIn.getSelectedFile())){
+					m.audioFile = m.fcIn.getSelectedFile();
+					audioType = Utils.getExtension(m.audioFile);
 					m.audioFileNameLabel.setText(m.audioFile.getName());//TODO use this to set default output name - Chris
 				}else {
 					JOptionPane.showMessageDialog(m.pane, "Please use a supported format");
@@ -151,8 +152,12 @@ public class MainController implements ActionListener {
 			if (returnVal != JFileChooser.APPROVE_OPTION) { // they hit cancel
 				return;
 			}
-			m.backgroundImageFile = m.fcBG.getSelectedFile();
-			m.bgImageNamelabel.setText(" " + m.backgroundImageFile.getName());
+			if (ImageFilter.supportedType(m.fcBG.getSelectedFile())){
+				m.backgroundImageFile = m.fcBG.getSelectedFile();
+				m.bgImageNamelabel.setText(" " + m.backgroundImageFile.getName());
+			}else{
+				JOptionPane.showMessageDialog(m.pane, "Please use a supported format");
+			}
 		}
 		
 		if (PREVIEW.equals(e.getActionCommand())) {
