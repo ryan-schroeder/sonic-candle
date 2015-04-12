@@ -26,6 +26,8 @@ import com.soniccandle.model.RenderSettings;
 import com.soniccandle.model.SimpleRenderer;
 import com.soniccandle.model.VideoOutputter;
 import com.soniccandle.model.XuggleVideoOutputter;
+import com.soniccandle.util.InputFilter;
+import com.soniccandle.util.Utils;
 import com.soniccandle.view.MainView;
 
 
@@ -47,6 +49,8 @@ public class MainController implements ActionListener {
 	public static final String BAR_STYLE_OVAL_OUTLINE = "09 Oval Outline";
 	public static final String PREVIEW = "PREVIEW";
 
+	public static String audioType;
+	
 	public MainModel m;
 	public MainView v;
 	private RenderSwingWorker renderSwingWorker;
@@ -90,7 +94,12 @@ public class MainController implements ActionListener {
 			int returnVal = m.fcIn.showOpenDialog(m.pane);
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
 				m.audioFile = m.fcIn.getSelectedFile();
-				m.audioFileNameLabel.setText(m.audioFile.getName());
+				audioType = Utils.getExtension(m.audioFile);
+				if (InputFilter.supportedType(m.audioFile)){
+					m.audioFileNameLabel.setText(m.audioFile.getName());//TODO use this to set default output name - Chris
+				}else {
+					JOptionPane.showMessageDialog(m.pane, "Please use a supported format");
+				}
 			}
 		}
 		
@@ -378,7 +387,7 @@ public class MainController implements ActionListener {
 	public void lockWhileRendering() {
 		m.setAudioButton.setEnabled(false);
 		m.setOutputButton.setEnabled(false);
-		m.renderButton.setText("cancel render");
+		m.renderButton.setText("Cancel Render");
 		m.renderButton.setActionCommand(CANCEL_RENDER);
 		m.outputMethod.setEnabled(false);
 		m.bgColorRed.setEnabled(false);

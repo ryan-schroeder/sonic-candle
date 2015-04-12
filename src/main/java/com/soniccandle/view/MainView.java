@@ -34,7 +34,7 @@ import com.soniccandle.controller.MainController;
 import com.soniccandle.model.MainModel;
 import com.soniccandle.util.ImageFilter;
 import com.soniccandle.util.OutputFilter;
-import com.soniccandle.util.WavFilter;
+import com.soniccandle.util.InputFilter;
 
 public class MainView {
 
@@ -395,7 +395,7 @@ public class MainView {
 		m.fcBG.setFileFilter(new ImageFilter());
 		m.fcIn = new JFileChooser();
 		m.fcIn.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-		m.fcIn.setFileFilter(new WavFilter());
+		m.fcIn.setFileFilter(new InputFilter());
 		m.fcOut = new JFileChooser();
 		m.fcOut.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 		m.fcOut.setFileFilter(new OutputFilter());
@@ -501,7 +501,7 @@ public class MainView {
 
 		return (SCBorder);
 	}
-
+	
 	private JLabel newSCLabel(String text) {
 		JLabel newSCLabel = new JLabel(text);
 		return newSCLabel;
