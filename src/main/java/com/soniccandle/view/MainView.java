@@ -373,13 +373,20 @@ public class MainView {
 		renderC.gridx = 5;
 		renderC.gridy = 0;
 		renderPanel.add(m.previewButton, renderC);
+		
+		m.moreInfoButton = newSCButton(" Details ");
+		m.moreInfoButton.setActionCommand(MainController.DETAILS);
+		m.moreInfoButton.addActionListener(c);
+		renderC.gridx = 6;
+		renderC.gridy = 0;
+		renderPanel.add(m.moreInfoButton, renderC);
 
 		m.progressBar = new JProgressBar(SwingConstants.HORIZONTAL, 0, 100);
 		m.progressBar.setValue(0);
 		m.progressBar.setEnabled(false);
 		m.progressBar.setMinimumSize(new Dimension(30, 30));
 		renderC.weightx = 1;
-		renderC.gridwidth = 6;
+		renderC.gridwidth = 7;
 		renderC.gridx = 0;
 		renderC.gridy = 1;
 		renderPanel.add(m.progressBar, renderC);
@@ -389,6 +396,9 @@ public class MainView {
 		topC.gridx = 0;
 		topC.gridy = 3;
 		m.pane.add(renderPanel, topC);
+		
+		//TODO details panel
+		//Details Panel - not visible by default
 
 		m.fcBG = new JFileChooser();
 		m.fcBG.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);

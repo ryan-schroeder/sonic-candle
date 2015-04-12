@@ -52,4 +52,6 @@ public class MainModel {
 	public JPanel videoProperties;
 	public JTextField previewFrame;
 	public JButton previewButton;
+	public JButton moreInfoButton;
+	public JPanel detailsPanel;
 }

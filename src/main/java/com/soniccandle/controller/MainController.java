@@ -49,6 +49,7 @@ public class MainController implements ActionListener {
 	public static final String BAR_STYLE_OVAL_FILLED = "08 Oval Filled";
 	public static final String BAR_STYLE_OVAL_OUTLINE = "09 Oval Outline";
 	public static final String PREVIEW = "PREVIEW";
+	public static final String DETAILS = "DETAILS";
 
 	public static String audioType;
 	
@@ -199,6 +200,18 @@ public class MainController implements ActionListener {
 			}
 			return;
 	    }
+		
+		boolean detailsClick = false;
+		
+		if (DETAILS.equals(e.getActionCommand())){
+			if (detailsClick == false){
+				m.detailsPanel.setVisible(true);
+				detailsClick = true;
+			}else{
+				m.detailsPanel.setVisible(false);
+				detailsClick = false;
+			}
+		}
 
 		if (RENDER.equals(e.getActionCommand())) {
 			renderSwingWorker = new RenderSwingWorker();
