@@ -23,6 +23,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JRadioButton;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
@@ -33,8 +34,8 @@ import com.soniccandle.Main;
 import com.soniccandle.controller.MainController;
 import com.soniccandle.model.MainModel;
 import com.soniccandle.util.ImageFilter;
-import com.soniccandle.util.OutputFilter;
 import com.soniccandle.util.InputFilter;
+import com.soniccandle.util.OutputFilter;
 
 public class MainView {
 
@@ -399,6 +400,17 @@ public class MainView {
 		
 		//TODO details panel
 		//Details Panel - not visible by default
+		m.detailsPanel = new JPanel();
+		m.detailsPanel.setBorder(newTitledLabel("Details"));
+		
+		JTextArea detailText = new JTextArea();
+		
+		topC.gridwidth = 2;
+		topC.weightx = 1;
+		topC.gridx = 0;
+		topC.gridy = 4;
+		m.pane.add(m.detailsPanel, topC);
+		m.detailsPanel.setVisible(false);
 
 		m.fcBG = new JFileChooser();
 		m.fcBG.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);

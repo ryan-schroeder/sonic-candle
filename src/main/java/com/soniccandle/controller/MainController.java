@@ -200,18 +200,19 @@ public class MainController implements ActionListener {
 			}
 			return;
 	    }
-		
-		boolean detailsClick = false;
-		
-		if (DETAILS.equals(e.getActionCommand())){
-			if (detailsClick == false){
-				m.detailsPanel.setVisible(true);
-				detailsClick = true;
-			}else{
-				m.detailsPanel.setVisible(false);
-				detailsClick = false;
-			}
-		}
+		//TODO finish work on details panel
+//		boolean detailsClick = true;
+//		
+//		if (DETAILS.equals(e.getActionCommand())){
+//			if (detailsClick == false){
+//				m.detailsPanel.setVisible(true);
+//				detailsClick = true;
+//			}else{
+//				m.detailsPanel.setVisible(false);
+//				detailsClick = false;
+//				
+//			}
+//		}
 
 		if (RENDER.equals(e.getActionCommand())) {
 			renderSwingWorker = new RenderSwingWorker();
