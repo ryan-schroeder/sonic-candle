@@ -56,14 +56,6 @@ public class RenderSwingWorker extends SwingWorker<Boolean, Integer> {
 	@Override
 	public void done() {
 		c.unlockAfterRender();
-		if (c.audioType.equals("mp3")){
-			if(m.audioFile.delete()){
-				//TODO evaluates to false. Find out why
-				System.out.println("File was deleted");
-			}else{
-				System.out.println("File was NOT deleted");
-			}
-		}
 		if (outputter instanceof XuggleVideoOutputter
 				&& outputTo.length() < 100) {
 			JOptionPane
@@ -77,8 +69,19 @@ public class RenderSwingWorker extends SwingWorker<Boolean, Integer> {
 					"Canceled - may not have created entire video =\\");
 			return;
 		}
-
-		JOptionPane.showMessageDialog(null, "Done!");
+		
+		if (c.audioType.equals("mp3")){
+			if(m.audioFile.delete()){
+				//TODO evaluates to false. Find out why
+				System.out.println("File was deleted");
+			}else{
+				System.out.println("File was NOT deleted");
+			}
+			m.audioFile = null;
+			m.audioFileNameLabel.setText(" (no input selected) ");
+			
+			JOptionPane.showMessageDialog(null, "Done! Input file cleared from Sonic Candle (for safety reasons)");
+		}
 	}
 
 }

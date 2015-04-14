@@ -49,6 +49,7 @@ public class Main {
 	public static void main(String[] args) throws Exception {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
+			
 				MainModel m = new MainModel();
 				MainView v = new MainView();
 				MainController c = new MainController();

@@ -33,6 +33,7 @@ import com.soniccandle.util.ImageFilter;
 import com.soniccandle.util.InputFilter;
 import com.soniccandle.util.Utils;
 import com.soniccandle.view.MainView;
+import com.soniccandle.view.ViewDetails;
 
 
 public class MainController implements ActionListener {
@@ -58,6 +59,7 @@ public class MainController implements ActionListener {
 	
 	public MainModel m;
 	public MainView v;
+	public ViewDetails vd;
 	private RenderSwingWorker renderSwingWorker;
 
 	public void actionPerformed(ActionEvent e) {
@@ -219,18 +221,13 @@ public class MainController implements ActionListener {
 			}
 			return;
 	    }
-		//TODO finish work on details panel
-//		boolean detailsClick = true;
-//		
+		//TODO finish work on details window
+		
 //		if (DETAILS.equals(e.getActionCommand())){
-//			if (detailsClick == false){
-//				m.detailsPanel.setVisible(true);
-//				detailsClick = true;
-//			}else{
-//				m.detailsPanel.setVisible(false);
-//				detailsClick = false;
-//				
-//			}
+//			
+//			vd = new ViewDetails();
+//			vd.ViewwDetails();
+//
 //		}
 
 		if (RENDER.equals(e.getActionCommand())) {
@@ -425,6 +422,8 @@ public class MainController implements ActionListener {
 		} catch (JavaLayerException e) {
 			e.printStackTrace();
 		}
+		
+		tempWavFile.setReadOnly();
 		return tempWavFile;
 		
 	}
