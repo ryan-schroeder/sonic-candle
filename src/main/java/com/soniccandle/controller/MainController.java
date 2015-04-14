@@ -109,11 +109,13 @@ public class MainController implements ActionListener {
 					if ("wav".equals(audioType)){
 						System.out.println(audioType);
 						m.audioFile = inputFile;
+						inputFile = null;//Clear file so SC no longer claims it's being used
 						System.out.println(m.audioFile.getName());
 					}else if("mp3".equals(audioType)){
 						System.out.println(audioType);
 						System.out.println("Converting mp3 to wav...");
 						m.audioFile = convertToWav(inputFile);
+						inputFile = null;//Clear file so SC no longer claims it's being used
 						System.out.println(m.audioFile.getName());
 					}
 					
@@ -422,7 +424,7 @@ public class MainController implements ActionListener {
 		} catch (JavaLayerException e) {
 			e.printStackTrace();
 		}
-		
+		audioFile = null;//Clear file so SC no longer claims it's being used
 		tempWavFile.setReadOnly();
 		return tempWavFile;
 		

@@ -79,8 +79,9 @@ public class RenderSwingWorker extends SwingWorker<Boolean, Integer> {
 			}
 			m.audioFile = null;
 			m.audioFileNameLabel.setText(" (no input selected) ");
-			
 			JOptionPane.showMessageDialog(null, "Done! Input file cleared from Sonic Candle (for safety reasons)");
+		}else{
+			JOptionPane.showMessageDialog(null, "Done!");
 		}
 	}
 
