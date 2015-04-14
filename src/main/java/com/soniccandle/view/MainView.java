@@ -23,7 +23,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JRadioButton;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
@@ -375,12 +374,13 @@ public class MainView {
 		renderC.gridy = 0;
 		renderPanel.add(m.previewButton, renderC);
 		
-		m.moreInfoButton = newSCButton(" Details ");
-		m.moreInfoButton.setActionCommand(MainController.DETAILS);
-		m.moreInfoButton.addActionListener(c);
+		//TODO make View Details window
+		m.detailsButton = newSCButton(" Details ");
+		m.detailsButton.setActionCommand(MainController.DETAILS);
+		m.detailsButton.addActionListener(c);
 		renderC.gridx = 6;
 		renderC.gridy = 0;
-		renderPanel.add(m.moreInfoButton, renderC);
+		renderPanel.add(m.detailsButton, renderC);
 
 		m.progressBar = new JProgressBar(SwingConstants.HORIZONTAL, 0, 100);
 		m.progressBar.setValue(0);
@@ -397,20 +397,6 @@ public class MainView {
 		topC.gridx = 0;
 		topC.gridy = 3;
 		m.pane.add(renderPanel, topC);
-		
-		//TODO details panel
-		//Details Panel - not visible by default
-		m.detailsPanel = new JPanel();
-		m.detailsPanel.setBorder(newTitledLabel("Details"));
-		
-		JTextArea detailText = new JTextArea();
-		
-		topC.gridwidth = 2;
-		topC.weightx = 1;
-		topC.gridx = 0;
-		topC.gridy = 4;
-		m.pane.add(m.detailsPanel, topC);
-		m.detailsPanel.setVisible(false);
 
 		m.fcBG = new JFileChooser();
 		m.fcBG.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);

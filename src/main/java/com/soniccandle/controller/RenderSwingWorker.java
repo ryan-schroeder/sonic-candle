@@ -15,6 +15,8 @@ import com.soniccandle.model.XuggleVideoOutputter;
 
 public class RenderSwingWorker extends SwingWorker<Boolean, Integer> {
 
+	
+	
 	public int videoFrameRate;
 	public int width;
 	public int height;
@@ -50,15 +52,24 @@ public class RenderSwingWorker extends SwingWorker<Boolean, Integer> {
 		m.progressBar.setValue(progress);
 	}
 
+	@SuppressWarnings("static-access")
 	@Override
 	public void done() {
 		c.unlockAfterRender();
+		if (c.audioType.equals("mp3")){
+			if(m.audioFile.delete()){
+				//TODO evaluates to false. Find out why
+				System.out.println("File was deleted");
+			}else{
+				System.out.println("File was NOT deleted");
+			}
+		}
 		if (outputter instanceof XuggleVideoOutputter
 				&& outputTo.length() < 100) {
 			JOptionPane
 					.showMessageDialog(
 							null,
-							"Ooof - looks like there was a problem, sorry.  Please check that your adio file is 16-bit wav, not 24 or 32, thanks!  Other bitrates coming soon, hopefully.");
+							"Ooof - looks like there was a problem, sorry.  Please check that your audio file is 16-bit wav, not 24 or 32, thanks!  Other bitrates coming soon, hopefully.");
 			return;
 		}
 		if (m.progressBar.getValue() < 99) {

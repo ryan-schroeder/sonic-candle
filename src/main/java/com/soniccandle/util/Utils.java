@@ -8,6 +8,7 @@ import co.uk.labbookpages.WavFileException;
 public class Utils {
 	//Audio file types
 	public final static String wav = "wav";
+	public final static String mp3 = "mp3";
 	//Video file types
 	public final static String mp4 = "mp4";
 	//Image file types

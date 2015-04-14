@@ -19,6 +19,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
+import javazoom.jl.converter.Converter;
+import javazoom.jl.decoder.JavaLayerException;
+
 import com.soniccandle.Main;
 import com.soniccandle.model.ImageSeqVideoOutputter;
 import com.soniccandle.model.MainModel;
@@ -95,10 +98,25 @@ public class MainController implements ActionListener {
 		if (SET_INPUT_WAV.equals(e.getActionCommand())) {
 			int returnVal = m.fcIn.showOpenDialog(m.pane);
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
-				if (InputFilter.supportedType(m.fcIn.getSelectedFile())){
-					m.audioFile = m.fcIn.getSelectedFile();
-					audioType = Utils.getExtension(m.audioFile);
+				File inputFile = m.fcIn.getSelectedFile();
+				if (InputFilter.supportedType(inputFile)){
+					audioType = (Utils.getExtension(inputFile));
+					//I wanted to move this into the render event but the preview requires a wav file already loaded (broke when I moved this to render)
+					//So I'll have the wav file deleted after the render finishes but it will be created when the user loads in the mp3 (hooray awkward API's)
+					m.audioFile = inputFile;
+					if ("wav".equals(audioType)){
+						System.out.println(audioType);
+						m.audioFile = inputFile;
+						System.out.println(m.audioFile.getName());
+					}else if("mp3".equals(audioType)){
+						System.out.println(audioType);
+						System.out.println("Converting mp3 to wav...");
+						m.audioFile = convertToWav(inputFile);
+						System.out.println(m.audioFile.getName());
+					}
+					
 					m.audioFileNameLabel.setText(m.audioFile.getName());//TODO use this to set default output name - Chris
+					
 				}else {
 					JOptionPane.showMessageDialog(m.pane, "Please use a supported format");
 				}
@@ -176,6 +194,7 @@ public class MainController implements ActionListener {
 					renderer.renderVFrame(currentFrame);
 					currentFrame ++;
 				}
+
 				BufferedImage preview = renderer.renderVFrame(currentFrame);
 				JLabel previewLabel = new JLabel(new ImageIcon(preview));
 				JFrame previewFrame = new JFrame("Preview");
@@ -231,6 +250,7 @@ public class MainController implements ActionListener {
 			renderSwingWorker.execute();
 			JOptionPane.showMessageDialog(m.pane,
 					"Takes a sec for progress bar to show: give it a moment.");
+			
 		}
 
 		if (CANCEL_RENDER.equals(e.getActionCommand())) {
@@ -392,6 +412,21 @@ public class MainController implements ActionListener {
 
 		}
 		return rs;
+	}
+	
+	private File convertToWav(File audioFile){
+		
+		Converter converter = new Converter();
+		String fileURI = audioFile.getAbsolutePath();
+		File tempWavFile = new File(fileURI + ".wav");
+		String tempFileURI = tempWavFile.getAbsolutePath();
+		try {
+			converter.convert(fileURI, tempFileURI);
+		} catch (JavaLayerException e) {
+			e.printStackTrace();
+		}
+		return tempWavFile;
+		
 	}
 
 	// exposed for unit tests only!

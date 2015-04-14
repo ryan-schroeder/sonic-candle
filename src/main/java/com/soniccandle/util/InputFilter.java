@@ -13,7 +13,8 @@ public class InputFilter extends FileFilter{
  
         String extension = Utils.getExtension(f);
         if (extension != null) {
-            if (extension.equals(Utils.wav)) {
+            if (extension.equals(Utils.wav)|
+            	extension.equals(Utils.mp3)) {
                     return true;
             } else {
                 return false;
@@ -30,7 +31,8 @@ public class InputFilter extends FileFilter{
  
         String extension = Utils.getExtension(f);
         if (extension != null) {
-            if (extension.equals(Utils.wav)) {
+            if (extension.equals(Utils.wav)|
+            	extension.equals(Utils.mp3)) {
                     return true;
             } else {
                 return false;
@@ -42,6 +44,6 @@ public class InputFilter extends FileFilter{
  
     //The description of this filter
     public String getDescription() {
-        return "Wave Files (.wav)";
+        return "Audio Files (wav,mp3)";
     }
 }
