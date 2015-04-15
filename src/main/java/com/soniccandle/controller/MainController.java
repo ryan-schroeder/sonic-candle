@@ -33,7 +33,6 @@ import com.soniccandle.util.ImageFilter;
 import com.soniccandle.util.InputFilter;
 import com.soniccandle.util.Utils;
 import com.soniccandle.view.MainView;
-import com.soniccandle.view.ViewDetails;
 
 
 public class MainController implements ActionListener {
@@ -59,7 +58,6 @@ public class MainController implements ActionListener {
 	
 	public MainModel m;
 	public MainView v;
-	public ViewDetails vd;
 	private RenderSwingWorker renderSwingWorker;
 
 	public void actionPerformed(ActionEvent e) {
@@ -222,14 +220,6 @@ public class MainController implements ActionListener {
 			}
 			return;
 	    }
-		//TODO finish work on details window
-		
-//		if (DETAILS.equals(e.getActionCommand())){
-//			
-//			vd = new ViewDetails();
-//			vd.ViewwDetails();
-//
-//		}
 
 		if (RENDER.equals(e.getActionCommand())) {
 			renderSwingWorker = new RenderSwingWorker();

@@ -374,14 +374,6 @@ public class MainView {
 		renderC.gridy = 0;
 		renderPanel.add(m.previewButton, renderC);
 		
-		//TODO make View Details window
-//		m.detailsButton = newSCButton(" Details ");
-//		m.detailsButton.setActionCommand(MainController.DETAILS);
-//		m.detailsButton.addActionListener(c);
-//		renderC.gridx = 6;
-//		renderC.gridy = 0;
-//		renderPanel.add(m.detailsButton, renderC);
-
 		m.progressBar = new JProgressBar(SwingConstants.HORIZONTAL, 0, 100);
 		m.progressBar.setValue(0);
 		m.progressBar.setEnabled(false);
