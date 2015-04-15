@@ -46,6 +46,7 @@ public class XuggleVideoOutputter extends VideoOutputter {
 		int audioStreamId = 0;
 		int channelCount = wavFile.getNumChannels();
 		int sampleRate = (int) wavFile.getSampleRate(); // Hz
+		wavFile.close();
 		IMediaReader audioReader = ToolFactory.makeReader(audioFile.getPath());
 		MediaConcatenator concatenator = new MediaConcatenator(
 				AUDIO_STREAM_INDEX, VIDEO_STREAM_INDEX);
