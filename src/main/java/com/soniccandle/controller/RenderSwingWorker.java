@@ -68,6 +68,7 @@ public class RenderSwingWorker extends SwingWorker<Boolean, Integer> {
 					"Canceled - may not have created entire video =\\");
 			return;
 		}
+		JOptionPane.showMessageDialog(null, "Done!");
 		
 	}
 

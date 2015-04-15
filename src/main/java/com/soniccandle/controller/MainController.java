@@ -56,6 +56,8 @@ public class MainController implements ActionListener {
 
 	public static String audioType;
 	
+	public static boolean generatedWav;
+	
 	public MainModel m;
 	public MainView v;
 	private RenderSwingWorker renderSwingWorker;
@@ -101,22 +103,19 @@ public class MainController implements ActionListener {
 				File inputFile = m.fcIn.getSelectedFile();
 				if (InputFilter.supportedType(inputFile)){
 					audioType = (Utils.getExtension(inputFile));
+					System.out.println("File type is: "+audioType);
 					//I wanted to move this into the render event but the preview requires a wav file already loaded (broke when I moved this to render)
 					//So I'll have the wav file deleted after the render finishes but it will be created when the user loads in the mp3 (hooray awkward API's)
-					m.audioFile = inputFile;
 					if ("wav".equals(audioType)){
-						System.out.println(audioType);
 						m.audioFile = inputFile;
 						m.audioFileNameLabel.setText(m.audioFile.getName());//TODO use this to set default output name - Chris
-						System.out.println(m.audioFile.getName());
+						generatedWav = false;
 					}else if("mp3".equals(audioType)){
-						System.out.println(audioType);
-						System.out.println("Converting mp3 to wav...");
 						m.audioFile = mp3ToWav(inputFile);
 						m.audioFileNameLabel.setText(inputFile.getName());//TODO use this to set default output name - Chris
-						System.out.println(m.audioFile.getName());
+						generatedWav = true;
 					}
-					
+					System.out.println("Wavfile: "+m.audioFile.getName());
 					
 				}else {
 					JOptionPane.showMessageDialog(m.pane, "Please use a supported format");
@@ -403,7 +402,13 @@ public class MainController implements ActionListener {
 	}
 	
 	private File mp3ToWav(File audioFile){
-		
+		//Check to make sure that if a generated wav file was created, it is deleted
+		if (m.audioFile != null && generatedWav == true){
+			if (m.audioFile.delete() == true){
+				System.out.println("Deleted unused wav file");
+			}
+		}
+		System.out.println("Converting mp3 to wav...");
 		Converter converter = new Converter();
 		String fileURI = audioFile.getAbsolutePath();
 		File tempWavFile = null;
@@ -418,7 +423,7 @@ public class MainController implements ActionListener {
 		} catch (JavaLayerException e) {
 			e.printStackTrace();
 		}
-
+		System.out.println("Conversion Complete");
 		return tempWavFile;
 		
 	}
