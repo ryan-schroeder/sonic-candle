@@ -405,6 +405,7 @@ public class MainView {
 		m.fcIn.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 		m.fcIn.setFileFilter(new InputFilter());
 		m.fcOut = new JFileChooser();
+		//TODO Make the file filters for output the object that decides what format to output
 		m.fcOut.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 		m.fcOut.setFileFilter(new OutputFilter());
 
