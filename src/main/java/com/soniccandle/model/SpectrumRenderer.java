@@ -84,6 +84,11 @@ public abstract class SpectrumRenderer {
 
 	public void finish() {
 		outputter.finish();
+		try {
+			wavFile.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void renderAll() throws Exception {
@@ -91,7 +96,7 @@ public abstract class SpectrumRenderer {
 		while (!isDone) {
 			renderNextFrame();
 		}
-		outputter.finish();
+		finish();
 	}
 
 	public abstract BufferedImage renderVFrame(long vFrameNum)
