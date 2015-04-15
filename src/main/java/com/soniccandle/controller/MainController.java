@@ -473,7 +473,7 @@ public class MainController implements ActionListener {
 	public void unlockAfterRender() {
 		m.setAudioButton.setEnabled(true);
 		m.setOutputButton.setEnabled(true);
-		m.renderButton.setText("render");
+		m.renderButton.setText("Render");
 		m.renderButton.setActionCommand(RENDER);
 		m.outputMethod.setEnabled(true);
 		m.bgColorRed.setEnabled(true);
