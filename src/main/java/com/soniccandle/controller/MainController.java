@@ -56,7 +56,7 @@ public class MainController implements ActionListener {
 
 	public static String audioType;
 	
-	public static boolean generatedWav;
+	File generatedWav;
 	
 	public MainModel m;
 	public MainView v;
@@ -109,11 +109,10 @@ public class MainController implements ActionListener {
 					if ("wav".equals(audioType)){
 						m.audioFile = inputFile;
 						m.audioFileNameLabel.setText(m.audioFile.getName());//TODO use this to set default output name - Chris
-						generatedWav = false;
 					}else if("mp3".equals(audioType)){
 						m.audioFile = mp3ToWav(inputFile);
+						generatedWav = m.audioFile;
 						m.audioFileNameLabel.setText(inputFile.getName());//TODO use this to set default output name - Chris
-						generatedWav = true;
 					}
 					System.out.println("Wavfile: "+m.audioFile.getName());
 					
@@ -198,6 +197,7 @@ public class MainController implements ActionListener {
 				BufferedImage preview = renderer.renderVFrame(currentFrame);
 				JLabel previewLabel = new JLabel(new ImageIcon(preview));
 				JFrame previewFrame = new JFrame("Preview");
+				previewFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);//Added this to make sure it behaves as it should
 				// Icon code
 				Image icon;
 				InputStream input = getClass().getResourceAsStream(
@@ -403,10 +403,14 @@ public class MainController implements ActionListener {
 	
 	private File mp3ToWav(File audioFile){
 		//Check to make sure that if a generated wav file was created, it is deleted
-		if (m.audioFile != null && generatedWav == true){
-			if (m.audioFile.delete() == true){
-				System.out.println("Deleted unused wav file");
+		if (generatedWav != null){
+			String oldName = generatedWav.getName();
+			if (generatedWav.delete() == true){
+				System.out.println("Deleted unused wav file: "+oldName);
+			}else{
+				System.out.println("There was an issue deleting the old wavfile");
 			}
+			generatedWav = null;
 		}
 		System.out.println("Converting mp3 to wav...");
 		Converter converter = new Converter();
