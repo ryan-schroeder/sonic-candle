@@ -114,7 +114,7 @@ public class MainController implements ActionListener {
 					}else if("mp3".equals(audioType)){
 						System.out.println(audioType);
 						System.out.println("Converting mp3 to wav...");
-						m.audioFile = convertToWav(inputFile);
+						m.audioFile = mp3ToWav(inputFile);
 						m.audioFileNameLabel.setText(inputFile.getName());//TODO use this to set default output name - Chris
 						System.out.println(m.audioFile.getName());
 					}
@@ -412,7 +412,7 @@ public class MainController implements ActionListener {
 		return rs;
 	}
 	
-	private File convertToWav(File audioFile){
+	private File mp3ToWav(File audioFile){
 		
 		Converter converter = new Converter();
 		String fileURI = audioFile.getAbsolutePath();
@@ -432,6 +432,7 @@ public class MainController implements ActionListener {
 		return tempWavFile;
 		
 	}
+	//TODO add oggToWav converter
 
 	// exposed for unit tests only!
 	public void allowRenderIfReady() {

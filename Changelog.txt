@@ -1,0 +1,65 @@
+Sonic Candle 1.1.9
+------------------
+-Mp3 Support added! Now users may import Mp3 files into Sonic Candle!
+	Works by converting the mp3 file into a wav
+	The wav file is stored in the OS default temporary file
+	When the user exits the temporary wav file is deleted
+	This keeps things clean and the user doesn't have to worry about files popping up everywhere
+
+-Better file filtering (forces users to use files that Sonic Candle supports)
+
+Sonic Candle 1.1.8
+------------------
+-⁠Dark Nimbus look
+
+-⁠Made it so preview frame can't be 0 or below
+
+-Added in file filters for JFileChooser (easier to sort through messy folders that have a lot of files)
+
+-⁠Made panels fixed size so they don't dynamically change
+
+-⁠Pop Up and Etched block renderers (simulate depth with the blocks)
+
+-Filled and Outlined Oval renderers (to be kind of like a sharp round rectangle. I think it looks neat as it gets sharper the louder it is)
+
+Sonic Candle 1.1.7
+------------------
+-Preview Window 
+
+Sonic Candle 1.1.6
+------------------
+-Dark GUI
+
+Sonic Candle 1.1.5
+------------------
+-Background Image Scaling
+
+-Transparent Bars
+
+-Runtime Icon
+
+Sonic Candle 1.1.4
+------------------
+-Variable Dimensions
+
+-Variable Frame Rate
+
+-Round bar render
+
+Sonic Candle 1.1.2
+------------------
+-1080 Resolution Default
+
+-Bar colors
+
+Sonic Candle 1.1.1
+------------------
+-Runnable Jar
+
+-Multiple bar render options
+
+Sonic Candle 1.x<1
+------------------
+-Sonic Candle Creation
+
+-Renders Video off of wav file
