@@ -52,7 +52,6 @@ public class RenderSwingWorker extends SwingWorker<Boolean, Integer> {
 		m.progressBar.setValue(progress);
 	}
 
-	@SuppressWarnings("static-access")
 	@Override
 	public void done() {
 		c.unlockAfterRender();
@@ -70,19 +69,6 @@ public class RenderSwingWorker extends SwingWorker<Boolean, Integer> {
 			return;
 		}
 		
-		if (c.audioType.equals("mp3")){
-			if(m.audioFile.delete()){
-				//TODO evaluates to false. Find out why
-				System.out.println("File was deleted");
-			}else{
-				System.out.println("File was NOT deleted");
-			}
-			m.audioFile = null;
-			m.audioFileNameLabel.setText(" (no input selected) ");
-			JOptionPane.showMessageDialog(null, "Done! Input file cleared from Sonic Candle (for safety reasons)");
-		}else{
-			JOptionPane.showMessageDialog(null, "Done!");
-		}
 	}
 
 }

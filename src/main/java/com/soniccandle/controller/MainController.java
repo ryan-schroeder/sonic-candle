@@ -109,15 +109,16 @@ public class MainController implements ActionListener {
 					if ("wav".equals(audioType)){
 						System.out.println(audioType);
 						m.audioFile = inputFile;
+						m.audioFileNameLabel.setText(m.audioFile.getName());//TODO use this to set default output name - Chris
 						System.out.println(m.audioFile.getName());
 					}else if("mp3".equals(audioType)){
 						System.out.println(audioType);
 						System.out.println("Converting mp3 to wav...");
 						m.audioFile = convertToWav(inputFile);
+						m.audioFileNameLabel.setText(inputFile.getName());//TODO use this to set default output name - Chris
 						System.out.println(m.audioFile.getName());
 					}
 					
-					m.audioFileNameLabel.setText(m.audioFile.getName());//TODO use this to set default output name - Chris
 					
 				}else {
 					JOptionPane.showMessageDialog(m.pane, "Please use a supported format");
@@ -415,10 +416,15 @@ public class MainController implements ActionListener {
 		
 		Converter converter = new Converter();
 		String fileURI = audioFile.getAbsolutePath();
-		File tempWavFile = new File(fileURI + ".wav");
-		String tempFileURI = tempWavFile.getAbsolutePath();
+		File tempWavFile = null;
 		try {
-			converter.convert(fileURI, tempFileURI);
+			tempWavFile = File.createTempFile("soniccandle", ".wav");
+			tempWavFile.deleteOnExit();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		try {
+			converter.convert(fileURI, tempWavFile.getAbsolutePath());
 		} catch (JavaLayerException e) {
 			e.printStackTrace();
 		}
