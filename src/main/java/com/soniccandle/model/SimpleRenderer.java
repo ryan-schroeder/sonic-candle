@@ -55,6 +55,7 @@ public class SimpleRenderer extends SpectrumRenderer {
 		fft.complexForward(fftResult);
 		System.out.println("array fftResult has this many entries: "
 				+ fftResult.length);
+		
 		int i = 0;
 		int[] bars = new int[barCount];
 		int pointsPerBar = Math.round(((framesPerVFrame * 2) / barCount) / 16); // divide
@@ -98,6 +99,7 @@ public class SimpleRenderer extends SpectrumRenderer {
 																				// over.
 		System.out.println("total fftResult points: " + fftResult.length
 				+ "; pointsPerBar: " + pointsPerBar);
+		
 		while (i < barCount) {
 			bars[i] = 0;
 			// find the absolute-value peek in this region.

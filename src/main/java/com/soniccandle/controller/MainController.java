@@ -19,6 +19,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
+import javazoom.jl.converter.Converter;
+import javazoom.jl.decoder.JavaLayerException;
+
 import com.soniccandle.Main;
 import com.soniccandle.model.ImageSeqVideoOutputter;
 import com.soniccandle.model.MainModel;
@@ -26,6 +29,9 @@ import com.soniccandle.model.RenderSettings;
 import com.soniccandle.model.SimpleRenderer;
 import com.soniccandle.model.VideoOutputter;
 import com.soniccandle.model.XuggleVideoOutputter;
+import com.soniccandle.util.ImageFilter;
+import com.soniccandle.util.InputFilter;
+import com.soniccandle.util.Utils;
 import com.soniccandle.view.MainView;
 
 
@@ -46,7 +52,12 @@ public class MainController implements ActionListener {
 	public static final String BAR_STYLE_OVAL_FILLED = "08 Oval Filled";
 	public static final String BAR_STYLE_OVAL_OUTLINE = "09 Oval Outline";
 	public static final String PREVIEW = "PREVIEW";
+	public static final String DETAILS = "DETAILS";
 
+	public static String audioType;
+	
+	File generatedWav;
+	
 	public MainModel m;
 	public MainView v;
 	private RenderSwingWorker renderSwingWorker;
@@ -89,8 +100,25 @@ public class MainController implements ActionListener {
 		if (SET_INPUT_WAV.equals(e.getActionCommand())) {
 			int returnVal = m.fcIn.showOpenDialog(m.pane);
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
-				m.audioFile = m.fcIn.getSelectedFile();
-				m.audioFileNameLabel.setText(m.audioFile.getName());
+				File inputFile = m.fcIn.getSelectedFile();
+				if (InputFilter.supportedType(inputFile)){
+					audioType = (Utils.getExtension(inputFile));
+					System.out.println("File type is: "+audioType);
+					//I wanted to move this into the render event but the preview requires a wav file already loaded (broke when I moved this to render)
+					//So I'll have the wav file deleted after the render finishes but it will be created when the user loads in the mp3 (hooray awkward API's)
+					if ("wav".equals(audioType)){
+						m.audioFile = inputFile;
+						m.audioFileNameLabel.setText(m.audioFile.getName());//TODO use this to set default output name - Chris
+					}else if("mp3".equals(audioType)){
+						m.audioFile = mp3ToWav(inputFile);
+						generatedWav = m.audioFile;
+						m.audioFileNameLabel.setText(inputFile.getName());//TODO use this to set default output name - Chris
+					}
+					System.out.println("Wavfile: "+m.audioFile.getName());
+					
+				}else {
+					JOptionPane.showMessageDialog(m.pane, "Please use a supported format");
+				}
 			}
 		}
 		
@@ -142,8 +170,12 @@ public class MainController implements ActionListener {
 			if (returnVal != JFileChooser.APPROVE_OPTION) { // they hit cancel
 				return;
 			}
-			m.backgroundImageFile = m.fcBG.getSelectedFile();
-			m.bgImageNamelabel.setText(" " + m.backgroundImageFile.getName());
+			if (ImageFilter.supportedType(m.fcBG.getSelectedFile())){
+				m.backgroundImageFile = m.fcBG.getSelectedFile();
+				m.bgImageNamelabel.setText(" " + m.backgroundImageFile.getName());
+			}else{
+				JOptionPane.showMessageDialog(m.pane, "Please use a supported format");
+			}
 		}
 		
 		if (PREVIEW.equals(e.getActionCommand())) {
@@ -161,9 +193,11 @@ public class MainController implements ActionListener {
 					renderer.renderVFrame(currentFrame);
 					currentFrame ++;
 				}
+
 				BufferedImage preview = renderer.renderVFrame(currentFrame);
 				JLabel previewLabel = new JLabel(new ImageIcon(preview));
 				JFrame previewFrame = new JFrame("Preview");
+				previewFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);//Added this to make sure it behaves as it should
 				// Icon code
 				Image icon;
 				InputStream input = getClass().getResourceAsStream(
@@ -203,6 +237,7 @@ public class MainController implements ActionListener {
 			renderSwingWorker.execute();
 			JOptionPane.showMessageDialog(m.pane,
 					"Takes a sec for progress bar to show: give it a moment.");
+			
 		}
 
 		if (CANCEL_RENDER.equals(e.getActionCommand())) {
@@ -365,6 +400,38 @@ public class MainController implements ActionListener {
 		}
 		return rs;
 	}
+	
+	private File mp3ToWav(File audioFile){
+		//Check to make sure that if a generated wav file was created, it is deleted
+		if (generatedWav != null){
+			String oldName = generatedWav.getName();
+			if (generatedWav.delete() == true){
+				System.out.println("Deleted unused wav file: "+oldName);
+			}else{
+				System.out.println("There was an issue deleting the old wavfile");
+			}
+			generatedWav = null;
+		}
+		System.out.println("Converting mp3 to wav...");
+		Converter converter = new Converter();
+		String fileURI = audioFile.getAbsolutePath();
+		File tempWavFile = null;
+		try {
+			tempWavFile = File.createTempFile("soniccandle", ".wav");
+			tempWavFile.deleteOnExit();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		try {
+			converter.convert(fileURI, tempWavFile.getAbsolutePath());
+		} catch (JavaLayerException e) {
+			e.printStackTrace();
+		}
+		System.out.println("Conversion Complete");
+		return tempWavFile;
+		
+	}
+	//TODO add oggToWav converter
 
 	// exposed for unit tests only!
 	public void allowRenderIfReady() {
@@ -378,7 +445,7 @@ public class MainController implements ActionListener {
 	public void lockWhileRendering() {
 		m.setAudioButton.setEnabled(false);
 		m.setOutputButton.setEnabled(false);
-		m.renderButton.setText("cancel render");
+		m.renderButton.setText("Cancel Render");
 		m.renderButton.setActionCommand(CANCEL_RENDER);
 		m.outputMethod.setEnabled(false);
 		m.bgColorRed.setEnabled(false);
@@ -405,7 +472,7 @@ public class MainController implements ActionListener {
 	public void unlockAfterRender() {
 		m.setAudioButton.setEnabled(true);
 		m.setOutputButton.setEnabled(true);
-		m.renderButton.setText("render");
+		m.renderButton.setText("Render");
 		m.renderButton.setActionCommand(RENDER);
 		m.outputMethod.setEnabled(true);
 		m.bgColorRed.setEnabled(true);

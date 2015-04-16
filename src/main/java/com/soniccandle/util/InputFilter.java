@@ -3,9 +3,9 @@ package com.soniccandle.util;
 import java.io.File;
 import javax.swing.filechooser.*;
 
-public class ImageFilter extends FileFilter{
+public class InputFilter extends FileFilter{
 
-	//Accept all directories and all image files.
+	//Accept all directories and all wav files.
     public boolean accept(File f) {
         if (f.isDirectory()) {
             return true;
@@ -13,8 +13,8 @@ public class ImageFilter extends FileFilter{
  
         String extension = Utils.getExtension(f);
         if (extension != null) {
-            if (extension.equals(Utils.png)||
-            	extension.equals(Utils.jpg)) {
+            if (extension.equals(Utils.wav)|
+            	extension.equals(Utils.mp3)) {
                     return true;
             } else {
                 return false;
@@ -31,8 +31,8 @@ public class ImageFilter extends FileFilter{
  
         String extension = Utils.getExtension(f);
         if (extension != null) {
-            if (extension.equals(Utils.png)||
-            	extension.equals(Utils.jpg)) {
+            if (extension.equals(Utils.wav)|
+            	extension.equals(Utils.mp3)) {
                     return true;
             } else {
                 return false;
@@ -44,6 +44,6 @@ public class ImageFilter extends FileFilter{
  
     //The description of this filter
     public String getDescription() {
-        return "Image Files (.png or .jpg)";
+        return "Audio Files (wav,mp3)";
     }
 }

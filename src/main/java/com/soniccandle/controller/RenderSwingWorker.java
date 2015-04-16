@@ -15,6 +15,8 @@ import com.soniccandle.model.XuggleVideoOutputter;
 
 public class RenderSwingWorker extends SwingWorker<Boolean, Integer> {
 
+	
+	
 	public int videoFrameRate;
 	public int width;
 	public int height;
@@ -58,7 +60,7 @@ public class RenderSwingWorker extends SwingWorker<Boolean, Integer> {
 			JOptionPane
 					.showMessageDialog(
 							null,
-							"Ooof - looks like there was a problem, sorry.  Please check that your adio file is 16-bit wav, not 24 or 32, thanks!  Other bitrates coming soon, hopefully.");
+							"Ooof - looks like there was a problem, sorry.  Please check that your audio file is 16-bit wav, not 24 or 32, thanks!  Other bitrates coming soon, hopefully.");
 			return;
 		}
 		if (m.progressBar.getValue() < 99) {
@@ -66,8 +68,8 @@ public class RenderSwingWorker extends SwingWorker<Boolean, Integer> {
 					"Canceled - may not have created entire video =\\");
 			return;
 		}
-
 		JOptionPane.showMessageDialog(null, "Done!");
+		
 	}
 
 }

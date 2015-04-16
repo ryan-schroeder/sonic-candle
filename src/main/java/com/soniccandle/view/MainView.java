@@ -33,8 +33,8 @@ import com.soniccandle.Main;
 import com.soniccandle.controller.MainController;
 import com.soniccandle.model.MainModel;
 import com.soniccandle.util.ImageFilter;
+import com.soniccandle.util.InputFilter;
 import com.soniccandle.util.OutputFilter;
-import com.soniccandle.util.WavFilter;
 
 public class MainView {
 
@@ -373,7 +373,7 @@ public class MainView {
 		renderC.gridx = 5;
 		renderC.gridy = 0;
 		renderPanel.add(m.previewButton, renderC);
-
+		
 		m.progressBar = new JProgressBar(SwingConstants.HORIZONTAL, 0, 100);
 		m.progressBar.setValue(0);
 		m.progressBar.setEnabled(false);
@@ -395,8 +395,9 @@ public class MainView {
 		m.fcBG.setFileFilter(new ImageFilter());
 		m.fcIn = new JFileChooser();
 		m.fcIn.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-		m.fcIn.setFileFilter(new WavFilter());
+		m.fcIn.setFileFilter(new InputFilter());
 		m.fcOut = new JFileChooser();
+		//TODO Make the file filters for output the object that decides what format to output
 		m.fcOut.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 		m.fcOut.setFileFilter(new OutputFilter());
 
@@ -501,7 +502,7 @@ public class MainView {
 
 		return (SCBorder);
 	}
-
+	
 	private JLabel newSCLabel(String text) {
 		JLabel newSCLabel = new JLabel(text);
 		return newSCLabel;
