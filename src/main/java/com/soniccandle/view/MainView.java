@@ -183,7 +183,7 @@ public class MainView {
 		inOutC.insets = new Insets(5, 5, 5, 5);
 		inOutC.fill = GridBagConstraints.BOTH;
 
-		m.setAudioButton = newSCButton("Set Input .wav");
+		m.setAudioButton = newSCButton("Set Input");
 		m.setAudioButton.setActionCommand(MainController.SET_INPUT_WAV);
 		m.setAudioButton.addActionListener(c);
 		inOutC.weightx = 0.2;
