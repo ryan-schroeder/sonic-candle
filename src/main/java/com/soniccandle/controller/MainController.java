@@ -23,17 +23,16 @@ import javazoom.jl.converter.Converter;
 import javazoom.jl.decoder.JavaLayerException;
 
 import com.soniccandle.Main;
+import com.soniccandle.model.FastSimpleRenderer;
 import com.soniccandle.model.ImageSeqVideoOutputter;
 import com.soniccandle.model.MainModel;
 import com.soniccandle.model.RenderSettings;
-import com.soniccandle.model.SimpleRenderer;
 import com.soniccandle.model.VideoOutputter;
 import com.soniccandle.model.XuggleVideoOutputter;
 import com.soniccandle.util.ImageFilter;
 import com.soniccandle.util.InputFilter;
 import com.soniccandle.util.Utils;
 import com.soniccandle.view.MainView;
-
 
 public class MainController implements ActionListener {
 
@@ -55,9 +54,9 @@ public class MainController implements ActionListener {
 	public static final String DETAILS = "DETAILS";
 
 	public static String audioType;
-	
+
 	File generatedWav;
-	
+
 	public MainModel m;
 	public MainView v;
 	private RenderSwingWorker renderSwingWorker;
@@ -96,32 +95,55 @@ public class MainController implements ActionListener {
 					.showMessageDialog(m.pane, "Please enter a real Height!");
 			return;
 		}
-		
+
 		if (SET_INPUT_WAV.equals(e.getActionCommand())) {
 			int returnVal = m.fcIn.showOpenDialog(m.pane);
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
 				File inputFile = m.fcIn.getSelectedFile();
-				if (InputFilter.supportedType(inputFile)){
+				if (InputFilter.supportedType(inputFile)) {
 					audioType = (Utils.getExtension(inputFile));
-					System.out.println("File type is: "+audioType);
-					//I wanted to move this into the render event but the preview requires a wav file already loaded (broke when I moved this to render)
-					//So I'll have the wav file deleted after the render finishes but it will be created when the user loads in the mp3 (hooray awkward API's)
-					if ("wav".equals(audioType)){
+					System.out.println("File type is: " + audioType);
+					// I wanted to move this into the render event but the
+					// preview requires a wav file already loaded (broke when I
+					// moved this to render)
+					// So I'll have the wav file deleted after the render
+					// finishes but it will be created when the user loads in
+					// the mp3 (hooray awkward API's)
+					if ("wav".equals(audioType)) {
 						m.audioFile = inputFile;
-						m.audioFileNameLabel.setText(m.audioFile.getName());//TODO use this to set default output name - Chris
-					}else if("mp3".equals(audioType)){
+						m.audioFileNameLabel.setText(m.audioFile.getName());// TODO
+																			// use
+																			// this
+																			// to
+																			// set
+																			// default
+																			// output
+																			// name
+																			// -
+																			// Chris
+					} else if ("mp3".equals(audioType)) {
 						m.audioFile = mp3ToWav(inputFile);
 						generatedWav = m.audioFile;
-						m.audioFileNameLabel.setText(inputFile.getName());//TODO use this to set default output name - Chris
+						m.audioFileNameLabel.setText(inputFile.getName());// TODO
+																			// use
+																			// this
+																			// to
+																			// set
+																			// default
+																			// output
+																			// name
+																			// -
+																			// Chris
 					}
-					System.out.println("Wavfile: "+m.audioFile.getName());
-					
-				}else {
-					JOptionPane.showMessageDialog(m.pane, "Please use a supported format");
+					System.out.println("Wavfile: " + m.audioFile.getName());
+
+				} else {
+					JOptionPane.showMessageDialog(m.pane,
+							"Please use a supported format");
 				}
 			}
 		}
-		
+
 		if (SET_OUTPUT_MP4.equals(e.getActionCommand())) {
 			int returnVal = m.fcOut.showDialog(m.pane, "Set Output");
 
@@ -170,34 +192,51 @@ public class MainController implements ActionListener {
 			if (returnVal != JFileChooser.APPROVE_OPTION) { // they hit cancel
 				return;
 			}
-			if (ImageFilter.supportedType(m.fcBG.getSelectedFile())){
+			if (ImageFilter.supportedType(m.fcBG.getSelectedFile())) {
 				m.backgroundImageFile = m.fcBG.getSelectedFile();
-				m.bgImageNamelabel.setText(" " + m.backgroundImageFile.getName());
-			}else{
-				JOptionPane.showMessageDialog(m.pane, "Please use a supported format");
+				m.bgImageNamelabel.setText(" "
+						+ m.backgroundImageFile.getName());
+			} else {
+				JOptionPane.showMessageDialog(m.pane,
+						"Please use a supported format");
 			}
 		}
-		
+
 		if (PREVIEW.equals(e.getActionCommand())) {
 			RenderSettings rs;
 			try {
 				rs = extractRenderSettings(false);
-				SimpleRenderer renderer;
+				FastSimpleRenderer renderer;
 				renderer = rs.bakeSimpleRenderer(m);
-				int previewFrameInt = Integer.parseInt(m.previewFrame.getText());
-				if (previewFrameInt < 1){JOptionPane.showMessageDialog(m.pane, "Please enter a real frame to preview"); return;}
+				int previewFrameInt = Integer
+						.parseInt(m.previewFrame.getText());
+				if (previewFrameInt < 1) {
+					JOptionPane.showMessageDialog(m.pane,
+							"Please enter a real frame to preview");
+					return;
+				}
 				System.out.println("previewing frame: " + previewFrameInt);
-				// this is a temp fix.  Eventually, we should fast-forward inside the file to save time.
-				Integer currentFrame = 0; 
+				// this is a temp fix. Eventually, we should fast-forward inside
+				// the file to save time.
+				Integer currentFrame = 0;
 				while (currentFrame < previewFrameInt) {
 					renderer.renderVFrame(currentFrame);
-					currentFrame ++;
+					currentFrame++;
 				}
 
 				BufferedImage preview = renderer.renderVFrame(currentFrame);
 				JLabel previewLabel = new JLabel(new ImageIcon(preview));
 				JFrame previewFrame = new JFrame("Preview");
-				previewFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);//Added this to make sure it behaves as it should
+				previewFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);// Added
+																				// this
+																				// to
+																				// make
+																				// sure
+																				// it
+																				// behaves
+																				// as
+																				// it
+																				// should
 				// Icon code
 				Image icon;
 				InputStream input = getClass().getResourceAsStream(
@@ -206,7 +245,8 @@ public class MainController implements ActionListener {
 					icon = ImageIO.read(input);
 					previewFrame.setIconImage(icon);
 				} catch (IOException iconE) {
-					// Intentionally ignore exception (because it should never happen)
+					// Intentionally ignore exception (because it should never
+					// happen)
 				}
 				previewFrame.setResizable(false);
 				previewFrame.getContentPane().add(previewLabel);
@@ -218,7 +258,7 @@ public class MainController implements ActionListener {
 				}
 			}
 			return;
-	    }
+		}
 
 		if (RENDER.equals(e.getActionCommand())) {
 			renderSwingWorker = new RenderSwingWorker();
@@ -237,7 +277,7 @@ public class MainController implements ActionListener {
 			renderSwingWorker.execute();
 			JOptionPane.showMessageDialog(m.pane,
 					"Takes a sec for progress bar to show: give it a moment.");
-			
+
 		}
 
 		if (CANCEL_RENDER.equals(e.getActionCommand())) {
@@ -245,18 +285,19 @@ public class MainController implements ActionListener {
 		}
 	}
 
-	private RenderSettings extractRenderSettings(boolean getOutputter) throws Exception {
+	private RenderSettings extractRenderSettings(boolean getOutputter)
+			throws Exception {
 		RenderSettings rs = new RenderSettings();
 		if (m.audioFile == null) {
 			JOptionPane.showMessageDialog(null,
 					"That audio file does not exist.");
 			throw new Exception();
-		} 
+		}
 		if (!m.audioFile.exists()) {
 			JOptionPane.showMessageDialog(null,
 					"That audio file does not exist.");
 			throw new Exception();
-		} 
+		}
 		VideoOutputter outputter = null;
 		if (getOutputter) {
 			if (m.outputTo.exists() && !m.outputTo.isDirectory()) {
@@ -290,14 +331,14 @@ public class MainController implements ActionListener {
 				outputter = new ImageSeqVideoOutputter(m.audioFile, m.outputTo);
 			}
 		}
-		
+
 		rs.audioFile = m.audioFile;
 		rs.outputTo = m.outputTo;
 		rs.outputter = outputter;
 		rs.videoFrameRate = Main.getVideoFrameRate();
 		rs.width = Main.getVideoWidth();
 		rs.height = Main.getVideoHeight();
-		
+
 		if (getOutputter) {
 			rs.outputter = outputter;
 			rs.outputter.width = rs.width;
@@ -306,20 +347,16 @@ public class MainController implements ActionListener {
 		}
 
 		if (m.flatColorRb.isSelected()) {
-			BufferedImage backgroundImage = new BufferedImage(
-					rs.width, rs.height,
-					BufferedImage.TYPE_INT_ARGB);
+			BufferedImage backgroundImage = new BufferedImage(rs.width,
+					rs.height, BufferedImage.TYPE_INT_ARGB);
 			Graphics2D backgroundImageG = backgroundImage.createGraphics();
-			backgroundImageG.setColor(new Color(Integer
-					.parseInt(m.bgColorRed.getText()), Integer
-					.parseInt(m.bgColorGreen.getText()), Integer
-					.parseInt(m.bgColorBlue.getText())));
-			backgroundImageG.fillRect(0, 0, rs.width,
-					rs.height);
+			backgroundImageG.setColor(new Color(Integer.parseInt(m.bgColorRed
+					.getText()), Integer.parseInt(m.bgColorGreen.getText()),
+					Integer.parseInt(m.bgColorBlue.getText())));
+			backgroundImageG.fillRect(0, 0, rs.width, rs.height);
 			rs.backgroundImage = backgroundImage;
 		} else if (m.builtInImageRb.isSelected()) {
-			ClassLoader loader = Thread.currentThread()
-					.getContextClassLoader();
+			ClassLoader loader = Thread.currentThread().getContextClassLoader();
 			BufferedImage backgroundImage = null;
 			BufferedImage resizedBackgroundImage = null;
 			Graphics2D g = null;
@@ -400,15 +437,17 @@ public class MainController implements ActionListener {
 		}
 		return rs;
 	}
-	
-	private File mp3ToWav(File audioFile){
-		//Check to make sure that if a generated wav file was created, it is deleted
-		if (generatedWav != null){
+
+	private File mp3ToWav(File audioFile) {
+		// Check to make sure that if a generated wav file was created, it is
+		// deleted
+		if (generatedWav != null) {
 			String oldName = generatedWav.getName();
-			if (generatedWav.delete() == true){
-				System.out.println("Deleted unused wav file: "+oldName);
-			}else{
-				System.out.println("There was an issue deleting the old wavfile");
+			if (generatedWav.delete() == true) {
+				System.out.println("Deleted unused wav file: " + oldName);
+			} else {
+				System.out
+						.println("There was an issue deleting the old wavfile");
 			}
 			generatedWav = null;
 		}
@@ -429,9 +468,10 @@ public class MainController implements ActionListener {
 		}
 		System.out.println("Conversion Complete");
 		return tempWavFile;
-		
+
 	}
-	//TODO add oggToWav converter
+
+	// TODO add oggToWav converter
 
 	// exposed for unit tests only!
 	public void allowRenderIfReady() {

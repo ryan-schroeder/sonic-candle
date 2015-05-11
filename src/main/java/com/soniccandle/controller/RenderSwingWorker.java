@@ -7,9 +7,9 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 
+import com.soniccandle.model.FastSimpleRenderer;
 import com.soniccandle.model.MainModel;
 import com.soniccandle.model.RenderSettings;
-import com.soniccandle.model.SimpleRenderer;
 import com.soniccandle.model.VideoOutputter;
 import com.soniccandle.model.XuggleVideoOutputter;
 
@@ -30,7 +30,7 @@ public class RenderSwingWorker extends SwingWorker<Boolean, Integer> {
 
 	@Override
 	public Boolean doInBackground() {
-		SimpleRenderer renderer;
+		FastSimpleRenderer renderer;
 		try {
 			renderer = rs.bakeSimpleRenderer(m);
 			m.progressBar.setValue(1);
