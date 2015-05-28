@@ -172,7 +172,11 @@ public class FastSimpleRenderer extends SpectrumRenderer {
 															// integers made a
 															// perfect scale
 															// really hard)
-			barDrawer.drawBar(bars[i], x);
+			if (i == 1 && bars[i] == 0) {
+				barDrawer.drawBar( ((int)((bars[0] + bars[2])/2.0)), x);
+			} else {
+				barDrawer.drawBar(bars[i], x);
+			}
 			i++;
 		}
 		return img;
