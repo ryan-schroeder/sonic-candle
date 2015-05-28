@@ -95,7 +95,7 @@ public class MainView {
 
 		// Header (Image)
 		JLabel headerLabel = getHeaderLabel();
-		headerLabel.setPreferredSize(new Dimension(862,75));
+		headerLabel.setPreferredSize(new Dimension(930,54));
 		topC.gridwidth = 2;
 		topC.weightx = 1;
 		topC.gridx = 0;
