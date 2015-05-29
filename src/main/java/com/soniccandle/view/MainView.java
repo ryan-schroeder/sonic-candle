@@ -294,6 +294,12 @@ public class MainView {
 		m.bgColorBlue = newSCTextField("0");
 		m.bgColorBlue.setColumns(3);
 		m.bgColorPanel.add(m.bgColorBlue);
+		
+		JButton bgButton = new JButton("Color");
+		
+		bgButton.addActionListener(new BGColorPickerEar());
+		
+		m.bgColorPanel.add(bgButton);
 
 		bgC.gridwidth = 3;
 		bgC.gridx = 0;
@@ -592,6 +598,29 @@ public class MainView {
 			m.barColorBlue.setText("" + newColor.getBlue());
 			m.barColorGreen.setText("" + newColor.getGreen());
 			m.barAlpha.setText("" + newColor.getAlpha());
+		}
+	}
+	
+	private class BGColorPickerEar implements ActionListener {
+
+		public void actionPerformed(ActionEvent e) {
+			Color color = new Color(Integer.parseInt(m.bgColorRed.getText()),
+					Integer.parseInt(m.bgColorGreen.getText()),
+					Integer.parseInt(m.bgColorBlue.getText()));
+			Color newColor = null;
+			try {
+				newColor = JColorChooser.showDialog(null, "Color Picker",
+						color);
+			} catch (Exception e1) {
+				System.out.println("User didn't select a color");
+				return;
+			}
+			if (newColor == null){
+				return;
+			}
+			m.bgColorRed.setText("" + newColor.getRed());
+			m.bgColorBlue.setText("" + newColor.getBlue());
+			m.bgColorGreen.setText("" + newColor.getGreen());
 		}
 	}
 }
