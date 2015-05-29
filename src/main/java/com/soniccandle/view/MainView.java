@@ -7,7 +7,6 @@ import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.HeadlessException;
 import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
@@ -582,8 +581,11 @@ public class MainView {
 			try {
 				newColor = JColorChooser.showDialog(null, "Color Picker",
 						color);
-			} catch (HeadlessException e1) {
+			} catch (Exception e1) {
 				System.out.println("User didn't select a color");
+				return;
+			}
+			if (newColor == null){
 				return;
 			}
 			m.barColorRed.setText("" + newColor.getRed());
