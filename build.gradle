@@ -14,12 +14,14 @@ apply plugin:'application'
 apply plugin: "com.github.johnrengelman.shadow"
 
 sourceCompatibility = 1.5
-version = '1.1.10'
+version = '1.1.11'
 mainClassName = "com.soniccandle.Main"
 
 jar {
     manifest {
-        attributes 'Implementation-Title': 'Gradle Quickstart', 'Implementation-Version': version
+        attributes  'Implementation-Title': 'Gradle Quickstart',
+        			'Implementation-Version': version,
+        			'SplashScreen-Image': 'sonic-candle-splash.jpg'
     }
 }
 
