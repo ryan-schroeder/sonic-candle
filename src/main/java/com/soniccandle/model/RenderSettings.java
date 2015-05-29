@@ -15,17 +15,20 @@ public class RenderSettings {
 	public int width;
 	public int height;
 	public BufferedImage backgroundImage;
-	public FastSimpleRenderer bakeSimpleRenderer(MainModel m) throws IOException, WavFileException {
-		FastSimpleRenderer renderer = new FastSimpleRenderer(audioFile, videoFrameRate, width,
-				height, outputTo);
+
+	public FastSimpleRenderer bakeSimpleRenderer(MainModel m)
+			throws IOException, WavFileException {
+		FastSimpleRenderer renderer = new FastSimpleRenderer(audioFile,
+				videoFrameRate, width, height, outputTo);
 		renderer.backgroundImage = backgroundImage;
 		renderer.barStyle = (String) m.barStyle.getSelectedItem();
-		renderer.barColor = new Color(Integer.parseInt(m.barColorRed
-				.getText()), Integer.parseInt(m.barColorGreen.getText()),
+		renderer.barColor = new Color(
+				Integer.parseInt(m.barColorRed.getText()),
+				Integer.parseInt(m.barColorGreen.getText()),
 				Integer.parseInt(m.barColorBlue.getText()),
 				Integer.parseInt(m.barAlpha.getText()));
 		renderer.outputter = outputter;
 		return renderer;
 	}
-	
+
 }

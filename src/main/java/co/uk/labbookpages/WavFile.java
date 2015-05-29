@@ -207,7 +207,8 @@ public class WavFile {
 			throw new WavFileException(
 					"Invalid Wav Header data, incorrect riff type ID");
 
-		//TODO fix jlayer encoder so that we only have to use 'file.length() != chunkSize + 8' instead of adding an 'Illegal Exception'
+		// TODO fix jlayer encoder so that we only have to use 'file.length() !=
+		// chunkSize + 8' instead of adding an 'Illegal Exception'
 		// Check that the file size matches the number of bytes listed in header
 		if (file.length() != chunkSize & file.length() != chunkSize + 8) {
 			throw new WavFileException("Header chunk size (" + chunkSize

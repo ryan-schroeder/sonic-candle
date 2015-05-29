@@ -25,8 +25,10 @@ public class OvalFilledDrawer extends BarDrawer {
 
 		// new way
 		// System.out.println(radius); --system runs on truncation for non ints
-		g.fillOval(x - center, half - height, drawBarWidth,
-				drawHeight * 2);// draw up and down
+		g.fillOval(x - center, half - height, drawBarWidth, drawHeight * 2);// draw
+																			// up
+																			// and
+																			// down
 
 	}
 

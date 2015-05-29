@@ -26,7 +26,8 @@ public class PopUpBlockDrawer extends BarDrawer {
 
 		// new way
 		// System.out.println(radius); --system runs on truncation for non ints
-		g.fill3DRect(x - center, half - height, drawBarWidth, drawHeight * 2, true);// draw up and down
+		g.fill3DRect(x - center, half - height, drawBarWidth, drawHeight * 2,
+				true);// draw up and down
 
 	}
 

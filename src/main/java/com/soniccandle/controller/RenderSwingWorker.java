@@ -15,8 +15,6 @@ import com.soniccandle.model.XuggleVideoOutputter;
 
 public class RenderSwingWorker extends SwingWorker<Boolean, Integer> {
 
-	
-	
 	public int videoFrameRate;
 	public int width;
 	public int height;
@@ -69,7 +67,7 @@ public class RenderSwingWorker extends SwingWorker<Boolean, Integer> {
 			return;
 		}
 		JOptionPane.showMessageDialog(null, "Done!");
-		
+
 	}
 
 }

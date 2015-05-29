@@ -55,7 +55,7 @@ public class SimpleRenderer extends SpectrumRenderer {
 		fft.complexForward(fftResult);
 		System.out.println("array fftResult has this many entries: "
 				+ fftResult.length);
-		
+
 		int i = 0;
 		int[] bars = new int[barCount];
 		int pointsPerBar = Math.round(((framesPerVFrame * 2) / barCount) / 16); // divide
@@ -99,7 +99,7 @@ public class SimpleRenderer extends SpectrumRenderer {
 																				// over.
 		System.out.println("total fftResult points: " + fftResult.length
 				+ "; pointsPerBar: " + pointsPerBar);
-		
+
 		while (i < barCount) {
 			bars[i] = 0;
 			// find the absolute-value peek in this region.
@@ -150,13 +150,13 @@ public class SimpleRenderer extends SpectrumRenderer {
 			barDrawer = new RoundBlockBarDrawer(g, half, barWidth);
 		} else if (barStyle.equals(MainController.BAR_STYLE_ROUND_OUTLINE)) {
 			barDrawer = new RoundOutlineBarDrawer(g, half, barWidth);
-		}else if (barStyle.equals(MainController.BAR_STYLE_DEPTH_BLOCK)) {
+		} else if (barStyle.equals(MainController.BAR_STYLE_DEPTH_BLOCK)) {
 			barDrawer = new PopUpBlockDrawer(g, half, barWidth);
-		}else if (barStyle.equals(MainController.BAR_STYLE_DEPTH_BLOCK2)) {
+		} else if (barStyle.equals(MainController.BAR_STYLE_DEPTH_BLOCK2)) {
 			barDrawer = new EtchedBlockDrawer(g, half, barWidth);
-		}else if (barStyle.equals(MainController.BAR_STYLE_OVAL_FILLED)) {
+		} else if (barStyle.equals(MainController.BAR_STYLE_OVAL_FILLED)) {
 			barDrawer = new OvalFilledDrawer(g, half, barWidth);
-		}else if (barStyle.equals(MainController.BAR_STYLE_OVAL_OUTLINE)) {
+		} else if (barStyle.equals(MainController.BAR_STYLE_OVAL_OUTLINE)) {
 			barDrawer = new OvalOutlineDrawer(g, half, barWidth);
 		}
 

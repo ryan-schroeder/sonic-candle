@@ -76,8 +76,8 @@ public class MainView {
 		JFrame frame = new JFrame("Sonic Candle");
 		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setLocationRelativeTo(null);//Open frame in center of screen
-//		TODO fix the above code so the frame opens at center of screen
+		frame.setLocationRelativeTo(null);// Open frame in center of screen
+		// TODO fix the above code so the frame opens at center of screen
 
 		// Icon code
 		Image icon;
@@ -480,7 +480,7 @@ public class MainView {
 		cpButton.addActionListener(new ColorPickerEar());
 
 		panelColorPicker.add(cpButton);
-		
+
 		barsC.gridwidth = 1;
 		barsC.gridx = 1;
 		barsC.gridy = 2;
@@ -569,10 +569,10 @@ public class MainView {
 					Integer.parseInt(m.barColorBlue.getText()));
 			Color newColor = JColorChooser.showDialog(null, "Color Picker",
 					color);
-			m.barColorRed.setText(""+newColor.getRed());
-			m.barColorBlue.setText(""+newColor.getBlue());
-			m.barColorGreen.setText(""+newColor.getGreen());
-			m.barAlpha.setText(""+newColor.getAlpha());
+			m.barColorRed.setText("" + newColor.getRed());
+			m.barColorBlue.setText("" + newColor.getBlue());
+			m.barColorGreen.setText("" + newColor.getGreen());
+			m.barAlpha.setText("" + newColor.getAlpha());
 		}
 	}
 }

@@ -20,8 +20,8 @@ public class FastSimpleRenderer extends SpectrumRenderer {
 	public String barStyle;
 	public Color barColor;
 
-	public FastSimpleRenderer(File audioFile, int frameRate, int width, int height,
-			File outputTo) throws IOException, WavFileException {
+	public FastSimpleRenderer(File audioFile, int frameRate, int width,
+			int height, File outputTo) throws IOException, WavFileException {
 		super(audioFile, frameRate, width, height, outputTo);
 	}
 
@@ -55,7 +55,7 @@ public class FastSimpleRenderer extends SpectrumRenderer {
 		fft.complexForward(fftResult);
 		System.out.println("array fftResult has this many entries: "
 				+ fftResult.length);
-		
+
 		int i = 0;
 		int[] bars = new int[barCount];
 		int pointsPerBar = Math.round(((framesPerVFrame * 2) / barCount) / 16); // divide
@@ -99,7 +99,7 @@ public class FastSimpleRenderer extends SpectrumRenderer {
 																				// over.
 		System.out.println("total fftResult points: " + fftResult.length
 				+ "; pointsPerBar: " + pointsPerBar);
-		
+
 		while (i < barCount) {
 			bars[i] = 0;
 			// find the absolute-value peek in this region.
@@ -150,13 +150,13 @@ public class FastSimpleRenderer extends SpectrumRenderer {
 			barDrawer = new RoundBlockBarDrawer(g, half, barWidth);
 		} else if (barStyle.equals(MainController.BAR_STYLE_ROUND_OUTLINE)) {
 			barDrawer = new RoundOutlineBarDrawer(g, half, barWidth);
-		}else if (barStyle.equals(MainController.BAR_STYLE_DEPTH_BLOCK)) {
+		} else if (barStyle.equals(MainController.BAR_STYLE_DEPTH_BLOCK)) {
 			barDrawer = new PopUpBlockDrawer(g, half, barWidth);
-		}else if (barStyle.equals(MainController.BAR_STYLE_DEPTH_BLOCK2)) {
+		} else if (barStyle.equals(MainController.BAR_STYLE_DEPTH_BLOCK2)) {
 			barDrawer = new EtchedBlockDrawer(g, half, barWidth);
-		}else if (barStyle.equals(MainController.BAR_STYLE_OVAL_FILLED)) {
+		} else if (barStyle.equals(MainController.BAR_STYLE_OVAL_FILLED)) {
 			barDrawer = new OvalFilledDrawer(g, half, barWidth);
-		}else if (barStyle.equals(MainController.BAR_STYLE_OVAL_OUTLINE)) {
+		} else if (barStyle.equals(MainController.BAR_STYLE_OVAL_OUTLINE)) {
 			barDrawer = new OvalOutlineDrawer(g, half, barWidth);
 		}
 
@@ -173,7 +173,7 @@ public class FastSimpleRenderer extends SpectrumRenderer {
 															// perfect scale
 															// really hard)
 			if (i == 1 && bars[i] == 0) {
-				barDrawer.drawBar( ((int)((bars[0] + bars[2])/2.0)), x);
+				barDrawer.drawBar(((int) ((bars[0] + bars[2]) / 2.0)), x);
 			} else {
 				barDrawer.drawBar(bars[i], x);
 			}
