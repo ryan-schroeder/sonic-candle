@@ -7,6 +7,7 @@ import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.HeadlessException;
 import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
@@ -73,9 +74,10 @@ public class MainView {
 					.println("Nimbus look and feel not found (MainView.java)");
 			e.printStackTrace();
 		}
-		
-//		Get screen size
-		GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+
+		// Get screen size
+		GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment()
+				.getDefaultScreenDevice();
 		int screenWidth = gd.getDisplayMode().getWidth();
 		int screenHeight = gd.getDisplayMode().getHeight();
 
@@ -414,9 +416,10 @@ public class MainView {
 
 		// Display the window.
 		frame.pack();
-//		Center frame on screen
-		frame.setLocation((screenWidth/2)-(frame.getWidth()/2),(screenHeight/2)-(frame.getHeight()/2) );
-		
+		// Center frame on screen
+		frame.setLocation((screenWidth / 2) - (frame.getWidth() / 2),
+				(screenHeight / 2) - (frame.getHeight() / 2));
+
 		frame.setVisible(true);
 	}
 
@@ -575,8 +578,14 @@ public class MainView {
 			Color color = new Color(Integer.parseInt(m.barColorRed.getText()),
 					Integer.parseInt(m.barColorGreen.getText()),
 					Integer.parseInt(m.barColorBlue.getText()));
-			Color newColor = JColorChooser.showDialog(null, "Color Picker",
-					color);
+			Color newColor = null;
+			try {
+				newColor = JColorChooser.showDialog(null, "Color Picker",
+						color);
+			} catch (HeadlessException e1) {
+				System.out.println("User didn't select a color");
+				return;
+			}
 			m.barColorRed.setText("" + newColor.getRed());
 			m.barColorBlue.setText("" + newColor.getBlue());
 			m.barColorGreen.setText("" + newColor.getGreen());
