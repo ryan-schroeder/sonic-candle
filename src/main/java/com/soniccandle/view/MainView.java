@@ -40,6 +40,7 @@ import com.soniccandle.model.MainModel;
 import com.soniccandle.util.ImageFilter;
 import com.soniccandle.util.InputFilter;
 import com.soniccandle.util.OutputFilter;
+import com.soniccandle.view.components.ColorBox;
 
 public class MainView {
 
@@ -56,6 +57,8 @@ public class MainView {
 
 	public MainModel m;
 	public MainController c;
+	
+	private ColorBox colorBox;
 
 	public void createAndShowGUI() {
 
@@ -496,6 +499,11 @@ public class MainView {
 		cpButton.addActionListener(new BarColorPickerEar());
 
 		panelColorPicker.add(cpButton);
+		
+		colorBox = new ColorBox(m);
+		
+		panelColorPicker.add(colorBox);
+		
 
 		barsC.gridwidth = 1;
 		barsC.gridx = 1;
@@ -598,6 +606,8 @@ public class MainView {
 			m.barColorBlue.setText("" + newColor.getBlue());
 			m.barColorGreen.setText("" + newColor.getGreen());
 			m.barAlpha.setText("" + newColor.getAlpha());
+			
+			colorBox.updateBox();
 		}
 	}
 	
@@ -621,6 +631,8 @@ public class MainView {
 			m.bgColorRed.setText("" + newColor.getRed());
 			m.bgColorBlue.setText("" + newColor.getBlue());
 			m.bgColorGreen.setText("" + newColor.getGreen());
+			
+			colorBox.updateBox();
 		}
 	}
 }
