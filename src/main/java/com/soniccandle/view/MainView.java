@@ -7,6 +7,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,6 +18,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JColorChooser;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -54,26 +57,28 @@ public class MainView {
 
 	public void createAndShowGUI() {
 
-
-		//use Nimbus
+		// use Nimbus
 		try {
-		    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-		        if ("Nimbus".equals(info.getName())) {
-		        	customizeNimbus();
-		            UIManager.setLookAndFeel(info.getClassName());
-		            break;
-		        }
-		    }
+			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+				if ("Nimbus".equals(info.getName())) {
+					customizeNimbus();
+					UIManager.setLookAndFeel(info.getClassName());
+					break;
+				}
+			}
 		} catch (Exception e) {
-		    System.out.println("Nimbus look and feel not found (MainView.java)");
-		    e.printStackTrace();
+			System.out
+					.println("Nimbus look and feel not found (MainView.java)");
+			e.printStackTrace();
 		}
-		
+
 		// Create and set up the window.
 		JFrame frame = new JFrame("Sonic Candle");
 		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+		frame.setLocationRelativeTo(null);//Open frame in center of screen
+//		TODO fix the above code so the frame opens at center of screen
+
 		// Icon code
 		Image icon;
 		InputStream input = getClass().getResourceAsStream(
@@ -95,7 +100,7 @@ public class MainView {
 
 		// Header (Image)
 		JLabel headerLabel = getHeaderLabel();
-		headerLabel.setPreferredSize(new Dimension(930,54));
+		headerLabel.setPreferredSize(new Dimension(930, 54));
 		topC.gridwidth = 2;
 		topC.weightx = 1;
 		topC.gridx = 0;
@@ -108,7 +113,7 @@ public class MainView {
 		JPanel vpPanel = new JPanel();
 		vpPanel.setLayout(new GridBagLayout());
 		vpPanel.setBorder(newTitledLabel("Video Properties"));
-		vpPanel.setPreferredSize(new Dimension(460,115));
+		vpPanel.setPreferredSize(new Dimension(460, 115));
 		GridBagConstraints vpC = new GridBagConstraints();
 		vpC.insets = new Insets(5, 5, 5, 5);
 		vpC.fill = GridBagConstraints.BOTH;
@@ -178,7 +183,7 @@ public class MainView {
 		JPanel inOutPanel = new JPanel();
 		inOutPanel.setLayout(new GridBagLayout());
 		inOutPanel.setBorder(newTitledLabel("Input and Output Files"));
-		inOutPanel.setPreferredSize(new Dimension(460,150));
+		inOutPanel.setPreferredSize(new Dimension(460, 150));
 		GridBagConstraints inOutC = new GridBagConstraints();
 		inOutC.insets = new Insets(5, 5, 5, 5);
 		inOutC.fill = GridBagConstraints.BOTH;
@@ -237,7 +242,7 @@ public class MainView {
 		JPanel bgPanel = new JPanel();
 		bgPanel.setLayout(new GridBagLayout());
 		bgPanel.setBorder(newTitledLabel("Background Options"));
-		bgPanel.setPreferredSize(new Dimension(460,115));
+		bgPanel.setPreferredSize(new Dimension(460, 115));
 		GridBagConstraints bgC = new GridBagConstraints();
 		bgC.insets = new Insets(5, 5, 5, 5);
 		bgC.fill = GridBagConstraints.BOTH;
@@ -353,27 +358,27 @@ public class MainView {
 		renderC.gridx = 0;
 		renderC.gridy = 0;
 		renderPanel.add(m.renderButton, renderC);
-		
+
 		label = newSCLabel("Preview at Frame: ");
 		renderC.gridwidth = 1;
 		renderC.weightx = 0;
 		renderC.gridx = 3;
 		renderC.gridy = 0;
 		renderPanel.add(label, renderC);
-		
+
 		m.previewFrame = newSCTextField("1");
 		m.previewFrame.setColumns(4);
 		renderC.gridx = 4;
 		renderC.gridy = 0;
-		renderPanel.add(m.previewFrame, renderC);	
-		
+		renderPanel.add(m.previewFrame, renderC);
+
 		m.previewButton = newSCButton(" Preview ");
 		m.previewButton.setActionCommand(MainController.PREVIEW);
 		m.previewButton.addActionListener(c);
 		renderC.gridx = 5;
 		renderC.gridy = 0;
 		renderPanel.add(m.previewButton, renderC);
-		
+
 		m.progressBar = new JProgressBar(SwingConstants.HORIZONTAL, 0, 100);
 		m.progressBar.setValue(0);
 		m.progressBar.setEnabled(false);
@@ -383,7 +388,7 @@ public class MainView {
 		renderC.gridx = 0;
 		renderC.gridy = 1;
 		renderPanel.add(m.progressBar, renderC);
-		
+
 		topC.gridwidth = 2;
 		topC.weightx = 1;
 		topC.gridx = 0;
@@ -397,7 +402,8 @@ public class MainView {
 		m.fcIn.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 		m.fcIn.setFileFilter(new InputFilter());
 		m.fcOut = new JFileChooser();
-		//TODO Make the file filters for output the object that decides what format to output
+		// TODO Make the file filters for output the object that decides what
+		// format to output
 		m.fcOut.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 		m.fcOut.setFileFilter(new OutputFilter());
 
@@ -421,8 +427,9 @@ public class MainView {
 	private JPanel makeBarsPanel() {
 		JPanel barsPanel = new JPanel();
 		barsPanel.setLayout(new GridBagLayout());
-		barsPanel.setBorder(newTitledLabel("Bar Customization (More options coming soon!)"));
-		barsPanel.setPreferredSize(new Dimension(460,150));
+		barsPanel
+				.setBorder(newTitledLabel("Bar Customization (More options coming soon!)"));
+		barsPanel.setPreferredSize(new Dimension(460, 150));
 		GridBagConstraints barsC = new GridBagConstraints();
 		barsC.insets = new Insets(5, 5, 5, 5);
 		barsC.fill = GridBagConstraints.BOTH;
@@ -433,7 +440,7 @@ public class MainView {
 		barsC.gridy = 0;
 		barsPanel.add(label, barsC);
 
-		label = newSCLabel("Bar Color (RGB 0-255) ");
+		label = newSCLabel("Bar Color (RGBA 0-255) ");
 		barsC.gridwidth = 1;
 		barsC.gridx = 0;
 		barsC.gridy = 1;
@@ -453,26 +460,31 @@ public class MainView {
 		m.barColorBlue.setColumns(3);
 		panel.add(m.barColorBlue);
 
+		m.barAlpha = newSCTextField("255");
+		m.barAlpha.setColumns(3);
+		panel.add(m.barAlpha);
+
 		barsC.gridx = 1;
 		barsC.gridy = 1;
 		barsPanel.add(panel, barsC);
 
-		label = newSCLabel("Alpha/Transparency (0-255): ");
+		label = newSCLabel("Color Picker: ");
 		barsC.gridwidth = 1;
 		barsC.gridx = 0;
 		barsC.gridy = 2;
 		barsPanel.add(label, barsC);
 
-		JPanel panelAlpha = new JPanel();
+		JPanel panelColorPicker = new JPanel();
 
-		m.barAlpha = newSCTextField("255");
-		m.barAlpha.setColumns(3);
-		panelAlpha.add(m.barAlpha);
+		JButton cpButton = new JButton("Color Picker");
+		cpButton.addActionListener(new ColorPickerEar());
 
+		panelColorPicker.add(cpButton);
+		
 		barsC.gridwidth = 1;
 		barsC.gridx = 1;
 		barsC.gridy = 2;
-		barsPanel.add(panelAlpha, barsC);
+		barsPanel.add(panelColorPicker, barsC);
 
 		String[] barStyles = { MainController.BAR_STYLE_THICK_BROCK,
 				MainController.BAR_STYLE_OUTLINE_BLOCK,
@@ -482,7 +494,7 @@ public class MainView {
 				MainController.BAR_STYLE_DEPTH_BLOCK,
 				MainController.BAR_STYLE_DEPTH_BLOCK2,
 				MainController.BAR_STYLE_OVAL_FILLED,
-				MainController.BAR_STYLE_OVAL_OUTLINE};
+				MainController.BAR_STYLE_OVAL_OUTLINE };
 		m.barStyle = newSCComboBoxString(barStyles);
 		barsC.gridx = 1;
 		barsC.gridy = 0;
@@ -491,18 +503,19 @@ public class MainView {
 		return barsPanel;
 	}
 
-	private TitledBorder newTitledLabel(String title) {		
-		
-		javax.swing.border.Border normalBorder = (BorderFactory.createSoftBevelBorder(2));
+	private TitledBorder newTitledLabel(String title) {
+
+		javax.swing.border.Border normalBorder = (BorderFactory
+				.createSoftBevelBorder(2));
 		Font myFont = new Font("Plain", Font.BOLD, 12);
 
-		TitledBorder SCBorder = (BorderFactory
-				.createTitledBorder(normalBorder, title, TitledBorder.LEFT,
-						TitledBorder.ABOVE_TOP, myFont, Color.WHITE));
+		TitledBorder SCBorder = (BorderFactory.createTitledBorder(normalBorder,
+				title, TitledBorder.LEFT, TitledBorder.ABOVE_TOP, myFont,
+				Color.WHITE));
 
 		return (SCBorder);
 	}
-	
+
 	private JLabel newSCLabel(String text) {
 		JLabel newSCLabel = new JLabel(text);
 		return newSCLabel;
@@ -511,7 +524,7 @@ public class MainView {
 
 	private JTextField newSCTextField(String text) {
 		JTextField newSCTextField = new JTextField(text);
-		newSCTextField.setMinimumSize(new Dimension(46,24));
+		newSCTextField.setMinimumSize(new Dimension(46, 24));
 		return (newSCTextField);
 	}
 
@@ -529,8 +542,9 @@ public class MainView {
 		JButton newSCButton = new JButton(text);
 		return newSCButton;
 	}
-	private void customizeNimbus(){
-		//General Changes
+
+	private void customizeNimbus() {
+		// General Changes
 		UIManager.put("control", PANELCOLOR);
 		UIManager.put("text", Color.WHITE);
 		UIManager.put("nimbusLightBackground", BGCOLOR);
@@ -542,7 +556,23 @@ public class MainView {
 		UIManager.put("nimbusSelection", Color.GRAY);
 		UIManager.put("textHighlight", Color.GRAY);
 		UIManager.put("nimbusSelectionBackground", Color.DARK_GRAY);
-		
-		
+
+	}
+
+	// Action listeners (ears... hehe)
+
+	private class ColorPickerEar implements ActionListener {
+
+		public void actionPerformed(ActionEvent e) {
+			Color color = new Color(Integer.parseInt(m.barColorRed.getText()),
+					Integer.parseInt(m.barColorGreen.getText()),
+					Integer.parseInt(m.barColorBlue.getText()));
+			Color newColor = JColorChooser.showDialog(null, "Color Picker",
+					color);
+			m.barColorRed.setText(""+newColor.getRed());
+			m.barColorBlue.setText(""+newColor.getBlue());
+			m.barColorGreen.setText(""+newColor.getGreen());
+			m.barAlpha.setText(""+newColor.getAlpha());
+		}
 	}
 }
