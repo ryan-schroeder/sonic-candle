@@ -1,3 +1,7 @@
+Sonic Candle 1.1.10
+------------------
+-Fixed dead bar
+
 Sonic Candle 1.1.9
 ------------------
 -Mp3 Support added! Now users may import Mp3 files into Sonic Candle!
