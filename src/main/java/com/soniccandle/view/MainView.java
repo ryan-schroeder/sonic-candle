@@ -3,6 +3,8 @@ package com.soniccandle.view;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
@@ -71,13 +73,16 @@ public class MainView {
 					.println("Nimbus look and feel not found (MainView.java)");
 			e.printStackTrace();
 		}
+		
+//		Get screen size
+		GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+		int screenWidth = gd.getDisplayMode().getWidth();
+		int screenHeight = gd.getDisplayMode().getHeight();
 
 		// Create and set up the window.
 		JFrame frame = new JFrame("Sonic Candle");
 		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setLocationRelativeTo(null);// Open frame in center of screen
-		// TODO fix the above code so the frame opens at center of screen
 
 		// Icon code
 		Image icon;
@@ -409,6 +414,9 @@ public class MainView {
 
 		// Display the window.
 		frame.pack();
+//		Center frame on screen
+		frame.setLocation((screenWidth/2)-(frame.getWidth()/2),(screenHeight/2)-(frame.getHeight()/2) );
+		
 		frame.setVisible(true);
 	}
 
@@ -477,7 +485,7 @@ public class MainView {
 		JPanel panelColorPicker = new JPanel();
 
 		JButton cpButton = new JButton("Color Picker");
-		cpButton.addActionListener(new ColorPickerEar());
+		cpButton.addActionListener(new BarColorPickerEar());
 
 		panelColorPicker.add(cpButton);
 
@@ -561,7 +569,7 @@ public class MainView {
 
 	// Action listeners (ears... hehe)
 
-	private class ColorPickerEar implements ActionListener {
+	private class BarColorPickerEar implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
 			Color color = new Color(Integer.parseInt(m.barColorRed.getText()),
