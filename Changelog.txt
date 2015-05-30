@@ -3,6 +3,7 @@ Sonic Candle 1.1.11
 -Added color pickers
 -Added splash screen (shown when opening a jar made with Gradle)
 -Added colorbox preview component
+-Default resolution is now equal to the users screen resolution
 
 Sonic Candle 1.1.10
 ------------------
