@@ -285,15 +285,15 @@ public class MainView {
 		label = newSCLabel("RGB values (0-255 for each color): ");
 		m.bgColorPanel.add(label);
 
-		m.bgColorRed = newSCTextField("0");
+		m.bgColorRed = newSCTextField(""+BGCOLOR.getRed());
 		m.bgColorRed.setColumns(3);
 		m.bgColorPanel.add(m.bgColorRed);
 
-		m.bgColorGreen = newSCTextField("0");
+		m.bgColorGreen = newSCTextField(""+BGCOLOR.getGreen());
 		m.bgColorGreen.setColumns(3);
 		m.bgColorPanel.add(m.bgColorGreen);
 
-		m.bgColorBlue = newSCTextField("0");
+		m.bgColorBlue = newSCTextField(""+BGCOLOR.getBlue());
 		m.bgColorBlue.setColumns(3);
 		m.bgColorPanel.add(m.bgColorBlue);
 
@@ -466,15 +466,15 @@ public class MainView {
 
 		JPanel panel = new JPanel();
 
-		m.barColorRed = newSCTextField("255");
+		m.barColorRed = newSCTextField(""+SCPURPLE.getRed());
 		m.barColorRed.setColumns(3);
 		panel.add(m.barColorRed);
 
-		m.barColorGreen = newSCTextField("255");
+		m.barColorGreen = newSCTextField(""+SCPURPLE.getGreen());
 		m.barColorGreen.setColumns(3);
 		panel.add(m.barColorGreen);
 
-		m.barColorBlue = newSCTextField("255");
+		m.barColorBlue = newSCTextField(""+SCPURPLE.getBlue());
 		m.barColorBlue.setColumns(3);
 		panel.add(m.barColorBlue);
 
