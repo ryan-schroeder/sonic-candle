@@ -39,6 +39,7 @@ import com.soniccandle.model.MainModel;
 import com.soniccandle.util.ImageFilter;
 import com.soniccandle.util.InputFilter;
 import com.soniccandle.util.OutputFilter;
+import com.soniccandle.util.Utils;
 import com.soniccandle.view.components.ColorBox;
 
 public class MainView {
@@ -581,6 +582,7 @@ public class MainView {
 
 	private void customizeNimbus() {
 		// General Changes
+		UIManager.put("defaultFont", Utils.scFont());
 		UIManager.put("control", PANELCOLOR);
 		UIManager.put("text", Color.WHITE);
 		UIManager.put("nimbusLightBackground", Color.BLACK);

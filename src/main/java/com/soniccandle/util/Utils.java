@@ -1,7 +1,12 @@
 package com.soniccandle.util;
 
+import java.awt.Font;
+import java.awt.FontFormatException;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+
+import com.soniccandle.Main;
 
 import co.uk.labbookpages.WavFileException;
 
@@ -77,5 +82,25 @@ public class Utils {
 			i++;
 		}
 		System.out.printf("Min: %f, Max: %f\n", min, max);
+	}
+
+	public static Font scFont() {
+		InputStream in = Main.class
+				.getResourceAsStream("/SourceSansPro-Regular.ttf");
+		Font myFont = null;
+		try {
+			myFont = Font.createFont(Font.TRUETYPE_FONT, in).deriveFont(
+					Font.PLAIN, 14);
+		} catch (FontFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if (myFont == null) {
+			myFont = new Font("Plain", Font.BOLD, 12);
+		}
+		return myFont;
 	}
 }
