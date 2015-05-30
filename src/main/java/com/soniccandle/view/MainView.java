@@ -3,6 +3,7 @@ package com.soniccandle.view;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
@@ -528,8 +529,20 @@ public class MainView {
 
 		javax.swing.border.Border normalBorder = (BorderFactory
 				.createSoftBevelBorder(2));
-		Font myFont = new Font("Plain", Font.BOLD, 12);
-
+		InputStream in = Main.class.getResourceAsStream("/SourceCodePro-Regular.ttf");
+		Font myFont = null;
+		try {
+			myFont = Font.createFont(Font.TRUETYPE_FONT, in).deriveFont(Font.PLAIN, 14);
+		} catch (FontFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if (myFont == null){
+			myFont = new Font("Plain", Font.BOLD, 12);
+		}
 		TitledBorder SCBorder = (BorderFactory.createTitledBorder(normalBorder,
 				title, TitledBorder.LEFT, TitledBorder.ABOVE_TOP, myFont,
 				Color.WHITE));
