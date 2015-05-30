@@ -4,16 +4,24 @@ package com.soniccandle;
 // see this: http://stackoverflow.com/questions/5217611/the-mvc-pattern-and-swing 
 // -------------------------------------------------------------------------------
 
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
+
 import com.soniccandle.controller.MainController;
 import com.soniccandle.model.MainModel;
 import com.soniccandle.view.MainView;
 
 public class Main {
+	
+	private static GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment()
+			.getDefaultScreenDevice();
+	private static int screenWidth = gd.getDisplayMode().getWidth();
+	private static int screenHeight = gd.getDisplayMode().getHeight();
 
 	// set default video property constants
 	public static final int VIDEO_FRAME_RATE = 30;
-	public static final int WIDTH = 1920;
-	public static final int HEIGHT = 1080;
+	public static final int WIDTH = screenWidth;
+	public static final int HEIGHT = screenHeight;
 
 	// set variables for changing video properties
 	static int mainVideoFrameRate = VIDEO_FRAME_RATE;
