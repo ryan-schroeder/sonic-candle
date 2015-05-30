@@ -45,7 +45,7 @@ public class MainView {
 	// color constants
 	public static final Color BGCOLOR = new Color(17, 17, 17);
 	public static final Color PANELCOLOR = new Color(45, 45, 45);
-	public static final Color SCBLUE = new Color(95, 115, 133);
+	public static final Color SCPURPLE = new Color(91, 18, 153);
 
 	public static final String BG_OTHER_IMAGE = "Other Image";
 	public static final String BG_BUILT_IN_IMAGE = "Built-in Image";
@@ -569,7 +569,7 @@ public class MainView {
 		UIManager.put("nimbusLightBackground", BGCOLOR);
 		UIManager.put("nimbusFocus", Color.DARK_GRAY);
 		UIManager.put("nimbusBase", Color.BLACK);
-		UIManager.put("nimbusOrange", Color.GRAY);
+		UIManager.put("nimbusOrange", SCPURPLE);
 		UIManager.put("nimbusBorder", Color.BLACK);
 		UIManager.put("background", BGCOLOR);
 		UIManager.put("nimbusSelection", Color.GRAY);

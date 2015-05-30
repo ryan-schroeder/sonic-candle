@@ -31,7 +31,7 @@ public class RenderSwingWorker extends SwingWorker<Boolean, Integer> {
 		FastSimpleRenderer renderer;
 		try {
 			renderer = rs.bakeSimpleRenderer(m);
-			m.progressBar.setValue(1);
+			m.progressBar.setValue(0);
 			renderer.start();
 			while (!renderer.isDone && !Thread.currentThread().isInterrupted()) {
 				renderer.renderNextFrame();
