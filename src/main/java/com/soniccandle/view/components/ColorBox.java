@@ -19,8 +19,8 @@ public class ColorBox extends JPanel {
 		this.add(new JLabel("    "));
 		updateUI();
 	}
-	
-	public void updateBox(){
+
+	public void updateBox() {
 		updateUI();
 	}
 
@@ -42,8 +42,8 @@ public class ColorBox extends JPanel {
 				RenderingHints.VALUE_STROKE_PURE);
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 				RenderingHints.VALUE_ANTIALIAS_ON);
-//		g.fillRoundRect(10, 10, this.getWidth(), this.getHeight(),15,15);
-		g.fillOval(3, 3, this.getWidth()-6, this.getHeight()-6);
+		// g.fillRoundRect(10, 10, this.getWidth(), this.getHeight(),15,15);
+		g.fillOval(3, 3, this.getWidth() - 6, this.getHeight() - 6);
 	}
 
 }

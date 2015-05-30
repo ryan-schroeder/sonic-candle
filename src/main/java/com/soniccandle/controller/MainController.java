@@ -506,6 +506,8 @@ public class MainController implements ActionListener {
 		m.barAlpha.setEnabled(false);
 		m.previewFrame.setEnabled(false);
 		m.previewButton.setEnabled(false);
+		m.bgColorButton.setEnabled(false);
+		m.barColorButton.setEnabled(false);
 
 	}
 
@@ -533,5 +535,7 @@ public class MainController implements ActionListener {
 		m.barAlpha.setEnabled(true);
 		m.previewFrame.setEnabled(true);
 		m.previewButton.setEnabled(true);
+		m.bgColorButton.setEnabled(true);
+		m.barColorButton.setEnabled(true);
 	}
 }

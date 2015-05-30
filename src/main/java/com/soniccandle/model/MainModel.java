@@ -53,4 +53,6 @@ public class MainModel {
 	public JTextField previewFrame;
 	public JButton previewButton;
 	public JButton detailsButton;
+	public JButton bgColorButton;
+	public JButton barColorButton;
 }

@@ -57,7 +57,7 @@ public class MainView {
 
 	public MainModel m;
 	public MainController c;
-	
+
 	private ColorBox colorBox;
 
 	public void createAndShowGUI() {
@@ -297,12 +297,12 @@ public class MainView {
 		m.bgColorBlue = newSCTextField("0");
 		m.bgColorBlue.setColumns(3);
 		m.bgColorPanel.add(m.bgColorBlue);
-		
-		JButton bgButton = new JButton("Color");
-		
-		bgButton.addActionListener(new BGColorPickerEar());
-		
-		m.bgColorPanel.add(bgButton);
+
+		m.bgColorButton = new JButton("Color");
+
+		m.bgColorButton.addActionListener(new BGColorPickerEar());
+
+		m.bgColorPanel.add(m.bgColorButton);
 
 		bgC.gridwidth = 3;
 		bgC.gridx = 0;
@@ -495,15 +495,14 @@ public class MainView {
 
 		JPanel panelColorPicker = new JPanel();
 
-		JButton cpButton = new JButton("Color Picker");
-		cpButton.addActionListener(new BarColorPickerEar());
+		m.barColorButton = new JButton("Color Picker");
+		m.barColorButton.addActionListener(new BarColorPickerEar());
 
-		panelColorPicker.add(cpButton);
-		
+		panelColorPicker.add(m.barColorButton);
+
 		colorBox = new ColorBox(m);
-		
+
 		panelColorPicker.add(colorBox);
-		
 
 		barsC.gridwidth = 1;
 		barsC.gridx = 1;
@@ -593,24 +592,24 @@ public class MainView {
 					Integer.parseInt(m.barColorBlue.getText()));
 			Color newColor = null;
 			try {
-				newColor = JColorChooser.showDialog(null, "Color Picker",
-						color);
+				newColor = JColorChooser
+						.showDialog(null, "Color Picker", color);
 			} catch (Exception e1) {
 				System.out.println("User didn't select a color");
 				return;
 			}
-			if (newColor == null){
+			if (newColor == null) {
 				return;
 			}
 			m.barColorRed.setText("" + newColor.getRed());
 			m.barColorBlue.setText("" + newColor.getBlue());
 			m.barColorGreen.setText("" + newColor.getGreen());
 			m.barAlpha.setText("" + newColor.getAlpha());
-			
+
 			colorBox.updateBox();
 		}
 	}
-	
+
 	private class BGColorPickerEar implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
@@ -619,19 +618,19 @@ public class MainView {
 					Integer.parseInt(m.bgColorBlue.getText()));
 			Color newColor = null;
 			try {
-				newColor = JColorChooser.showDialog(null, "Color Picker",
-						color);
+				newColor = JColorChooser
+						.showDialog(null, "Color Picker", color);
 			} catch (Exception e1) {
 				System.out.println("User didn't select a color");
 				return;
 			}
-			if (newColor == null){
+			if (newColor == null) {
 				return;
 			}
 			m.bgColorRed.setText("" + newColor.getRed());
 			m.bgColorBlue.setText("" + newColor.getBlue());
 			m.bgColorGreen.setText("" + newColor.getGreen());
-			
+
 			colorBox.updateBox();
 		}
 	}
