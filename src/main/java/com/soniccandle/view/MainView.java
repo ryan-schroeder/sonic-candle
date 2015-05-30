@@ -46,6 +46,8 @@ public class MainView {
 	public static final Color BGCOLOR = new Color(17, 17, 17);
 	public static final Color PANELCOLOR = new Color(45, 45, 45);
 	public static final Color SCPURPLE = new Color(91, 18, 153);
+	public static final Color SCPURPLE_LT = SCPURPLE.brighter();
+	public static final Color SCPURPLE_BACK = new Color(61, 54, 64);
 
 	public static final String BG_OTHER_IMAGE = "Other Image";
 	public static final String BG_BUILT_IN_IMAGE = "Built-in Image";
@@ -566,15 +568,15 @@ public class MainView {
 		// General Changes
 		UIManager.put("control", PANELCOLOR);
 		UIManager.put("text", Color.WHITE);
-		UIManager.put("nimbusLightBackground", BGCOLOR);
-		UIManager.put("nimbusFocus", Color.DARK_GRAY);
+		UIManager.put("nimbusLightBackground", SCPURPLE_BACK);
+		UIManager.put("nimbusFocus", SCPURPLE_LT);
 		UIManager.put("nimbusBase", Color.BLACK);
-		UIManager.put("nimbusOrange", SCPURPLE);
-		UIManager.put("nimbusBorder", Color.BLACK);
+		UIManager.put("nimbusOrange", SCPURPLE_LT);
+		UIManager.put("nimbusBorder", SCPURPLE);
 		UIManager.put("background", BGCOLOR);
-		UIManager.put("nimbusSelection", Color.GRAY);
-		UIManager.put("textHighlight", Color.GRAY);
-		UIManager.put("nimbusSelectionBackground", Color.DARK_GRAY);
+		UIManager.put("nimbusSelection", SCPURPLE);
+		UIManager.put("textHighlight", SCPURPLE);
+		UIManager.put("nimbusSelectionBackground", SCPURPLE);
 
 	}
 
