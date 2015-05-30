@@ -530,7 +530,7 @@ public class MainView {
 		javax.swing.border.Border normalBorder = (BorderFactory
 				.createSoftBevelBorder(2));
 		InputStream in = Main.class
-				.getResourceAsStream("/SourceCodePro-Regular.ttf");
+				.getResourceAsStream("/SourceSansPro-Regular.ttf");
 		Font myFont = null;
 		try {
 			myFont = Font.createFont(Font.TRUETYPE_FONT, in).deriveFont(
