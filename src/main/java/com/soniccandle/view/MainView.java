@@ -592,7 +592,7 @@ public class MainView {
 		UIManager.put("background", SCPURPLE_BACK);
 		UIManager.put("nimbusSelection", SCPURPLE);
 		UIManager.put("textHighlight", SCPURPLE);
-		UIManager.put("nimbusSelectionBackground", SCPURPLE);
+		UIManager.put("nimbusSelectionBackground", SCPURPLE.darker());
 
 	}
 
