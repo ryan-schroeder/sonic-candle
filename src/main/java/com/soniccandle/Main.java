@@ -24,9 +24,9 @@ public class Main {
 	public static final int HEIGHT = screenHeight;
 
 	// set variables for changing video properties
-	static int mainVideoFrameRate = VIDEO_FRAME_RATE;
-	static int mainVideoWidth = WIDTH;
-	static int mainVideoHeight = HEIGHT;
+	private static int mainVideoFrameRate = VIDEO_FRAME_RATE;
+	private static int mainVideoWidth = WIDTH;
+	private static int mainVideoHeight = HEIGHT;
 
 	// set video properties methods
 	public static void setVideoFrameRate(int mainVideoFrameRateNew) {

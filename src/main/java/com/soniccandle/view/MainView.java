@@ -3,8 +3,6 @@ package com.soniccandle.view;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
@@ -78,10 +76,8 @@ public class MainView {
 		}
 
 		// Get screen size
-		GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment()
-				.getDefaultScreenDevice();
-		int screenWidth = gd.getDisplayMode().getWidth();
-		int screenHeight = gd.getDisplayMode().getHeight();
+		int screenWidth = Main.WIDTH;
+		int screenHeight = Main.HEIGHT;
 
 		// Create and set up the window.
 		JFrame frame = new JFrame("Sonic Candle");
