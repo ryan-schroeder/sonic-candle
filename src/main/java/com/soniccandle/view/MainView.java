@@ -588,7 +588,7 @@ public class MainView {
 		UIManager.put("nimbusFocus", SCPURPLE_LT);
 		UIManager.put("nimbusBase", Color.BLACK);
 		UIManager.put("nimbusOrange", SCPURPLE_LT);
-		UIManager.put("nimbusBorder", SCPURPLE);
+		UIManager.put("nimbusBorder", Color.DARK_GRAY);
 		UIManager.put("background", SCPURPLE_BACK);
 		UIManager.put("nimbusSelection", SCPURPLE);
 		UIManager.put("textHighlight", SCPURPLE);
