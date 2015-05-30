@@ -4,6 +4,7 @@ Sonic Candle 1.1.11
 -Added splash screen (shown when opening a jar made with Gradle)
 -Added colorbox preview component
 -Default resolution is now equal to the users screen resolution
+-GUI Updates, as always
 
 Sonic Candle 1.1.10
 ------------------
