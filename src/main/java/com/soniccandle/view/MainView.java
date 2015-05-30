@@ -568,12 +568,12 @@ public class MainView {
 		// General Changes
 		UIManager.put("control", PANELCOLOR);
 		UIManager.put("text", Color.WHITE);
-		UIManager.put("nimbusLightBackground", SCPURPLE_BACK);
+		UIManager.put("nimbusLightBackground", Color.BLACK);
 		UIManager.put("nimbusFocus", SCPURPLE_LT);
 		UIManager.put("nimbusBase", Color.BLACK);
 		UIManager.put("nimbusOrange", SCPURPLE_LT);
 		UIManager.put("nimbusBorder", SCPURPLE);
-		UIManager.put("background", BGCOLOR);
+		UIManager.put("background", SCPURPLE_BACK);
 		UIManager.put("nimbusSelection", SCPURPLE);
 		UIManager.put("textHighlight", SCPURPLE);
 		UIManager.put("nimbusSelectionBackground", SCPURPLE);
