@@ -33,7 +33,8 @@ public class ColorBox extends JPanel {
 
 		Color barColor = new Color(Integer.parseInt(m.barColorRed.getText()),
 				Integer.parseInt(m.barColorGreen.getText()),
-				Integer.parseInt(m.barColorBlue.getText()));
+				Integer.parseInt(m.barColorBlue.getText()),
+				Integer.parseInt(m.barAlpha.getText()));
 
 		g.setColor(bgColor);
 		g.fillRect(0, 0, this.getWidth(), this.getHeight());
