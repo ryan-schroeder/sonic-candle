@@ -285,15 +285,15 @@ public class MainView {
 		label = newSCLabel("RGB values (0-255 for each color): ");
 		m.bgColorPanel.add(label);
 
-		m.bgColorRed = newSCTextField(""+BGCOLOR.getRed());
+		m.bgColorRed = newSCTextField("" + BGCOLOR.getRed());
 		m.bgColorRed.setColumns(3);
 		m.bgColorPanel.add(m.bgColorRed);
 
-		m.bgColorGreen = newSCTextField(""+BGCOLOR.getGreen());
+		m.bgColorGreen = newSCTextField("" + BGCOLOR.getGreen());
 		m.bgColorGreen.setColumns(3);
 		m.bgColorPanel.add(m.bgColorGreen);
 
-		m.bgColorBlue = newSCTextField(""+BGCOLOR.getBlue());
+		m.bgColorBlue = newSCTextField("" + BGCOLOR.getBlue());
 		m.bgColorBlue.setColumns(3);
 		m.bgColorPanel.add(m.bgColorBlue);
 
@@ -466,19 +466,19 @@ public class MainView {
 
 		JPanel panel = new JPanel();
 
-		m.barColorRed = newSCTextField(""+SCPURPLE.getRed());
+		m.barColorRed = newSCTextField("" + SCPURPLE.getRed());
 		m.barColorRed.setColumns(3);
 		panel.add(m.barColorRed);
 
-		m.barColorGreen = newSCTextField(""+SCPURPLE.getGreen());
+		m.barColorGreen = newSCTextField("" + SCPURPLE.getGreen());
 		m.barColorGreen.setColumns(3);
 		panel.add(m.barColorGreen);
 
-		m.barColorBlue = newSCTextField(""+SCPURPLE.getBlue());
+		m.barColorBlue = newSCTextField("" + SCPURPLE.getBlue());
 		m.barColorBlue.setColumns(3);
 		panel.add(m.barColorBlue);
 
-		m.barAlpha = newSCTextField("255");
+		m.barAlpha = newSCTextField("" + SCPURPLE.getAlpha());
 		m.barAlpha.setColumns(3);
 		panel.add(m.barAlpha);
 
@@ -581,7 +581,7 @@ public class MainView {
 
 	private void customizeNimbus() {
 		// General Changes
-//		UIManager.put("defaultFont", Utils.scFont());
+		// UIManager.put("defaultFont", Utils.scFont());
 		UIManager.put("control", PANELCOLOR);
 		UIManager.put("text", Color.WHITE);
 		UIManager.put("nimbusLightBackground", Color.BLACK);
