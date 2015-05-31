@@ -84,13 +84,13 @@ public class Utils {
 		System.out.printf("Min: %f, Max: %f\n", min, max);
 	}
 
-	public static Font scFont() {
+	public static Font scFont(int size, int style) {
 		InputStream in = Main.class
 				.getResourceAsStream("/SourceSansPro-Regular.ttf");
 		Font myFont = null;
 		try {
 			myFont = Font.createFont(Font.TRUETYPE_FONT, in).deriveFont(
-					Font.PLAIN, 14);
+					style, size);
 		} catch (FontFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -99,7 +99,7 @@ public class Utils {
 			e.printStackTrace();
 		}
 		if (myFont == null) {
-			myFont = new Font("Plain", Font.BOLD, 12);
+			myFont = new Font("Plain", style, 12);
 		}
 		return myFont;
 	}

@@ -3,7 +3,6 @@ package com.soniccandle.view;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.FontFormatException;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
@@ -39,6 +38,7 @@ import com.soniccandle.model.MainModel;
 import com.soniccandle.util.ImageFilter;
 import com.soniccandle.util.InputFilter;
 import com.soniccandle.util.OutputFilter;
+import com.soniccandle.util.Utils;
 import com.soniccandle.view.components.ColorBox;
 
 public class MainView {
@@ -529,22 +529,7 @@ public class MainView {
 
 		javax.swing.border.Border normalBorder = (BorderFactory
 				.createSoftBevelBorder(2));
-		InputStream in = Main.class
-				.getResourceAsStream("/SourceSansPro-Regular.ttf");
-		Font myFont = null;
-		try {
-			myFont = Font.createFont(Font.TRUETYPE_FONT, in).deriveFont(
-					Font.BOLD, 14);
-		} catch (FontFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		if (myFont == null) {
-			myFont = new Font("Plain", Font.BOLD, 12);
-		}
+		Font myFont = Utils.scFont(14, Font.BOLD);
 		TitledBorder SCBorder = (BorderFactory.createTitledBorder(normalBorder,
 				title, TitledBorder.LEFT, TitledBorder.ABOVE_TOP, myFont,
 				Color.WHITE));
