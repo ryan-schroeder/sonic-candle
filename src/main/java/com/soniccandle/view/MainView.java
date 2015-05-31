@@ -280,16 +280,19 @@ public class MainView {
 
 		m.bgColorRed = newSCTextField("" + BGCOLOR.getRed(), 255, 0, 5);
 		m.bgColorRed.addKeyListener(new ColorFieldEar(m.bgColorRed));
+		m.bgColorRed.addMouseWheelListener(new ColorFieldMouseWheelEar());
 		m.bgColorRed.setColumns(3);
 		m.bgColorPanel.add(m.bgColorRed);
 
 		m.bgColorGreen = newSCTextField("" + BGCOLOR.getGreen(), 255, 0, 5);
 		m.bgColorGreen.addKeyListener(new ColorFieldEar(m.bgColorGreen));
+		m.bgColorGreen.addMouseWheelListener(new ColorFieldMouseWheelEar());
 		m.bgColorGreen.setColumns(3);
 		m.bgColorPanel.add(m.bgColorGreen);
 
 		m.bgColorBlue = newSCTextField("" + BGCOLOR.getBlue(), 255, 0, 5);
 		m.bgColorBlue.addKeyListener(new ColorFieldEar(m.bgColorBlue));
+		m.bgColorGreen.addMouseWheelListener(new ColorFieldMouseWheelEar());
 		m.bgColorBlue.setColumns(3);
 		m.bgColorPanel.add(m.bgColorBlue);
 
@@ -464,21 +467,25 @@ public class MainView {
 
 		m.barColorRed = newSCTextField("" + SCPURPLE.getRed(), 255, 0, 5);
 		m.barColorRed.addKeyListener(new ColorFieldEar(m.barColorRed));
+		m.barColorRed.addMouseWheelListener(new ColorFieldMouseWheelEar());
 		m.barColorRed.setColumns(3);
 		panel.add(m.barColorRed);
 
 		m.barColorGreen = newSCTextField("" + SCPURPLE.getGreen(), 255, 0, 5);
 		m.barColorGreen.addKeyListener(new ColorFieldEar(m.barColorGreen));
+		m.barColorGreen.addMouseWheelListener(new ColorFieldMouseWheelEar());
 		m.barColorGreen.setColumns(3);
 		panel.add(m.barColorGreen);
 
 		m.barColorBlue = newSCTextField("" + SCPURPLE.getBlue(), 255, 0, 5);
 		m.barColorBlue.addKeyListener(new ColorFieldEar(m.barColorBlue));
+		m.barColorBlue.addMouseWheelListener(new ColorFieldMouseWheelEar());
 		m.barColorBlue.setColumns(3);
 		panel.add(m.barColorBlue);
 
 		m.barAlpha = newSCTextField("" + SCPURPLE.getAlpha(), 255, 0, 5);
 		m.barAlpha.addKeyListener(new ColorFieldEar(m.barAlpha));
+		m.barAlpha.addMouseWheelListener(new ColorFieldMouseWheelEar());
 		m.barAlpha.setColumns(3);
 		panel.add(m.barAlpha);
 
@@ -676,6 +683,13 @@ public class MainView {
 			}
 		}
 
+	}
+	
+	private class ColorFieldMouseWheelEar implements MouseWheelListener {
+
+		public void mouseWheelMoved(MouseWheelEvent e) {
+			colorBox.updateBox();
+		}
 	}
 
 	// KeyListeners

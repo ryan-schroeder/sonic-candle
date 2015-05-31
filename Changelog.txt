@@ -7,6 +7,7 @@ Sonic Candle 1.1.11
 -Default colors now follow SC theme
 -GUI Updates, as always
 -Default output now equal to input
+-TextFields now have keyboard up/down and mouse wheel increments and decrements
 
 Sonic Candle 1.1.10
 ------------------
