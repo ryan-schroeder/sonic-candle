@@ -229,6 +229,7 @@ public class MainView {
 		m.setOutputButton = newSCButton("Set Output");
 		m.setOutputButton.setActionCommand(MainController.SET_OUTPUT_MP4);
 		m.setOutputButton.addActionListener(c);
+		m.setOutputButton.setEnabled(false);
 		inOutC.weightx = 0.2;
 		inOutC.gridx = 0;
 		inOutC.gridy = 2;

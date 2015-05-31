@@ -127,6 +127,7 @@ public class MainController implements ActionListener {
 						m.audioFileNameLabel.setText(inputFile.getName());
 					}
 					System.out.println("Wavfile: " + m.audioFile.getName());
+					m.setOutputButton.setEnabled(true);
 
 				} else {
 					JOptionPane.showMessageDialog(m.pane,
