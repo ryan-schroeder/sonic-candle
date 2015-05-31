@@ -598,7 +598,8 @@ public class MainView {
 		public void actionPerformed(ActionEvent e) {
 			Color color = new Color(Integer.parseInt(m.barColorRed.getText()),
 					Integer.parseInt(m.barColorGreen.getText()),
-					Integer.parseInt(m.barColorBlue.getText()));
+					Integer.parseInt(m.barColorBlue.getText()),
+					Integer.parseInt(m.barAlpha.getText()));
 			Color newColor = null;
 			try {
 				newColor = JColorChooser
