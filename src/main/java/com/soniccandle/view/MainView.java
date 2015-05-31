@@ -684,7 +684,7 @@ public class MainView {
 		}
 
 	}
-	
+
 	private class ColorFieldMouseWheelEar implements MouseWheelListener {
 
 		public void mouseWheelMoved(MouseWheelEvent e) {
