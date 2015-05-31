@@ -124,16 +124,7 @@ public class MainController implements ActionListener {
 					} else if ("mp3".equals(audioType)) {
 						m.audioFile = mp3ToWav(inputFile);
 						generatedWav = m.audioFile;
-						m.audioFileNameLabel.setText(inputFile.getName());// TODO
-																			// use
-																			// this
-																			// to
-																			// set
-																			// default
-																			// output
-																			// name
-																			// -
-																			// Chris
+						m.audioFileNameLabel.setText(inputFile.getName());
 					}
 					System.out.println("Wavfile: " + m.audioFile.getName());
 
@@ -145,6 +136,7 @@ public class MainController implements ActionListener {
 		}
 
 		if (SET_OUTPUT_MP4.equals(e.getActionCommand())) {
+			m.fcOut.setSelectedFile(m.fcIn.getSelectedFile());
 			int returnVal = m.fcOut.showDialog(m.pane, "Set Output");
 
 			if (returnVal != JFileChooser.APPROVE_OPTION) { // they hit cancel
