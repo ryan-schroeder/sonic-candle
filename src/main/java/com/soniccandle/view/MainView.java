@@ -292,7 +292,7 @@ public class MainView {
 
 		m.bgColorBlue = newSCTextField("" + BGCOLOR.getBlue(), 255, 0, 5);
 		m.bgColorBlue.addKeyListener(new ColorFieldEar(m.bgColorBlue));
-		m.bgColorGreen.addMouseWheelListener(new ColorFieldMouseWheelEar());
+		m.bgColorBlue.addMouseWheelListener(new ColorFieldMouseWheelEar());
 		m.bgColorBlue.setColumns(3);
 		m.bgColorPanel.add(m.bgColorBlue);
 
