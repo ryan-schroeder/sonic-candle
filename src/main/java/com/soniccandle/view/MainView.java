@@ -11,6 +11,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
@@ -134,10 +136,8 @@ public class MainView {
 		vpC.gridy = 0;
 		vpPanel.add(fps, vpC);
 
-		m.videoSetFrameRate = newSCTextField(Integer
-				.toString(Main.VIDEO_FRAME_RATE)); // set default Frame
-													// Rate value with
-													// the constant
+		m.videoSetFrameRate = newSCTextField(
+				Integer.toString(Main.VIDEO_FRAME_RATE), 120, 1, 10);
 		m.videoSetFrameRate.setColumns(3);
 		vpC.gridwidth = 1;
 		vpC.gridx = 1;
@@ -150,13 +150,8 @@ public class MainView {
 		vpC.gridy = 1;
 		vpPanel.add(frameWidth, vpC);
 
-		m.videoSetWidth = newSCTextField(Integer.toString(Main.WIDTH)); // set
-																		// default
-																		// width
-																		// value
-																		// with
-																		// the
-																		// constant
+		m.videoSetWidth = newSCTextField(Integer.toString(Main.WIDTH), 10000,
+				400, 100);
 		m.videoSetWidth.setColumns(3);
 		vpPanel.add(m.videoSetWidth);
 		vpC.gridwidth = 1;
@@ -170,13 +165,8 @@ public class MainView {
 		vpC.gridy = 2;
 		vpPanel.add(frameHeight, vpC);
 
-		m.videoSetHeight = newSCTextField(Integer.toString(Main.HEIGHT)); // set
-																			// default
-																			// height
-																			// value
-																			// with
-																			// the
-																			// constant
+		m.videoSetHeight = newSCTextField(Integer.toString(Main.HEIGHT), 5000,
+				300, 100);
 		m.videoSetHeight.setColumns(3);
 		vpPanel.add(m.videoSetHeight);
 		vpC.gridwidth = 1;
@@ -288,17 +278,17 @@ public class MainView {
 		label = newSCLabel("RGB values (0-255 for each color): ");
 		m.bgColorPanel.add(label);
 
-		m.bgColorRed = newSCTextField("" + BGCOLOR.getRed());
+		m.bgColorRed = newSCTextField("" + BGCOLOR.getRed(), 255, 0, 5);
 		m.bgColorRed.addKeyListener(new ColorFieldEar(m.bgColorRed));
 		m.bgColorRed.setColumns(3);
 		m.bgColorPanel.add(m.bgColorRed);
 
-		m.bgColorGreen = newSCTextField("" + BGCOLOR.getGreen());
+		m.bgColorGreen = newSCTextField("" + BGCOLOR.getGreen(), 255, 0, 5);
 		m.bgColorGreen.addKeyListener(new ColorFieldEar(m.bgColorGreen));
 		m.bgColorGreen.setColumns(3);
 		m.bgColorPanel.add(m.bgColorGreen);
 
-		m.bgColorBlue = newSCTextField("" + BGCOLOR.getBlue());
+		m.bgColorBlue = newSCTextField("" + BGCOLOR.getBlue(), 255, 0, 5);
 		m.bgColorBlue.addKeyListener(new ColorFieldEar(m.bgColorBlue));
 		m.bgColorBlue.setColumns(3);
 		m.bgColorPanel.add(m.bgColorBlue);
@@ -386,7 +376,7 @@ public class MainView {
 		renderC.gridy = 0;
 		renderPanel.add(label, renderC);
 
-		m.previewFrame = newSCTextField("1");
+		m.previewFrame = newSCTextField("1", 100, 1, 1);
 		m.previewFrame.setColumns(4);
 		renderC.gridx = 4;
 		renderC.gridy = 0;
@@ -472,22 +462,22 @@ public class MainView {
 
 		JPanel panel = new JPanel();
 
-		m.barColorRed = newSCTextField("" + SCPURPLE.getRed());
+		m.barColorRed = newSCTextField("" + SCPURPLE.getRed(), 255, 0, 5);
 		m.barColorRed.addKeyListener(new ColorFieldEar(m.barColorRed));
 		m.barColorRed.setColumns(3);
 		panel.add(m.barColorRed);
 
-		m.barColorGreen = newSCTextField("" + SCPURPLE.getGreen());
+		m.barColorGreen = newSCTextField("" + SCPURPLE.getGreen(), 255, 0, 5);
 		m.barColorGreen.addKeyListener(new ColorFieldEar(m.barColorGreen));
 		m.barColorGreen.setColumns(3);
 		panel.add(m.barColorGreen);
 
-		m.barColorBlue = newSCTextField("" + SCPURPLE.getBlue());
+		m.barColorBlue = newSCTextField("" + SCPURPLE.getBlue(), 255, 0, 5);
 		m.barColorBlue.addKeyListener(new ColorFieldEar(m.barColorBlue));
 		m.barColorBlue.setColumns(3);
 		panel.add(m.barColorBlue);
 
-		m.barAlpha = newSCTextField("" + SCPURPLE.getAlpha());
+		m.barAlpha = newSCTextField("" + SCPURPLE.getAlpha(), 255, 0, 5);
 		m.barAlpha.addKeyListener(new ColorFieldEar(m.barAlpha));
 		m.barAlpha.setColumns(3);
 		panel.add(m.barAlpha);
@@ -553,8 +543,12 @@ public class MainView {
 
 	}
 
-	private JTextField newSCTextField(String text) {
+	private JTextField newSCTextField(String text, int max, int min, int step) {
 		JTextField newSCTextField = new JTextField(text);
+		newSCTextField.addKeyListener(new TextFieldKeyEar(newSCTextField, max,
+				min, step));
+		newSCTextField.addMouseWheelListener(new TextFieldMouseWheelEar(
+				newSCTextField, max, min, step));
 		newSCTextField.setMinimumSize(new Dimension(46, 24));
 		return (newSCTextField);
 	}
@@ -645,7 +639,87 @@ public class MainView {
 		}
 	}
 
+	// MouseListeners
+
+	private class TextFieldMouseWheelEar implements MouseWheelListener {
+
+		private JTextField field;
+		private int max;
+		private int min;
+		private int step;
+
+		public TextFieldMouseWheelEar(JTextField field, int max, int min,
+				int step) {
+			this.field = field;
+			this.max = max;
+			this.min = min;
+			this.step = step;
+		}
+
+		public void mouseWheelMoved(MouseWheelEvent e) {
+			if (e.getWheelRotation() < 0) {
+				int value = Integer.parseInt(field.getText());
+
+				value += step;
+
+				if (value <= max) {
+					field.setText("" + value);
+				}
+			} else if (e.getWheelRotation() > 0) {
+				int value = Integer.parseInt(field.getText());
+
+				value -= step;
+
+				if (value >= min) {
+					field.setText("" + value);
+				}
+			}
+		}
+
+	}
+
 	// KeyListeners
+
+	private class TextFieldKeyEar implements KeyListener {
+		private JTextField field;
+		private int max;
+		private int min;
+		private int step;
+
+		public TextFieldKeyEar(JTextField field, int max, int min, int step) {
+			this.field = field;
+			this.max = max;
+			this.min = min;
+			this.step = step;
+		}
+
+		public void keyTyped(KeyEvent e) {
+		}
+
+		public void keyPressed(KeyEvent e) {
+			if (e.getKeyCode() == KeyEvent.VK_UP) {
+				int value = Integer.parseInt(field.getText());
+
+				value += step;
+
+				if (value <= max) {
+					field.setText("" + value);
+				}
+			} else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+				int value = Integer.parseInt(field.getText());
+
+				value -= step;
+
+				if (value >= min) {
+					field.setText("" + value);
+				}
+			}
+		}
+
+		public void keyReleased(KeyEvent e) {
+		}
+
+	}
 
 	private class ColorFieldEar implements KeyListener {
 		JTextField field;
@@ -676,24 +750,6 @@ public class MainView {
 		}
 
 		public void keyPressed(KeyEvent e) {
-			if (e.getKeyCode() == KeyEvent.VK_UP) {
-				int value = Integer.parseInt(field.getText());
-
-				value += 5;
-
-				if (value <= 255) {
-					field.setText("" + value);
-				}
-			} else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-				int value = Integer.parseInt(field.getText());
-
-				value -= 5;
-
-				if (value >= 0) {
-					field.setText("" + value);
-				}
-			}
-
 			colorBox.updateBox();
 		}
 
