@@ -111,16 +111,7 @@ public class MainController implements ActionListener {
 					// the mp3 (hooray awkward API's)
 					if ("wav".equals(audioType)) {
 						m.audioFile = inputFile;
-						m.audioFileNameLabel.setText(m.audioFile.getName());// TODO
-																			// use
-																			// this
-																			// to
-																			// set
-																			// default
-																			// output
-																			// name
-																			// -
-																			// Chris
+						m.audioFileNameLabel.setText(m.audioFile.getName());
 					} else if ("mp3".equals(audioType)) {
 						m.audioFile = mp3ToWav(inputFile);
 						generatedWav = m.audioFile;

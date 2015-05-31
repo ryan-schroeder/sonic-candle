@@ -6,6 +6,7 @@ Sonic Candle 1.1.11
 -Default resolution is now equal to the users screen resolution
 -Default colors now follow SC theme
 -GUI Updates, as always
+-Default output now equal to input
 
 Sonic Candle 1.1.10
 ------------------
