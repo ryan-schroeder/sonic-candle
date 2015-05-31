@@ -9,6 +9,8 @@ import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
@@ -287,14 +289,17 @@ public class MainView {
 		m.bgColorPanel.add(label);
 
 		m.bgColorRed = newSCTextField("" + BGCOLOR.getRed());
+		m.bgColorRed.addKeyListener(new ColorFieldEar(m.bgColorRed));
 		m.bgColorRed.setColumns(3);
 		m.bgColorPanel.add(m.bgColorRed);
 
 		m.bgColorGreen = newSCTextField("" + BGCOLOR.getGreen());
+		m.bgColorGreen.addKeyListener(new ColorFieldEar(m.bgColorGreen));
 		m.bgColorGreen.setColumns(3);
 		m.bgColorPanel.add(m.bgColorGreen);
 
 		m.bgColorBlue = newSCTextField("" + BGCOLOR.getBlue());
+		m.bgColorBlue.addKeyListener(new ColorFieldEar(m.bgColorBlue));
 		m.bgColorBlue.setColumns(3);
 		m.bgColorPanel.add(m.bgColorBlue);
 
@@ -468,18 +473,22 @@ public class MainView {
 		JPanel panel = new JPanel();
 
 		m.barColorRed = newSCTextField("" + SCPURPLE.getRed());
+		m.barColorRed.addKeyListener(new ColorFieldEar(m.barColorRed));
 		m.barColorRed.setColumns(3);
 		panel.add(m.barColorRed);
 
 		m.barColorGreen = newSCTextField("" + SCPURPLE.getGreen());
+		m.barColorGreen.addKeyListener(new ColorFieldEar(m.barColorGreen));
 		m.barColorGreen.setColumns(3);
 		panel.add(m.barColorGreen);
 
 		m.barColorBlue = newSCTextField("" + SCPURPLE.getBlue());
+		m.barColorBlue.addKeyListener(new ColorFieldEar(m.barColorBlue));
 		m.barColorBlue.setColumns(3);
 		panel.add(m.barColorBlue);
 
 		m.barAlpha = newSCTextField("" + SCPURPLE.getAlpha());
+		m.barAlpha.addKeyListener(new ColorFieldEar(m.barAlpha));
 		m.barAlpha.setColumns(3);
 		panel.add(m.barAlpha);
 
@@ -633,5 +642,43 @@ public class MainView {
 
 			colorBox.updateBox();
 		}
+	}
+
+	// KeyListeners
+
+	private class ColorFieldEar implements KeyListener {
+		JTextField field;
+
+		public ColorFieldEar(JTextField field) {
+			this.field = field;
+		}
+
+		public void keyTyped(KeyEvent e) {
+
+			if (!field.getText().equals("")) {
+
+				int value;
+
+				try {
+					value = Integer.parseInt(field.getText());
+				} catch (Exception e1) {
+					value = 0;
+				}
+
+				if (value > 255) {
+					field.setText("" + 255);
+				} else if (value < 0) {
+					field.setText("" + 0);
+				}
+			}
+			colorBox.updateBox();
+		}
+
+		public void keyPressed(KeyEvent e) {
+		}
+
+		public void keyReleased(KeyEvent e) {
+		}
+
 	}
 }

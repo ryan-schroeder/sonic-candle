@@ -27,24 +27,30 @@ public class ColorBox extends JPanel {
 	@Override
 	public void paint(Graphics g1) {
 		Graphics2D g = (Graphics2D) g1;
-		Color bgColor = new Color(Integer.parseInt(m.bgColorRed.getText()),
-				Integer.parseInt(m.bgColorGreen.getText()),
-				Integer.parseInt(m.bgColorBlue.getText()));
+		try {
+			Color bgColor = new Color(Integer.parseInt(m.bgColorRed.getText()),
+					Integer.parseInt(m.bgColorGreen.getText()),
+					Integer.parseInt(m.bgColorBlue.getText()));
 
-		Color barColor = new Color(Integer.parseInt(m.barColorRed.getText()),
-				Integer.parseInt(m.barColorGreen.getText()),
-				Integer.parseInt(m.barColorBlue.getText()),
-				Integer.parseInt(m.barAlpha.getText()));
+			Color barColor = new Color(
+					Integer.parseInt(m.barColorRed.getText()),
+					Integer.parseInt(m.barColorGreen.getText()),
+					Integer.parseInt(m.barColorBlue.getText()),
+					Integer.parseInt(m.barAlpha.getText()));
 
-		g.setColor(bgColor);
-		g.fillRect(0, 0, this.getWidth(), this.getHeight());
-		g.setColor(barColor);
-		g.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
-				RenderingHints.VALUE_STROKE_PURE);
-		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-				RenderingHints.VALUE_ANTIALIAS_ON);
-		// g.fillRoundRect(10, 10, this.getWidth(), this.getHeight(),15,15);
-		g.fillOval(3, 3, this.getWidth() - 6, this.getHeight() - 6);
+			g.setColor(bgColor);
+			g.fillRect(0, 0, this.getWidth(), this.getHeight());
+			g.setColor(barColor);
+			g.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
+					RenderingHints.VALUE_STROKE_PURE);
+			g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+					RenderingHints.VALUE_ANTIALIAS_ON);
+			// g.fillRoundRect(10, 10, this.getWidth(), this.getHeight(),15,15);
+			g.fillOval(3, 3, this.getWidth() - 6, this.getHeight() - 6);
+		} catch (Exception e) {
+			return;
+			// Do as the user would still be entering numbers
+		}
 	}
 
 }
