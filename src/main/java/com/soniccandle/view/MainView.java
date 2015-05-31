@@ -675,6 +675,25 @@ public class MainView {
 		}
 
 		public void keyPressed(KeyEvent e) {
+			if (e.getKeyCode() == KeyEvent.VK_UP) {
+				int value = Integer.parseInt(field.getText());
+
+				value += 5;
+
+				if (value <= 255) {
+					field.setText("" + value);
+				}
+			} else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+				int value = Integer.parseInt(field.getText());
+
+				value -= 5;
+
+				if (value >= 0) {
+					field.setText("" + value);
+				}
+			}
+
+			colorBox.updateBox();
 		}
 
 		public void keyReleased(KeyEvent e) {
