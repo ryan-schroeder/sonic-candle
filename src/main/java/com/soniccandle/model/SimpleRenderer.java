@@ -140,7 +140,7 @@ public class SimpleRenderer extends SpectrumRenderer {
 		int offset = whiteSpace / 2;
 
 		BarDrawer barDrawer = null;
-		if (barStyle.equals(MainController.BAR_STYLE_THICK_BROCK)) {
+		if (barStyle.equals(MainController.BAR_STYLE_THICK_BLOCK)) {
 			barDrawer = new ThickBlockBarDrawer(g, half, barWidth);
 		} else if (barStyle.equals(MainController.BAR_STYLE_OUTLINE_BLOCK)) {
 			barDrawer = new OutlinBlockBarDrawer(g, half, barWidth);

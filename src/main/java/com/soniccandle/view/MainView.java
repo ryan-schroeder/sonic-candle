@@ -515,7 +515,7 @@ public class MainView {
 		barsC.gridy = 2;
 		barsPanel.add(panelColorPicker, barsC);
 
-		String[] barStyles = { MainController.BAR_STYLE_THICK_BROCK,
+		String[] barStyles = { MainController.BAR_STYLE_THICK_BLOCK,
 				MainController.BAR_STYLE_OUTLINE_BLOCK,
 				MainController.BAR_STYLE_THIN,
 				MainController.BAR_STYLE_ROUND_BLOCK,

@@ -140,24 +140,46 @@ public class FastSimpleRenderer extends SpectrumRenderer {
 		int offset = whiteSpace / 2;
 
 		BarDrawer barDrawer = null;
-		if (barStyle.equals(MainController.BAR_STYLE_THICK_BROCK)) {
+		switch (barStyle){
+		case MainController.BAR_STYLE_THICK_BLOCK: {
 			barDrawer = new ThickBlockBarDrawer(g, half, barWidth);
-		} else if (barStyle.equals(MainController.BAR_STYLE_OUTLINE_BLOCK)) {
+			break;
+		}
+		case MainController.BAR_STYLE_OUTLINE_BLOCK: {
 			barDrawer = new OutlinBlockBarDrawer(g, half, barWidth);
-		} else if (barStyle.equals(MainController.BAR_STYLE_THIN)) {
+			break;
+		}
+		case MainController.BAR_STYLE_THIN: {
 			barDrawer = new ThinBarDrawer(g, half, barWidth);
-		} else if (barStyle.equals(MainController.BAR_STYLE_ROUND_BLOCK)) {
+			break;
+		}
+		case MainController.BAR_STYLE_ROUND_BLOCK: {
 			barDrawer = new RoundBlockBarDrawer(g, half, barWidth);
-		} else if (barStyle.equals(MainController.BAR_STYLE_ROUND_OUTLINE)) {
+			break;
+		}
+		case MainController.BAR_STYLE_ROUND_OUTLINE: {
 			barDrawer = new RoundOutlineBarDrawer(g, half, barWidth);
-		} else if (barStyle.equals(MainController.BAR_STYLE_DEPTH_BLOCK)) {
+			break;
+		}
+		case MainController.BAR_STYLE_DEPTH_BLOCK: {
 			barDrawer = new PopUpBlockDrawer(g, half, barWidth);
-		} else if (barStyle.equals(MainController.BAR_STYLE_DEPTH_BLOCK2)) {
+			break;
+		}
+		case MainController.BAR_STYLE_DEPTH_BLOCK2: {
 			barDrawer = new EtchedBlockDrawer(g, half, barWidth);
-		} else if (barStyle.equals(MainController.BAR_STYLE_OVAL_FILLED)) {
+			break;
+		}
+		case MainController.BAR_STYLE_OVAL_FILLED: {
 			barDrawer = new OvalFilledDrawer(g, half, barWidth);
-		} else if (barStyle.equals(MainController.BAR_STYLE_OVAL_OUTLINE)) {
+			break;
+		}
+		case MainController.BAR_STYLE_OVAL_OUTLINE: {
 			barDrawer = new OvalOutlineDrawer(g, half, barWidth);
+			break;
+		}
+		default: {
+			// Do nothing
+		}
 		}
 
 		while (i < barCount) {
