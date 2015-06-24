@@ -69,8 +69,7 @@ public class Utils {
 		return stereo;
 	}
 
-	public static void printMinMax(double[] buffer) throws IOException,
-			WavFileException {
+	public static void printMinMax(double[] buffer) throws IOException, WavFileException {
 		double min = Double.MAX_VALUE;
 		double max = Double.MIN_VALUE;
 		int i = 0;
@@ -85,12 +84,10 @@ public class Utils {
 	}
 
 	public static Font scFont(int size, int style) {
-		InputStream in = Main.class
-				.getResourceAsStream("/SourceSansPro-Regular.ttf");
+		InputStream in = Main.class.getResourceAsStream("/SourceSansPro-Regular.ttf");
 		Font myFont = null;
 		try {
-			myFont = Font.createFont(Font.TRUETYPE_FONT, in).deriveFont(
-					style, size);
+			myFont = Font.createFont(Font.TRUETYPE_FONT, in).deriveFont(style, size);
 		} catch (FontFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

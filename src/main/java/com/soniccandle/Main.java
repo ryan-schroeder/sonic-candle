@@ -13,8 +13,7 @@ import com.soniccandle.view.MainView;
 
 public class Main {
 
-	private static GraphicsDevice gd = GraphicsEnvironment
-			.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+	private static GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
 	private static int screenWidth = gd.getDisplayMode().getWidth();
 	private static int screenHeight = gd.getDisplayMode().getHeight();
 
