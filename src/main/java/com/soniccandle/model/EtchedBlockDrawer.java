@@ -9,10 +9,8 @@ public class EtchedBlockDrawer extends BarDrawer {
 
 	public EtchedBlockDrawer(Graphics2D g, int half, int barWidth) {
 		super(g, half, barWidth);
-		g.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
-				RenderingHints.VALUE_STROKE_PURE);
-		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-				RenderingHints.VALUE_ANTIALIAS_ON);
+		g.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
+		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
 	}
 
@@ -26,8 +24,10 @@ public class EtchedBlockDrawer extends BarDrawer {
 
 		// new way
 		// System.out.println(radius); --system runs on truncation for non ints
-		g.fill3DRect(x - center, half - height, drawBarWidth, drawHeight * 2,
-				false);// draw up and down
+		g.fill3DRect(x - center, half - height, drawBarWidth, drawHeight * 2, false);// draw
+																						// up
+																						// and
+																						// down
 
 	}
 

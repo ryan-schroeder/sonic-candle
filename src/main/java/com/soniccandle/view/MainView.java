@@ -77,8 +77,7 @@ public class MainView {
 				}
 			}
 		} catch (Exception e) {
-			System.out
-					.println("Nimbus look and feel not found (MainView.java)");
+			System.out.println("Nimbus look and feel not found (MainView.java)");
 			e.printStackTrace();
 		}
 
@@ -93,8 +92,7 @@ public class MainView {
 
 		// Icon code
 		Image icon;
-		InputStream input = getClass().getResourceAsStream(
-				"/sonic-candle-icon.png");
+		InputStream input = getClass().getResourceAsStream("/sonic-candle-icon.png");
 		try {
 			icon = ImageIO.read(input);
 			frame.setIconImage(icon);
@@ -136,8 +134,7 @@ public class MainView {
 		vpC.gridy = 0;
 		vpPanel.add(fps, vpC);
 
-		m.videoSetFrameRate = newSCTextField(
-				Integer.toString(Main.VIDEO_FRAME_RATE), 120, 1, 10);
+		m.videoSetFrameRate = newSCTextField(Integer.toString(Main.VIDEO_FRAME_RATE), 120, 1, 10);
 		m.videoSetFrameRate.setColumns(3);
 		vpC.gridwidth = 1;
 		vpC.gridx = 1;
@@ -150,8 +147,7 @@ public class MainView {
 		vpC.gridy = 1;
 		vpPanel.add(frameWidth, vpC);
 
-		m.videoSetWidth = newSCTextField(Integer.toString(Main.WIDTH), 10000,
-				400, 100);
+		m.videoSetWidth = newSCTextField(Integer.toString(Main.WIDTH), 10000, 400, 100);
 		m.videoSetWidth.setColumns(3);
 		vpPanel.add(m.videoSetWidth);
 		vpC.gridwidth = 1;
@@ -165,8 +161,7 @@ public class MainView {
 		vpC.gridy = 2;
 		vpPanel.add(frameHeight, vpC);
 
-		m.videoSetHeight = newSCTextField(Integer.toString(Main.HEIGHT), 5000,
-				300, 100);
+		m.videoSetHeight = newSCTextField(Integer.toString(Main.HEIGHT), 5000, 300, 100);
 		m.videoSetHeight.setColumns(3);
 		vpPanel.add(m.videoSetHeight);
 		vpC.gridwidth = 1;
@@ -312,8 +307,8 @@ public class MainView {
 		label = newSCLabel("Built-in Image(1920x1080): ");
 		m.bgBuiltInPanel.add(label);
 
-		String[] builtInImages = { "blue.png", "deep.png", "golden.png",
-				"maroon.png", "red.png", "sea.png", "silver.png", "violet.png" };
+		String[] builtInImages = { "blue.png", "deep.png", "golden.png", "maroon.png", "red.png", "sea.png",
+				"silver.png", "violet.png" };
 		m.bgBuiltIn = newSCComboBoxString(builtInImages);
 		m.bgBuiltInPanel.add(m.bgBuiltIn);
 
@@ -328,8 +323,7 @@ public class MainView {
 		m.bgOtherImagePanel.add(label);
 
 		m.setBgOtherImageButton = newSCButton("Set Image");
-		m.setBgOtherImageButton
-				.setActionCommand(MainController.SET_BG_OTHER_IMAGE);
+		m.setBgOtherImageButton.setActionCommand(MainController.SET_BG_OTHER_IMAGE);
 		m.setBgOtherImageButton.addActionListener(c);
 		m.bgOtherImagePanel.add(m.setBgOtherImageButton);
 
@@ -423,8 +417,7 @@ public class MainView {
 		// Display the window.
 		frame.pack();
 		// Center frame on screen
-		frame.setLocation((screenWidth / 2) - (frame.getWidth() / 2),
-				(screenHeight / 2) - (frame.getHeight() / 2));
+		frame.setLocation((screenWidth / 2) - (frame.getWidth() / 2), (screenHeight / 2) - (frame.getHeight() / 2));
 
 		frame.setVisible(true);
 	}
@@ -444,8 +437,7 @@ public class MainView {
 	private JPanel makeBarsPanel() {
 		JPanel barsPanel = new JPanel();
 		barsPanel.setLayout(new GridBagLayout());
-		barsPanel
-				.setBorder(newTitledLabel("Bar Customization (More options coming soon!)"));
+		barsPanel.setBorder(newTitledLabel("Bar Customization (More options coming soon!)"));
 		barsPanel.setPreferredSize(new Dimension(460, 150));
 		GridBagConstraints barsC = new GridBagConstraints();
 		barsC.insets = new Insets(5, 5, 5, 5);
@@ -515,14 +507,10 @@ public class MainView {
 		barsC.gridy = 2;
 		barsPanel.add(panelColorPicker, barsC);
 
-		String[] barStyles = { MainController.BAR_STYLE_THICK_BROCK,
-				MainController.BAR_STYLE_OUTLINE_BLOCK,
-				MainController.BAR_STYLE_THIN,
-				MainController.BAR_STYLE_ROUND_BLOCK,
-				MainController.BAR_STYLE_ROUND_OUTLINE,
-				MainController.BAR_STYLE_DEPTH_BLOCK,
-				MainController.BAR_STYLE_DEPTH_BLOCK2,
-				MainController.BAR_STYLE_OVAL_FILLED,
+		String[] barStyles = { MainController.BAR_STYLE_THICK_BLOCK, MainController.BAR_STYLE_OUTLINE_BLOCK,
+				MainController.BAR_STYLE_THIN, MainController.BAR_STYLE_ROUND_BLOCK,
+				MainController.BAR_STYLE_ROUND_OUTLINE, MainController.BAR_STYLE_DEPTH_BLOCK,
+				MainController.BAR_STYLE_DEPTH_BLOCK2, MainController.BAR_STYLE_OVAL_FILLED,
 				MainController.BAR_STYLE_OVAL_OUTLINE };
 		m.barStyle = newSCComboBoxString(barStyles);
 		barsC.gridx = 1;
@@ -534,12 +522,10 @@ public class MainView {
 
 	private TitledBorder newTitledLabel(String title) {
 
-		javax.swing.border.Border normalBorder = (BorderFactory
-				.createSoftBevelBorder(2));
+		javax.swing.border.Border normalBorder = (BorderFactory.createSoftBevelBorder(2));
 		Font myFont = Utils.scFont(14, Font.BOLD);
-		TitledBorder SCBorder = (BorderFactory.createTitledBorder(normalBorder,
-				title, TitledBorder.LEFT, TitledBorder.ABOVE_TOP, myFont,
-				Color.WHITE));
+		TitledBorder SCBorder = (BorderFactory.createTitledBorder(normalBorder, title, TitledBorder.LEFT,
+				TitledBorder.ABOVE_TOP, myFont, Color.WHITE));
 
 		return (SCBorder);
 	}
@@ -552,10 +538,8 @@ public class MainView {
 
 	private JTextField newSCTextField(String text, int max, int min, int step) {
 		JTextField newSCTextField = new JTextField(text);
-		newSCTextField.addKeyListener(new TextFieldKeyEar(newSCTextField, max,
-				min, step));
-		newSCTextField.addMouseWheelListener(new TextFieldMouseWheelEar(
-				newSCTextField, max, min, step));
+		newSCTextField.addKeyListener(new TextFieldKeyEar(newSCTextField, max, min, step));
+		newSCTextField.addMouseWheelListener(new TextFieldMouseWheelEar(newSCTextField, max, min, step));
 		newSCTextField.setMinimumSize(new Dimension(46, 24));
 		return (newSCTextField);
 	}
@@ -598,13 +582,11 @@ public class MainView {
 
 		public void actionPerformed(ActionEvent e) {
 			Color color = new Color(Integer.parseInt(m.barColorRed.getText()),
-					Integer.parseInt(m.barColorGreen.getText()),
-					Integer.parseInt(m.barColorBlue.getText()),
+					Integer.parseInt(m.barColorGreen.getText()), Integer.parseInt(m.barColorBlue.getText()),
 					Integer.parseInt(m.barAlpha.getText()));
 			Color newColor = null;
 			try {
-				newColor = JColorChooser
-						.showDialog(null, "Color Picker", color);
+				newColor = JColorChooser.showDialog(null, "Color Picker", color);
 			} catch (Exception e1) {
 				System.out.println("User didn't select a color");
 				return;
@@ -625,12 +607,10 @@ public class MainView {
 
 		public void actionPerformed(ActionEvent e) {
 			Color color = new Color(Integer.parseInt(m.bgColorRed.getText()),
-					Integer.parseInt(m.bgColorGreen.getText()),
-					Integer.parseInt(m.bgColorBlue.getText()));
+					Integer.parseInt(m.bgColorGreen.getText()), Integer.parseInt(m.bgColorBlue.getText()));
 			Color newColor = null;
 			try {
-				newColor = JColorChooser
-						.showDialog(null, "Color Picker", color);
+				newColor = JColorChooser.showDialog(null, "Color Picker", color);
 			} catch (Exception e1) {
 				System.out.println("User didn't select a color");
 				return;
@@ -655,8 +635,7 @@ public class MainView {
 		private int min;
 		private int step;
 
-		public TextFieldMouseWheelEar(JTextField field, int max, int min,
-				int step) {
+		public TextFieldMouseWheelEar(JTextField field, int max, int min, int step) {
 			this.field = field;
 			this.max = max;
 			this.min = min;

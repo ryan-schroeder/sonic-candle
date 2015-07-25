@@ -55,4 +55,5 @@ public class MainModel {
 	public JButton detailsButton;
 	public JButton bgColorButton;
 	public JButton barColorButton;
+
 }

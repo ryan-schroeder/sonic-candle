@@ -27,8 +27,8 @@ public abstract class SpectrumRenderer {
 	public boolean isDone;
 	public int progress;
 
-	public SpectrumRenderer(File audioFile, int frameRate, int width,
-			int height, File outputTo) throws IOException, WavFileException {
+	public SpectrumRenderer(File audioFile, int frameRate, int width, int height, File outputTo)
+			throws IOException, WavFileException {
 		this.wavFile = getWavFile(audioFile);
 		this.frameRate = frameRate;
 		this.width = width;
@@ -36,19 +36,16 @@ public abstract class SpectrumRenderer {
 
 		sampleRate = wavFile.getSampleRate();
 		totalFrames = wavFile.getNumFrames();
-		System.out
-				.println("sample rate (frames [one frame = several samples, one for each channel] per second): "
-						+ sampleRate + ", total frames: " + totalFrames);
+		System.out.println("sample rate (frames [one frame = several samples, one for each channel] per second): "
+				+ sampleRate + ", total frames: " + totalFrames);
 		framesPerVFrame = (int) (sampleRate / frameRate);
-		System.out.println("this means, at " + frameRate
-				+ " frames per second, we will have " + framesPerVFrame
+		System.out.println("this means, at " + frameRate + " frames per second, we will have " + framesPerVFrame
 				+ " audio frames per each video frame.");
 		numChannels = wavFile.getNumChannels();
 	}
 
 	// exposed for unit tests only!
-	public WavFile getWavFile(File audioFile) throws IOException,
-			WavFileException {
+	public WavFile getWavFile(File audioFile) throws IOException, WavFileException {
 		return WavFile.openWavFile(audioFile);
 	}
 
@@ -57,8 +54,7 @@ public abstract class SpectrumRenderer {
 		lengthInSeconds = (((double) totalFrames) / ((double) sampleRate));
 		currentVFrame = 0;
 		totalVFrames = (long) (lengthInSeconds * frameRate);
-		System.out.println("audio is " + lengthInSeconds
-				+ " seconds long, which means we have " + totalVFrames
+		System.out.println("audio is " + lengthInSeconds + " seconds long, which means we have " + totalVFrames
 				+ " total video frames (" + frameRate + " fps).");
 	}
 
@@ -75,8 +71,7 @@ public abstract class SpectrumRenderer {
 		if (isDone) {
 			return;
 		}
-		System.out.println("rendering frame " + currentVFrame + " of "
-				+ totalVFrames);
+		System.out.println("rendering frame " + currentVFrame + " of " + totalVFrames);
 		outputter.addFrame(renderVFrame(currentVFrame));
 		currentVFrame++;
 		progress = (int) (((double) currentVFrame) / ((double) totalVFrames) * 100);
@@ -99,6 +94,5 @@ public abstract class SpectrumRenderer {
 		finish();
 	}
 
-	public abstract BufferedImage renderVFrame(long vFrameNum)
-			throws IOException, WavFileException;
+	public abstract BufferedImage renderVFrame(long vFrameNum) throws IOException, WavFileException;
 }

@@ -20,14 +20,13 @@ public class SimpleRenderer extends SpectrumRenderer {
 	public String barStyle;
 	public Color barColor;
 
-	public SimpleRenderer(File audioFile, int frameRate, int width, int height,
-			File outputTo) throws IOException, WavFileException {
+	public SimpleRenderer(File audioFile, int frameRate, int width, int height, File outputTo)
+			throws IOException, WavFileException {
 		super(audioFile, frameRate, width, height, outputTo);
 	}
 
 	@Override
-	public BufferedImage renderVFrame(long vFrameNum) throws IOException,
-			WavFileException {
+	public BufferedImage renderVFrame(long vFrameNum) throws IOException, WavFileException {
 		int framesRead;
 		double[] buffer = new double[framesPerVFrame * numChannels];
 		framesRead = wavFile.readFrames(buffer, framesPerVFrame); // not
@@ -38,8 +37,7 @@ public class SimpleRenderer extends SpectrumRenderer {
 																	// that's
 																	// correct.
 		if (framesRead == 0) {
-			throw new RuntimeException("no frames were read for vFrameNum "
-					+ vFrameNum);
+			throw new RuntimeException("no frames were read for vFrameNum " + vFrameNum);
 		}
 
 		DoubleFFT_1D fft = new DoubleFFT_1D(framesPerVFrame);
@@ -53,8 +51,7 @@ public class SimpleRenderer extends SpectrumRenderer {
 			throw new RuntimeException("only supporting 1 or 2 channels");
 		}
 		fft.complexForward(fftResult);
-		System.out.println("array fftResult has this many entries: "
-				+ fftResult.length);
+		System.out.println("array fftResult has this many entries: " + fftResult.length);
 
 		int i = 0;
 		int[] bars = new int[barCount];
@@ -97,8 +94,7 @@ public class SimpleRenderer extends SpectrumRenderer {
 																				// scales
 																				// us
 																				// over.
-		System.out.println("total fftResult points: " + fftResult.length
-				+ "; pointsPerBar: " + pointsPerBar);
+		System.out.println("total fftResult points: " + fftResult.length + "; pointsPerBar: " + pointsPerBar);
 
 		while (i < barCount) {
 			bars[i] = 0;
@@ -107,11 +103,18 @@ public class SimpleRenderer extends SpectrumRenderer {
 			while (j < (pointsPerBar * (i + 1))) {
 				double real = fftResult[j];
 				double imaginary = fftResult[j + 1];
-				double freqencyMagnatude = Math.sqrt((real * real)
-						+ (imaginary * imaginary)); // frequency magnatude =
-													// sqrt (real * real + imag
-													// * imag)
-													// http://stackoverflow.com/questions/6740545/need-help-understanding-fft-output
+				double freqencyMagnatude = Math.sqrt((real * real) + (imaginary * imaginary)); // frequency
+																								// magnatude
+																								// =
+																								// sqrt
+																								// (real
+																								// *
+																								// real
+																								// +
+																								// imag
+																								// *
+																								// imag)
+																								// http://stackoverflow.com/questions/6740545/need-help-understanding-fft-output
 				freqencyMagnatude = freqencyMagnatude * 1.2; // scale up.
 				if (Math.abs(fftResult[j]) > bars[i]) {
 					bars[i] = (int) Math.round(freqencyMagnatude);
@@ -122,11 +125,9 @@ public class SimpleRenderer extends SpectrumRenderer {
 		}
 
 		// draw a spectrum
-		BufferedImage img = new BufferedImage(width, height,
-				BufferedImage.TYPE_INT_ARGB);
+		BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g = img.createGraphics();
-		g.drawImage(backgroundImage, 0, 0, width, height, 0, 0, width, height,
-				null);
+		g.drawImage(backgroundImage, 0, 0, width, height, 0, 0, width, height, null);
 		g.setColor(barColor);
 
 		i = 0;
@@ -140,7 +141,7 @@ public class SimpleRenderer extends SpectrumRenderer {
 		int offset = whiteSpace / 2;
 
 		BarDrawer barDrawer = null;
-		if (barStyle.equals(MainController.BAR_STYLE_THICK_BROCK)) {
+		if (barStyle.equals(MainController.BAR_STYLE_THICK_BLOCK)) {
 			barDrawer = new ThickBlockBarDrawer(g, half, barWidth);
 		} else if (barStyle.equals(MainController.BAR_STYLE_OUTLINE_BLOCK)) {
 			barDrawer = new OutlinBlockBarDrawer(g, half, barWidth);
