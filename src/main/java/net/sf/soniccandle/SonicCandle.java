@@ -17,12 +17,7 @@ public class SonicCandle {
 	public static void main(String[] args) {
 		System.out.println("Initializing...");
 
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				initApplication();
-			}
-		});
+		SwingUtilities.invokeLater(() -> initApplication());
 
 	}
 

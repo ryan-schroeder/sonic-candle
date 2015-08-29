@@ -1,5 +1,6 @@
 package net.sf.soniccandle.ui;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 
 import javax.swing.JFrame;
@@ -48,6 +49,11 @@ public class MainWindow {
 			this.setSize(mFrameDefaultDimension);
 			this.setResizable(true);
 			this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+			DisplayPane display = new DisplayPane();
+
+			add(display, BorderLayout.CENTER);
+
 		}
 
 	}
