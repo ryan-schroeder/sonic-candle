@@ -8,7 +8,7 @@ import net.sf.soniccandle.SonicCandle;
 
 public class DisplayContext {
 
-	private BufferedImage img = new BufferedImage(SonicCandle.SCREEN_WIDTH / 3, SonicCandle.SCREEN_WIDTH / 3,
+	private BufferedImage img = new BufferedImage(SonicCandle.SCREEN_WIDTH / 3, SonicCandle.SCREEN_HEIGHT / 3,
 			BufferedImage.TYPE_INT_ARGB);
 	private Graphics2D imgG = img.createGraphics();
 
