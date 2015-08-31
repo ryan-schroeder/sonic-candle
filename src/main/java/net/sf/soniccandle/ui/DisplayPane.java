@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 public class DisplayPane extends JPanel {
 	private static final long serialVersionUID = -4889428737358196704L;
 
-	private DisplayContext context = new DisplayContext();
+	private DisplayContext videoContext = new DisplayContext();
 
 	public DisplayPane() {
 
@@ -21,7 +21,7 @@ public class DisplayPane extends JPanel {
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, this.getWidth(), this.getHeight());
 
-		g.drawImage(context.getImage(), getWidth() - context.getImage().getWidth(), 0, this);
+		g.drawImage(videoContext.getImage(), getWidth() - videoContext.getImage().getWidth(), 0, this);
 	}
 
 }
