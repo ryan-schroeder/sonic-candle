@@ -50,10 +50,6 @@ public class MainWindow {
 			this.setResizable(true);
 			this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-			DisplayPane display = new DisplayPane();
-
-			add(display, BorderLayout.CENTER);
-
 		}
 
 	}
