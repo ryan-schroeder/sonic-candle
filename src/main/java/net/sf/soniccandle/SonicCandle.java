@@ -17,7 +17,7 @@ public class SonicCandle {
     public static void main(String[] args) {
         System.out.println("Initializing Sonic Candle...");
 
-        SwingUtilities.invokeLater(() -> initApplication());
+        SwingUtilities.invokeLater(SonicCandle::initApplication);
 
     }
 
