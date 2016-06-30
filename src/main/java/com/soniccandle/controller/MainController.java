@@ -154,15 +154,23 @@ public class MainController implements ActionListener {
 			m.bgColorPanel.setVisible(true);
 			m.bgBuiltInPanel.setVisible(false);
 			m.bgOtherImagePanel.setVisible(false);
+			m.bgImageSequencePanel.setVisible(false);
 		} else if (MainView.BG_BUILT_IN_IMAGE.equals(e.getActionCommand())) {
 			m.bgColorPanel.setVisible(false);
 			m.bgBuiltInPanel.setVisible(true);
 			m.bgOtherImagePanel.setVisible(false);
+			m.bgImageSequencePanel.setVisible(false);
 		} else if (MainView.BG_OTHER_IMAGE.equals(e.getActionCommand())) {
 			m.bgColorPanel.setVisible(false);
 			m.bgBuiltInPanel.setVisible(false);
 			m.bgOtherImagePanel.setVisible(true);
-		}
+			m.bgImageSequencePanel.setVisible(false);
+		} else if (MainView.BG_IMAGE_SEQUENCE.equals(e.getActionCommand())) {
+			m.bgColorPanel.setVisible(false);
+			m.bgBuiltInPanel.setVisible(false);
+			m.bgOtherImagePanel.setVisible(false);
+			m.bgImageSequencePanel.setVisible(true);
+                }
 
 		if (SET_BG_OTHER_IMAGE.equals(e.getActionCommand())) {
 			int returnVal = m.fcBG.showDialog(m.pane, "Set Background Image");

@@ -55,6 +55,7 @@ public class MainView {
 	public static final Color SCPURPLE_BACK = new Color(61, 54, 64);
 
 	public static final String BG_OTHER_IMAGE = "Other Image";
+	public static final String BG_IMAGE_SEQUENCE = "Image Sequence";
 	public static final String BG_BUILT_IN_IMAGE = "Built-in Image";
 	public static final String BG_FLAT_COLOR = "Flat Color";
 	public static final String OUTPUT_MP4_TITLE = "Mp4 video file";
@@ -269,8 +270,8 @@ public class MainView {
 		bgC.gridy = 0;
 		bgPanel.add(m.otherImageRb, bgC);
 
-		m.imageSequenceRb = newSCRadioButton(BG_OTHER_IMAGE);
-		m.imageSequenceRb.setActionCommand(BG_OTHER_IMAGE);
+		m.imageSequenceRb = newSCRadioButton(BG_IMAGE_SEQUENCE);
+		m.imageSequenceRb.setActionCommand(BG_IMAGE_SEQUENCE);
 		m.imageSequenceRb.addActionListener(c);
 		m.bgTypeGroup.add(m.imageSequenceRb);
 		bgC.gridx = 3;
@@ -305,7 +306,7 @@ public class MainView {
 
 		m.bgColorPanel.add(m.bgColorButton);
 
-		bgC.gridwidth = 3;
+		bgC.gridwidth = 4;
 		bgC.gridx = 0;
 		bgC.gridy = 1;
 		bgPanel.add(m.bgColorPanel, bgC);
@@ -320,7 +321,7 @@ public class MainView {
 		m.bgBuiltIn = newSCComboBoxString(builtInImages);
 		m.bgBuiltInPanel.add(m.bgBuiltIn);
 
-		bgC.gridwidth = 3;
+		bgC.gridwidth = 4;
 		bgC.gridx = 0;
 		bgC.gridy = 2;
 		bgPanel.add(m.bgBuiltInPanel, bgC);
@@ -339,7 +340,26 @@ public class MainView {
 		m.bgImageNamelabel.setOpaque(true);
 		m.bgOtherImagePanel.add(m.bgImageNamelabel);
 
-		bgC.gridwidth = 3;
+		bgC.gridwidth = 4;
+		bgC.gridx = 0;
+		bgC.gridy = 3;
+		bgPanel.add(m.bgOtherImagePanel, bgC);
+
+		m.bgImageSequencePanel = new JPanel();
+		m.bgImageSequencePanel.setVisible(false);
+		label = newSCLabel("foo_001.png, foo_002.png, etc: ");
+		m.bgImageSequencePanel.add(label);
+
+		m.setBgSequenceFFButton = newSCButton("Set First Frame");
+		m.setBgSequenceFFButton.setActionCommand(MainController.SET_BG_OTHER_IMAGE);
+		m.setBgSequenceFFButton.addActionListener(c);
+		m.bgImageSequencePanel.add(m.setBgSequenceFFButton);
+
+		m.bgSequenceFFLabel = new JLabel("  (no file chosen)  ");
+		m.bgSequenceFFLabel.setOpaque(true);
+		m.bgImageSequencePanel.add(m.bgSequenceFFLabel);
+
+		bgC.gridwidth = 4;
 		bgC.gridx = 0;
 		bgC.gridy = 3;
 		bgPanel.add(m.bgOtherImagePanel, bgC);
