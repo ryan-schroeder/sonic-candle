@@ -25,6 +25,10 @@ jar {
     }
 }
 
+repositories {
+    mavenCentral()
+}
+
 dependencies {
     compile group: 'commons-collections', name: 'commons-collections', version: '3.2'
     compile 'com.github.wendykierp:JTransforms:3.0'
