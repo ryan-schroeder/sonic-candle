@@ -269,6 +269,14 @@ public class MainView {
 		bgC.gridy = 0;
 		bgPanel.add(m.otherImageRb, bgC);
 
+		m.imageSequenceRb = newSCRadioButton(BG_OTHER_IMAGE);
+		m.imageSequenceRb.setActionCommand(BG_OTHER_IMAGE);
+		m.imageSequenceRb.addActionListener(c);
+		m.bgTypeGroup.add(m.imageSequenceRb);
+		bgC.gridx = 3;
+		bgC.gridy = 0;
+		bgPanel.add(m.imageSequenceRb, bgC);
+
 		m.bgColorPanel = new JPanel();
 		label = newSCLabel("RGB values (0-255 for each color): ");
 		m.bgColorPanel.add(label);
