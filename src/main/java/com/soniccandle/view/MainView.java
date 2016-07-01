@@ -361,8 +361,8 @@ public class MainView {
 
 		bgC.gridwidth = 4;
 		bgC.gridx = 0;
-		bgC.gridy = 3;
-		bgPanel.add(m.bgOtherImagePanel, bgC);
+		bgC.gridy = 4;
+		bgPanel.add(m.bgImageSequencePanel, bgC);
 
 		topC.weightx = 1;
 		topC.gridx = 1;
