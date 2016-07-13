@@ -11,6 +11,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.regex.*;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -24,6 +25,7 @@ import javazoom.jl.decoder.JavaLayerException;
 
 import com.soniccandle.Main;
 import com.soniccandle.model.FastSimpleRenderer;
+import com.soniccandle.model.ImageSequence;
 import com.soniccandle.model.ImageSeqVideoOutputter;
 import com.soniccandle.model.MainModel;
 import com.soniccandle.model.RenderSettings;
@@ -39,6 +41,7 @@ public class MainController implements ActionListener {
 	public static final String SET_INPUT_WAV = "SET_INPUT_WAV";
 	public static final String SET_OUTPUT_MP4 = "SET_OUTPUT_MP4";
 	public static final String SET_BG_OTHER_IMAGE = "SET_BG_OTHER_IMAGE";
+	public static final String SET_BG_IMAGE_SEQUENCE = "SET_BG_IMAGE_SEQUENCE";
 	public static final String RENDER = "RENDER";
 	public static final String CANCEL_RENDER = "CANCEL_RENDER";
 	public static final String BAR_STYLE_THICK_BLOCK = "01 Thick Block";
@@ -181,6 +184,24 @@ public class MainController implements ActionListener {
 			if (ImageFilter.supportedType(m.fcBG.getSelectedFile())) {
 				m.backgroundImageFile = m.fcBG.getSelectedFile();
 				m.bgImageNamelabel.setText(" " + m.backgroundImageFile.getName());
+			} else {
+				JOptionPane.showMessageDialog(m.pane, "Please use a supported format");
+			}
+		}
+
+		if (SET_BG_IMAGE_SEQUENCE.equals(e.getActionCommand())) {
+			int returnVal = m.fcBG.showDialog(m.pane, "Set Image Sequence First Frame");
+
+			if (returnVal != JFileChooser.APPROVE_OPTION) { // they hit cancel
+				return;
+			}
+			if (ImageFilter.supportedType(m.fcBG.getSelectedFile())) {
+				try {
+					m.bgImageSequence = new ImageSequence(m.fcBG.getSelectedFile());
+                                } catch (Exception e2) {
+					JOptionPane.showMessageDialog(m.pane, e2.getMessage());
+				}
+				m.bgSequenceFFLabel.setText(" " + m.bgImageSequence.firstFrame.getName().substring(0, 25));
 			} else {
 				JOptionPane.showMessageDialog(m.pane, "Please use a supported format");
 			}

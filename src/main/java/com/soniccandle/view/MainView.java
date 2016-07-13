@@ -347,11 +347,11 @@ public class MainView {
 
 		m.bgImageSequencePanel = new JPanel();
 		m.bgImageSequencePanel.setVisible(false);
-		label = newSCLabel("foo_001.png, foo_002.png, etc: ");
+		label = newSCLabel("example: foo_001.png");
 		m.bgImageSequencePanel.add(label);
 
 		m.setBgSequenceFFButton = newSCButton("Set First Frame");
-		m.setBgSequenceFFButton.setActionCommand(MainController.SET_BG_OTHER_IMAGE);
+		m.setBgSequenceFFButton.setActionCommand(MainController.SET_BG_IMAGE_SEQUENCE);
 		m.setBgSequenceFFButton.addActionListener(c);
 		m.bgImageSequencePanel.add(m.setBgSequenceFFButton);
 

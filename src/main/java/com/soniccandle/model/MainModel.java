@@ -13,6 +13,8 @@ import javax.swing.JProgressBar;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
+import com.soniccandle.model.ImageSequence;
+
 public class MainModel {
 	public JFileChooser fcBG;
 	public JFileChooser fcIn;
@@ -35,6 +37,7 @@ public class MainModel {
 	public JPanel bgOtherImagePanel;
 	public JPanel bgImageSequencePanel;
 	public File backgroundImageFile;
+        public ImageSequence bgImageSequence;
 	public JLabel bgImageNamelabel;
         public JLabel bgSequenceFFLabel;
 	public JButton setBgOtherImageButton;
