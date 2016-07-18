@@ -198,10 +198,10 @@ public class MainController implements ActionListener {
 			if (ImageFilter.supportedType(m.fcBG.getSelectedFile())) {
 				try {
 					m.bgImageSequence = new ImageSequence(m.fcBG.getSelectedFile());
+					m.bgSequenceFFLabel.setText(" " + m.bgImageSequence.firstFrame.getName());
                                 } catch (Exception e2) {
 					JOptionPane.showMessageDialog(m.pane, e2.getMessage());
 				}
-				m.bgSequenceFFLabel.setText(" " + m.bgImageSequence.firstFrame.getName().substring(0, 25));
 			} else {
 				JOptionPane.showMessageDialog(m.pane, "Please use a supported format");
 			}
