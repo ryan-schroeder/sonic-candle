@@ -24,11 +24,14 @@ import javazoom.jl.converter.Converter;
 import javazoom.jl.decoder.JavaLayerException;
 
 import com.soniccandle.Main;
+import com.soniccandle.model.BackgroundConjuror;
 import com.soniccandle.model.FastSimpleRenderer;
 import com.soniccandle.model.ImageSequence;
+import com.soniccandle.model.ImageSequenceBgConjuror;
 import com.soniccandle.model.ImageSeqVideoOutputter;
 import com.soniccandle.model.MainModel;
 import com.soniccandle.model.RenderSettings;
+import com.soniccandle.model.StillBgConjuror;
 import com.soniccandle.model.VideoOutputter;
 import com.soniccandle.model.XuggleVideoOutputter;
 import com.soniccandle.util.ImageFilter;
@@ -345,7 +348,8 @@ public class MainController implements ActionListener {
 			backgroundImageG.setColor(new Color(Integer.parseInt(m.bgColorRed.getText()),
 					Integer.parseInt(m.bgColorGreen.getText()), Integer.parseInt(m.bgColorBlue.getText())));
 			backgroundImageG.fillRect(0, 0, rs.width, rs.height);
-			rs.backgroundImage = backgroundImage;
+			StillBgConjuror backgroundConjuror = new StillBgConjuror(backgroundImage);
+			rs.backgroundConjuror = backgroundConjuror;
 		} else if (m.builtInImageRb.isSelected()) {
 			ClassLoader loader = Thread.currentThread().getContextClassLoader();
 			BufferedImage backgroundImage = null;
@@ -372,7 +376,8 @@ public class MainController implements ActionListener {
 				JOptionPane.showMessageDialog(m.pane, "Aah!  Could not read that built-in image.  Our fault!!  Sorry!");
 				throw new Exception();
 			}
-			rs.backgroundImage = resizedBackgroundImage;
+			StillBgConjuror backgroundConjuror = new StillBgConjuror(resizedBackgroundImage);
+			rs.backgroundConjuror = backgroundConjuror;
 			g.dispose();
 		} else if (m.otherImageRb.isSelected()) {
 			if (m.backgroundImageFile == null) {
@@ -404,9 +409,12 @@ public class MainController implements ActionListener {
 				JOptionPane.showMessageDialog(m.pane, "The background image given could not be read");
 				throw new Exception();
 			}
-			rs.backgroundImage = resizedBackgroundImage;
+			StillBgConjuror backgroundConjuror = new StillBgConjuror(resizedBackgroundImage);
+			rs.backgroundConjuror = backgroundConjuror;
 			g.dispose();
-
+		} else if (m.otherImageRb.isSelected()) {
+			ImageSequenceBgConjuror backgroundConjuror = new ImageSequenceBgConjuror(m.bgImageSequence);
+			rs.backgroundConjuror = backgroundConjuror;
 		}
 		return rs;
 	}

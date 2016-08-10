@@ -13,10 +13,11 @@ import co.uk.labbookpages.WavFileException;
 import com.soniccandle.controller.MainController;
 import com.soniccandle.util.StereoData;
 import com.soniccandle.util.Utils;
+import com.soniccandle.model.BackgroundConjuror;
 
 public class FastSimpleRenderer extends SpectrumRenderer {
 
-	public BufferedImage backgroundImage;
+	public BackgroundConjuror backgroundConjuror;
 	public String barStyle;
 	public Color barColor;
 
@@ -127,7 +128,7 @@ public class FastSimpleRenderer extends SpectrumRenderer {
 		// draw a spectrum
 		BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g = img.createGraphics();
-		g.drawImage(backgroundImage, 0, 0, width, height, 0, 0, width, height, null);
+		g.drawImage(backgroundConjuror.conjure(), 0, 0, width, height, 0, 0, width, height, null);
 		g.setColor(barColor);
 
 		i = 0;

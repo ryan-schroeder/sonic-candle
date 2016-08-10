@@ -12,6 +12,7 @@ import com.soniccandle.model.MainModel;
 import com.soniccandle.model.RenderSettings;
 import com.soniccandle.model.VideoOutputter;
 import com.soniccandle.model.XuggleVideoOutputter;
+import com.soniccandle.model.BackgroundConjuror;
 
 public class RenderSwingWorker extends SwingWorker<Boolean, Integer> {
 
@@ -21,7 +22,6 @@ public class RenderSwingWorker extends SwingWorker<Boolean, Integer> {
 	public File audioFile;
 	public File outputTo;
 	public VideoOutputter outputter;
-	public BufferedImage backgroundImage;
 	public MainController c;
 	public MainModel m;
 	public RenderSettings rs;
@@ -30,15 +30,23 @@ public class RenderSwingWorker extends SwingWorker<Boolean, Integer> {
 	public Boolean doInBackground() {
 		FastSimpleRenderer renderer;
 		try {
+			System.out.println("A");
 			renderer = rs.bakeSimpleRenderer(m);
+			System.out.println("B");
 			m.progressBar.setValue(0);
+			System.out.println("C");
 			renderer.start();
+			System.out.println("D");
 			while (!renderer.isDone && !Thread.currentThread().isInterrupted()) {
+				System.out.println("E");
 				renderer.renderNextFrame();
+				System.out.println("F");
 				this.publish(renderer.progress);
 			}
+			System.out.println("G");
 			renderer.finish();
 		} catch (Exception e) {
+			System.out.println("Error - message: " + e.getMessage());
 			throw new RuntimeException(e);
 		}
 		return true;

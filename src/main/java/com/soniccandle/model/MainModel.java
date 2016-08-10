@@ -37,11 +37,11 @@ public class MainModel {
 	public JPanel bgOtherImagePanel;
 	public JPanel bgImageSequencePanel;
 	public File backgroundImageFile;
-        public ImageSequence bgImageSequence;
+	public ImageSequence bgImageSequence;
 	public JLabel bgImageNamelabel;
-        public JLabel bgSequenceFFLabel;
+	public JLabel bgSequenceFFLabel;
 	public JButton setBgOtherImageButton;
-        public JButton setBgSequenceFFButton;
+	public JButton setBgSequenceFFButton;
 	public ButtonGroup bgTypeGroup;
 	public JComboBox<String> bgBuiltIn;
 	public JRadioButton flatColorRb;

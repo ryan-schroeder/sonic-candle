@@ -50,7 +50,15 @@ public abstract class SpectrumRenderer {
 	}
 
 	public void start() throws Exception {
-		outputter.start();
+		System.out.println("CA");
+		try {
+			outputter.start();
+		} catch (Exception e) {
+			System.out.println("Error starting the outputter: " + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		}
+		System.out.println("CB");
 		lengthInSeconds = (((double) totalFrames) / ((double) sampleRate));
 		currentVFrame = 0;
 		totalVFrames = (long) (lengthInSeconds * frameRate);

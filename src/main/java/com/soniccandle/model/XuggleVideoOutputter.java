@@ -37,23 +37,42 @@ public class XuggleVideoOutputter extends VideoOutputter {
 
 	@Override
 	public void start() throws Exception {
+		System.out.println("CAA");
 		frameNumber = 0;
 		nsecsPerFrame = (long) (((double) 1) / ((double) frameRate) * ((double) 1000000000));
 
 		WavFile wavFile = WavFile.openWavFile(audioFile);
+		System.out.println("CAB");
 		int audioStreamId = 0;
 		int channelCount = wavFile.getNumChannels();
 		int sampleRate = (int) wavFile.getSampleRate(); // Hz
 		wavFile.close();
-		IMediaReader audioReader = ToolFactory.makeReader(audioFile.getPath());
+		System.out.println("CAC");
+                System.out.println(audioFile.getPath());
+                System.out.println("CAC2");
+		IMediaReader audioReader;
+		System.out.println("CAC3");
+		try {
+			audioReader = ToolFactory.makeReader(audioFile.getPath());
+		} catch (Exception e) {
+			System.out.println("Error");
+			System.out.println(e.getMessage());
+		}
+		System.out.println("CAD");
 		MediaConcatenator concatenator = new MediaConcatenator(AUDIO_STREAM_INDEX, VIDEO_STREAM_INDEX);
 		audioReader.addListener(concatenator);
+		System.out.println("CAE");
 		writer = ToolFactory.makeWriter(outputTo.getPath());
+		System.out.println("CAF");
 		concatenator.addListener(writer);
+		System.out.println("CAG");
 		writer.addVideoStream(VIDEO_STREAM_INDEX, 0, ICodec.ID.CODEC_ID_MPEG4, width, height);
+		System.out.println("CAH");
 		writer.addAudioStream(AUDIO_STREAM_INDEX, audioStreamId, channelCount, sampleRate);
+		System.out.println("CAI");
 		while (audioReader.readPacket() == null) {
 		} // Read in the full audio
+		System.out.println("CAJ");
 	}
 
 	@Override
