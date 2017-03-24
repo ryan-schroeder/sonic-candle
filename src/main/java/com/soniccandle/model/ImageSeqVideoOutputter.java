@@ -7,26 +7,26 @@ import javax.imageio.ImageIO;
 
 public class ImageSeqVideoOutputter extends VideoOutputter {
 
-	public long frameNumber = 0;
+    public long frameNumber = 0;
 
-	public ImageSeqVideoOutputter(File wavFile, File outputTo) {
-		super(wavFile, outputTo);
-	}
+    public ImageSeqVideoOutputter(File wavFile, File outputTo) {
+        super(wavFile, outputTo);
+    }
 
-	@Override
-	public void start() {
-		frameNumber = 0;
-	}
+    @Override
+    public void start() {
+        frameNumber = 0;
+    }
 
-	@Override
-	public void addFrame(BufferedImage frame) throws Exception {
-		File outputfile = new File(outputTo, "frame_" + frameNumber + ".png");
-		ImageIO.write(frame, "png", outputfile);
-		frameNumber++;
-	}
+    @Override
+    public void addFrame(BufferedImage frame) throws Exception {
+        File outputfile = new File(outputTo, "frame_" + frameNumber + ".png");
+        ImageIO.write(frame, "png", outputfile);
+        frameNumber++;
+    }
 
-	@Override
-	public void finish() {
-	}
+    @Override
+    public void finish() {
+    }
 
 }
