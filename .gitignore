@@ -5,7 +5,6 @@
 
 # Package Files #
 *.jar
-!libs/*.jar
 *.war
 *.ear
 
@@ -15,4 +14,3 @@ hs_err_pid*
 /build/
 /.gradle/
 /.settings/
-/.idea/
