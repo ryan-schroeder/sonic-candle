@@ -41,7 +41,7 @@ public class MainController implements ActionListener {
 	public static final String SET_BG_OTHER_IMAGE = "SET_BG_OTHER_IMAGE";
 	public static final String RENDER = "RENDER";
 	public static final String CANCEL_RENDER = "CANCEL_RENDER";
-	public static final String BAR_STYLE_THICK_BLOCK = "01 Thick Block";
+	public static final String BAR_STYLE_THICK_BROCK = "01 Thick Block";
 	public static final String BAR_STYLE_OUTLINE_BLOCK = "02 Outline Block";
 	public static final String BAR_STYLE_THIN = "03 Thin";
 	public static final String BAR_STYLE_ROUND_BLOCK = "04 Round Filled";
@@ -64,17 +64,19 @@ public class MainController implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 
 		// set frame rate
-		if (Integer.parseInt(m.videoSetFrameRate.getText()) > 0) // set minimum
-																	// to 1
+		if (Integer.parseInt(m.videoSetFrameRate.getText()) > 0)// set minimum
+																// to 1
 		{
-			Main.setVideoFrameRate(Integer.parseInt(m.videoSetFrameRate.getText()));
+			Main.setVideoFrameRate(Integer.parseInt(m.videoSetFrameRate
+					.getText()));
 		} else {
-			JOptionPane.showMessageDialog(m.pane, "Please enter a real Frame Rate!");
+			JOptionPane.showMessageDialog(m.pane,
+					"Please enter a real Frame Rate!");
 			return;
 		}
 
 		// set video width
-		if (Integer.parseInt(m.videoSetWidth.getText()) > 399) // set minimum to
+		if (Integer.parseInt(m.videoSetWidth.getText()) > 399)// set minimum to
 																// 400
 		{
 			Main.setVideoWidth(Integer.parseInt(m.videoSetWidth.getText()));
@@ -84,13 +86,13 @@ public class MainController implements ActionListener {
 		}
 
 		// set video height
-		if (Integer.parseInt(m.videoSetHeight.getText()) > 299) // set minimum
-																// to
+		if (Integer.parseInt(m.videoSetHeight.getText()) > 299)// set minimum to
 																// 300
 		{
 			Main.setVideoHeight(Integer.parseInt(m.videoSetHeight.getText()));
 		} else {
-			JOptionPane.showMessageDialog(m.pane, "Please enter a real Height!");
+			JOptionPane
+					.showMessageDialog(m.pane, "Please enter a real Height!");
 			return;
 		}
 
@@ -119,7 +121,8 @@ public class MainController implements ActionListener {
 					m.setOutputButton.setEnabled(true);
 
 				} else {
-					JOptionPane.showMessageDialog(m.pane, "Please use a supported format");
+					JOptionPane.showMessageDialog(m.pane,
+							"Please use a supported format");
 				}
 			}
 		}
@@ -133,15 +136,18 @@ public class MainController implements ActionListener {
 			}
 
 			if (!m.fcOut.getSelectedFile().getName().endsWith(".mp4")
-					&& (m.outputMethod.getSelectedItem().equals(MainView.OUTPUT_MP4_TITLE))) {
+					&& (m.outputMethod.getSelectedItem()
+							.equals(MainView.OUTPUT_MP4_TITLE))) {
 				File addedMp4 = new File(m.fcOut.getSelectedFile().getParent(),
 						m.fcOut.getSelectedFile().getName() + ".mp4");
 				m.fcOut.setSelectedFile(addedMp4);
 			}
 
-			if (m.fcOut.getSelectedFile().exists() && !m.fcOut.getSelectedFile().isDirectory()) {
-				JOptionPane.showMessageDialog(m.pane,
-						"That file exists already: if you render it will be overwritten.");
+			if (m.fcOut.getSelectedFile().exists()
+					&& !m.fcOut.getSelectedFile().isDirectory()) {
+				JOptionPane
+						.showMessageDialog(m.pane,
+								"That file exists already: if you render it will be overwritten.");
 			}
 			m.outputTo = m.fcOut.getSelectedFile();
 			m.outputToNameLabel.setText(m.outputTo.getName());
@@ -172,9 +178,11 @@ public class MainController implements ActionListener {
 			}
 			if (ImageFilter.supportedType(m.fcBG.getSelectedFile())) {
 				m.backgroundImageFile = m.fcBG.getSelectedFile();
-				m.bgImageNamelabel.setText(" " + m.backgroundImageFile.getName());
+				m.bgImageNamelabel.setText(" "
+						+ m.backgroundImageFile.getName());
 			} else {
-				JOptionPane.showMessageDialog(m.pane, "Please use a supported format");
+				JOptionPane.showMessageDialog(m.pane,
+						"Please use a supported format");
 			}
 		}
 
@@ -184,9 +192,11 @@ public class MainController implements ActionListener {
 				rs = extractRenderSettings(false);
 				FastSimpleRenderer renderer;
 				renderer = rs.bakeSimpleRenderer(m);
-				int previewFrameInt = Integer.parseInt(m.previewFrame.getText());
+				int previewFrameInt = Integer
+						.parseInt(m.previewFrame.getText());
 				if (previewFrameInt < 1) {
-					JOptionPane.showMessageDialog(m.pane, "Please enter a real frame to preview");
+					JOptionPane.showMessageDialog(m.pane,
+							"Please enter a real frame to preview");
 					return;
 				}
 				System.out.println("previewing frame: " + previewFrameInt);
@@ -213,7 +223,8 @@ public class MainController implements ActionListener {
 																				// should
 				// Icon code
 				Image icon;
-				InputStream input = getClass().getResourceAsStream("/sonic-candle-icon.png");
+				InputStream input = getClass().getResourceAsStream(
+						"/sonic-candle-icon.png");
 				try {
 					icon = ImageIO.read(input);
 					previewFrame.setIconImage(icon);
@@ -248,7 +259,8 @@ public class MainController implements ActionListener {
 			m.progressBar.setEnabled(true);
 			lockWhileRendering();
 			renderSwingWorker.execute();
-			JOptionPane.showMessageDialog(m.pane, "Takes a sec for progress bar to show: give it a moment.");
+			JOptionPane.showMessageDialog(m.pane,
+					"Takes a sec for progress bar to show: give it a moment.");
 
 		}
 
@@ -257,39 +269,47 @@ public class MainController implements ActionListener {
 		}
 	}
 
-	private RenderSettings extractRenderSettings(boolean getOutputter) throws Exception {
+	private RenderSettings extractRenderSettings(boolean getOutputter)
+			throws Exception {
 		RenderSettings rs = new RenderSettings();
 		if (m.audioFile == null) {
-			JOptionPane.showMessageDialog(null, "That audio file does not exist.");
+			JOptionPane.showMessageDialog(null,
+					"That audio file does not exist.");
 			throw new Exception();
 		}
 		if (!m.audioFile.exists()) {
-			JOptionPane.showMessageDialog(null, "That audio file does not exist.");
+			JOptionPane.showMessageDialog(null,
+					"That audio file does not exist.");
 			throw new Exception();
 		}
 		VideoOutputter outputter = null;
 		if (getOutputter) {
 			if (m.outputTo.exists() && !m.outputTo.isDirectory()) {
-				int result = JOptionPane.showConfirmDialog(m.pane,
-						"Are you sure you want to over-write " + m.outputTo.getName() + "?");
+				int result = JOptionPane.showConfirmDialog(
+						m.pane,
+						"Are you sure you want to over-write "
+								+ m.outputTo.getName() + "?");
 				if (result != JOptionPane.OK_OPTION) {
 					throw new Exception();
 				}
 			}
 			if (new File(m.outputTo, "frame_0.png").exists()) {
-				int result = JOptionPane.showConfirmDialog(m.pane,
-						"Your output folder has frames in it already: overwrite?");
+				int result = JOptionPane
+						.showConfirmDialog(m.pane,
+								"Your output folder has frames in it already: overwrite?");
 				if (result != JOptionPane.OK_OPTION) {
 					throw new Exception();
 				}
 			}
 
-			if (m.outputMethod.getSelectedItem().equals(MainView.OUTPUT_MP4_TITLE)) {
+			if (m.outputMethod.getSelectedItem().equals(
+					MainView.OUTPUT_MP4_TITLE)) {
 				outputter = new XuggleVideoOutputter(m.audioFile, m.outputTo);
 			} else {
 				if (!m.outputTo.isDirectory()) {
-					JOptionPane.showMessageDialog(m.pane,
-							"You must choose an output folder if you want to render an image sequence.");
+					JOptionPane
+							.showMessageDialog(m.pane,
+									"You must choose an output folder if you want to render an image sequence.");
 					throw new Exception();
 				}
 				outputter = new ImageSeqVideoOutputter(m.audioFile, m.outputTo);
@@ -311,10 +331,12 @@ public class MainController implements ActionListener {
 		}
 
 		if (m.flatColorRb.isSelected()) {
-			BufferedImage backgroundImage = new BufferedImage(rs.width, rs.height, BufferedImage.TYPE_INT_ARGB);
+			BufferedImage backgroundImage = new BufferedImage(rs.width,
+					rs.height, BufferedImage.TYPE_INT_ARGB);
 			Graphics2D backgroundImageG = backgroundImage.createGraphics();
-			backgroundImageG.setColor(new Color(Integer.parseInt(m.bgColorRed.getText()),
-					Integer.parseInt(m.bgColorGreen.getText()), Integer.parseInt(m.bgColorBlue.getText())));
+			backgroundImageG.setColor(new Color(Integer.parseInt(m.bgColorRed
+					.getText()), Integer.parseInt(m.bgColorGreen.getText()),
+					Integer.parseInt(m.bgColorBlue.getText())));
 			backgroundImageG.fillRect(0, 0, rs.width, rs.height);
 			rs.backgroundImage = backgroundImage;
 		} else if (m.builtInImageRb.isSelected()) {
@@ -323,35 +345,46 @@ public class MainController implements ActionListener {
 			BufferedImage resizedBackgroundImage = null;
 			Graphics2D g = null;
 			try {
-				backgroundImage = ImageIO
-						.read(loader.getResourceAsStream("teneighty/" + (String) m.bgBuiltIn.getSelectedItem()));
+				backgroundImage = ImageIO.read(loader
+						.getResourceAsStream("teneighty/"
+								+ (String) m.bgBuiltIn.getSelectedItem()));
 
 				// scale image --
 				// http://www.mkyong.com/java/how-to-resize-an-image-in-java/
-				int type = backgroundImage.getType() == 0 ? BufferedImage.TYPE_INT_ARGB : backgroundImage.getType();
-				resizedBackgroundImage = new BufferedImage(Main.getVideoWidth(), Main.getVideoHeight(), type);
+				int type = backgroundImage.getType() == 0 ? BufferedImage.TYPE_INT_ARGB
+						: backgroundImage.getType();
+				resizedBackgroundImage = new BufferedImage(
+						Main.getVideoWidth(), Main.getVideoHeight(), type);
 				g = resizedBackgroundImage.createGraphics();
-				g.drawImage(backgroundImage, 0, 0, Main.getVideoWidth(), Main.getVideoHeight(), null);
+				g.drawImage(backgroundImage, 0, 0, Main.getVideoWidth(),
+						Main.getVideoHeight(), null);
 
 				g.setComposite(AlphaComposite.Src);
 
-				g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-				g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-				g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+				g.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+						RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+				g.setRenderingHint(RenderingHints.KEY_RENDERING,
+						RenderingHints.VALUE_RENDER_QUALITY);
+				g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+						RenderingHints.VALUE_ANTIALIAS_ON);
 
 			} catch (IOException e1) {
-				JOptionPane.showMessageDialog(m.pane, "Aah!  Could not read that built-in image.  Our fault!!  Sorry!");
+				JOptionPane
+						.showMessageDialog(m.pane,
+								"Aah!  Could not read that built-in image.  Our fault!!  Sorry!");
 				throw new Exception();
 			}
 			rs.backgroundImage = resizedBackgroundImage;
 			g.dispose();
 		} else if (m.otherImageRb.isSelected()) {
 			if (m.backgroundImageFile == null) {
-				JOptionPane.showMessageDialog(m.pane, "You didn't select an image, silly!");
+				JOptionPane.showMessageDialog(m.pane,
+						"You didn't select an image, silly!");
 				throw new Exception();
 			}
 			if (!m.backgroundImageFile.exists()) {
-				JOptionPane.showMessageDialog(m.pane, "That image file does not exist, goofball!  =)");
+				JOptionPane.showMessageDialog(m.pane,
+						"That image file does not exist, goofball!  =)");
 				throw new Exception();
 			}
 			BufferedImage backgroundImage = null;
@@ -360,19 +393,26 @@ public class MainController implements ActionListener {
 			try {
 				backgroundImage = ImageIO.read(m.backgroundImageFile);
 				// scale the bg image
-				int type = backgroundImage.getType() == 0 ? BufferedImage.TYPE_INT_ARGB : backgroundImage.getType();
-				resizedBackgroundImage = new BufferedImage(Main.getVideoWidth(), Main.getVideoHeight(), type);
+				int type = backgroundImage.getType() == 0 ? BufferedImage.TYPE_INT_ARGB
+						: backgroundImage.getType();
+				resizedBackgroundImage = new BufferedImage(
+						Main.getVideoWidth(), Main.getVideoHeight(), type);
 				g = resizedBackgroundImage.createGraphics();
-				g.drawImage(backgroundImage, 0, 0, Main.getVideoWidth(), Main.getVideoHeight(), null);
+				g.drawImage(backgroundImage, 0, 0, Main.getVideoWidth(),
+						Main.getVideoHeight(), null);
 
 				g.setComposite(AlphaComposite.Src);
 
-				g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-				g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-				g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+				g.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+						RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+				g.setRenderingHint(RenderingHints.KEY_RENDERING,
+						RenderingHints.VALUE_RENDER_QUALITY);
+				g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+						RenderingHints.VALUE_ANTIALIAS_ON);
 
 			} catch (IOException e1) {
-				JOptionPane.showMessageDialog(m.pane, "The background image given could not be read");
+				JOptionPane.showMessageDialog(m.pane,
+						"The background image given could not be read");
 				throw new Exception();
 			}
 			rs.backgroundImage = resizedBackgroundImage;
@@ -390,7 +430,8 @@ public class MainController implements ActionListener {
 			if (generatedWav.delete() == true) {
 				System.out.println("Deleted unused wav file: " + oldName);
 			} else {
-				System.out.println("There was an issue deleting the old wavfile");
+				System.out
+						.println("There was an issue deleting the old wavfile");
 			}
 			generatedWav = null;
 		}

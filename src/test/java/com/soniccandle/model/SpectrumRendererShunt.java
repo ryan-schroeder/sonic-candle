@@ -10,8 +10,8 @@ import co.uk.labbookpages.WavFileMock;
 
 public class SpectrumRendererShunt extends SpectrumRenderer {
 
-	public SpectrumRendererShunt(File audioFile, int frameRate, int width, int height, File outputTo)
-			throws IOException, WavFileException {
+	public SpectrumRendererShunt(File audioFile, int frameRate, int width,
+			int height, File outputTo) throws IOException, WavFileException {
 		super(audioFile, frameRate, width, height, outputTo);
 	}
 
@@ -21,7 +21,8 @@ public class SpectrumRendererShunt extends SpectrumRenderer {
 	}
 
 	@Override
-	public BufferedImage renderVFrame(long vFrameNum) throws IOException, WavFileException {
+	public BufferedImage renderVFrame(long vFrameNum) throws IOException,
+			WavFileException {
 		return null;
 	}
 

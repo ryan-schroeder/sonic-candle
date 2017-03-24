@@ -61,7 +61,8 @@ public class MediaConcatenator extends MediaToolAdapter {
 		// create a new audio samples event with the one true audio stream
 		// index
 
-		super.onAudioSamples(new AudioSamplesEvent(this, samples, mAudoStreamIndex));
+		super.onAudioSamples(new AudioSamplesEvent(this, samples,
+				mAudoStreamIndex));
 	}
 
 	public void onVideoPicture(IVideoPictureEvent event) {
@@ -94,7 +95,8 @@ public class MediaConcatenator extends MediaToolAdapter {
 		// create a new video picture event with the one true video stream
 		// index
 
-		super.onVideoPicture(new VideoPictureEvent(this, picture, mVideoStreamIndex));
+		super.onVideoPicture(new VideoPictureEvent(this, picture,
+				mVideoStreamIndex));
 	}
 
 	public void onClose(ICloseEvent event) {

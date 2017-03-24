@@ -20,13 +20,14 @@ public class FastSimpleRenderer extends SpectrumRenderer {
 	public String barStyle;
 	public Color barColor;
 
-	public FastSimpleRenderer(File audioFile, int frameRate, int width, int height, File outputTo)
-			throws IOException, WavFileException {
+	public FastSimpleRenderer(File audioFile, int frameRate, int width,
+			int height, File outputTo) throws IOException, WavFileException {
 		super(audioFile, frameRate, width, height, outputTo);
 	}
 
 	@Override
-	public BufferedImage renderVFrame(long vFrameNum) throws IOException, WavFileException {
+	public BufferedImage renderVFrame(long vFrameNum) throws IOException,
+			WavFileException {
 		int framesRead;
 		double[] buffer = new double[framesPerVFrame * numChannels];
 		framesRead = wavFile.readFrames(buffer, framesPerVFrame); // not
@@ -37,7 +38,8 @@ public class FastSimpleRenderer extends SpectrumRenderer {
 																	// that's
 																	// correct.
 		if (framesRead == 0) {
-			throw new RuntimeException("no frames were read for vFrameNum " + vFrameNum);
+			throw new RuntimeException("no frames were read for vFrameNum "
+					+ vFrameNum);
 		}
 
 		DoubleFFT_1D fft = new DoubleFFT_1D(framesPerVFrame);
@@ -51,7 +53,8 @@ public class FastSimpleRenderer extends SpectrumRenderer {
 			throw new RuntimeException("only supporting 1 or 2 channels");
 		}
 		fft.complexForward(fftResult);
-		System.out.println("array fftResult has this many entries: " + fftResult.length);
+		System.out.println("array fftResult has this many entries: "
+				+ fftResult.length);
 
 		int i = 0;
 		int[] bars = new int[barCount];
@@ -94,7 +97,8 @@ public class FastSimpleRenderer extends SpectrumRenderer {
 																				// scales
 																				// us
 																				// over.
-		System.out.println("total fftResult points: " + fftResult.length + "; pointsPerBar: " + pointsPerBar);
+		System.out.println("total fftResult points: " + fftResult.length
+				+ "; pointsPerBar: " + pointsPerBar);
 
 		while (i < barCount) {
 			bars[i] = 0;
@@ -103,18 +107,11 @@ public class FastSimpleRenderer extends SpectrumRenderer {
 			while (j < (pointsPerBar * (i + 1))) {
 				double real = fftResult[j];
 				double imaginary = fftResult[j + 1];
-				double freqencyMagnatude = Math.sqrt((real * real) + (imaginary * imaginary)); // frequency
-																								// magnatude
-																								// =
-																								// sqrt
-																								// (real
-																								// *
-																								// real
-																								// +
-																								// imag
-																								// *
-																								// imag)
-																								// http://stackoverflow.com/questions/6740545/need-help-understanding-fft-output
+				double freqencyMagnatude = Math.sqrt((real * real)
+						+ (imaginary * imaginary)); // frequency magnatude =
+													// sqrt (real * real + imag
+													// * imag)
+													// http://stackoverflow.com/questions/6740545/need-help-understanding-fft-output
 				freqencyMagnatude = freqencyMagnatude * 1.2; // scale up.
 				if (Math.abs(fftResult[j]) > bars[i]) {
 					bars[i] = (int) Math.round(freqencyMagnatude);
@@ -125,9 +122,11 @@ public class FastSimpleRenderer extends SpectrumRenderer {
 		}
 
 		// draw a spectrum
-		BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+		BufferedImage img = new BufferedImage(width, height,
+				BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g = img.createGraphics();
-		g.drawImage(backgroundImage, 0, 0, width, height, 0, 0, width, height, null);
+		g.drawImage(backgroundImage, 0, 0, width, height, 0, 0, width, height,
+				null);
 		g.setColor(barColor);
 
 		i = 0;
@@ -141,46 +140,24 @@ public class FastSimpleRenderer extends SpectrumRenderer {
 		int offset = whiteSpace / 2;
 
 		BarDrawer barDrawer = null;
-		switch (barStyle) {
-		case MainController.BAR_STYLE_THICK_BLOCK: {
+		if (barStyle.equals(MainController.BAR_STYLE_THICK_BROCK)) {
 			barDrawer = new ThickBlockBarDrawer(g, half, barWidth);
-			break;
-		}
-		case MainController.BAR_STYLE_OUTLINE_BLOCK: {
+		} else if (barStyle.equals(MainController.BAR_STYLE_OUTLINE_BLOCK)) {
 			barDrawer = new OutlinBlockBarDrawer(g, half, barWidth);
-			break;
-		}
-		case MainController.BAR_STYLE_THIN: {
+		} else if (barStyle.equals(MainController.BAR_STYLE_THIN)) {
 			barDrawer = new ThinBarDrawer(g, half, barWidth);
-			break;
-		}
-		case MainController.BAR_STYLE_ROUND_BLOCK: {
+		} else if (barStyle.equals(MainController.BAR_STYLE_ROUND_BLOCK)) {
 			barDrawer = new RoundBlockBarDrawer(g, half, barWidth);
-			break;
-		}
-		case MainController.BAR_STYLE_ROUND_OUTLINE: {
+		} else if (barStyle.equals(MainController.BAR_STYLE_ROUND_OUTLINE)) {
 			barDrawer = new RoundOutlineBarDrawer(g, half, barWidth);
-			break;
-		}
-		case MainController.BAR_STYLE_DEPTH_BLOCK: {
+		} else if (barStyle.equals(MainController.BAR_STYLE_DEPTH_BLOCK)) {
 			barDrawer = new PopUpBlockDrawer(g, half, barWidth);
-			break;
-		}
-		case MainController.BAR_STYLE_DEPTH_BLOCK2: {
+		} else if (barStyle.equals(MainController.BAR_STYLE_DEPTH_BLOCK2)) {
 			barDrawer = new EtchedBlockDrawer(g, half, barWidth);
-			break;
-		}
-		case MainController.BAR_STYLE_OVAL_FILLED: {
+		} else if (barStyle.equals(MainController.BAR_STYLE_OVAL_FILLED)) {
 			barDrawer = new OvalFilledDrawer(g, half, barWidth);
-			break;
-		}
-		case MainController.BAR_STYLE_OVAL_OUTLINE: {
+		} else if (barStyle.equals(MainController.BAR_STYLE_OVAL_OUTLINE)) {
 			barDrawer = new OvalOutlineDrawer(g, half, barWidth);
-			break;
-		}
-		default: {
-			// Do nothing
-		}
 		}
 
 		while (i < barCount) {
