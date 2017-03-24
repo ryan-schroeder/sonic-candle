@@ -10,6 +10,9 @@ package co.uk.labbookpages;
 
 // Version 1.0
 
+//Modified by Chris Soderquist 2017
+//Adding 32-bit support
+
 import java.io.*;
 
 public class WavFile {
@@ -182,8 +185,7 @@ public class WavFile {
         return wavFile;
     }
 
-    public static WavFile openWavFile(File file) throws IOException,
-            WavFileException {
+    public static WavFile openWavFile(File file) throws IOException, WavFileException {
         // Instantiate new Wavfile and store the file reference
         WavFile wavFile = new WavFile();
         wavFile.file = file;
@@ -203,18 +205,14 @@ public class WavFile {
 
         // Check the header bytes contains the correct signature
         if (riffChunkID != RIFF_CHUNK_ID)
-            throw new WavFileException(
-                    "Invalid Wav Header data, incorrect riff chunk ID");
+            throw new WavFileException("Invalid Wav Header data, incorrect riff chunk ID");
         if (riffTypeID != RIFF_TYPE_ID)
-            throw new WavFileException(
-                    "Invalid Wav Header data, incorrect riff type ID");
+            throw new WavFileException("Invalid Wav Header data, incorrect riff type ID");
 
-        // TODO fix jlayer encoder so that we only have to use 'file.length() !=
-        // chunkSize + 8' instead of adding an 'Illegal Exception'
+        // TODO fix jlayer encoder so that we only have to use 'file.length() !=chunkSize + 8' instead of adding an 'Illegal Exception'
         // Check that the file size matches the number of bytes listed in header
         if (file.length() != chunkSize & file.length() != chunkSize + 8) {
-            throw new WavFileException("Header chunk size (" + chunkSize
-                    + ") does not match file size (" + file.length() + ")");
+            throw new WavFileException("Header chunk size (" + chunkSize + ") does not match file size (" + file.length() + ")");
         }
 
         boolean foundFormat = false;
@@ -225,8 +223,7 @@ public class WavFile {
             // Read the first 8 bytes of the chunk (ID and chunk size)
             bytesRead = wavFile.iStream.read(wavFile.buffer, 0, 8);
             if (bytesRead == -1)
-                throw new WavFileException(
-                        "Reached end of file without finding format chunk");
+                throw new WavFileException("Reached end of file without finding format chunk");
             if (bytesRead != 8)
                 throw new WavFileException("Could not read chunk header");
 
@@ -238,8 +235,7 @@ public class WavFile {
             // chunkSize specifies the number of bytes holding data. However,
             // the data should be word aligned (2 bytes) so we need to calculate
             // the actual number of bytes in the chunk
-            long numChunkBytes = (chunkSize % 2 == 1) ? chunkSize + 1
-                    : chunkSize;
+            long numChunkBytes = (chunkSize % 2 == 1) ? chunkSize + 1 : chunkSize;
 
             if (chunkID == FMT_CHUNK_ID) {
                 // Flag that the format chunk has been found
@@ -251,8 +247,7 @@ public class WavFile {
                 // Check this is uncompressed data
                 int compressionCode = (int) getLE(wavFile.buffer, 0, 2);
                 if (compressionCode != 1)
-                    throw new WavFileException("Compression Code "
-                            + compressionCode + " not supported");
+                    throw new WavFileException("Compression Code " + compressionCode + " not supported");
 
                 // Extract the format information
                 wavFile.numChannels = (int) getLE(wavFile.buffer, 2, 2);
@@ -261,23 +256,18 @@ public class WavFile {
                 wavFile.validBits = (int) getLE(wavFile.buffer, 14, 2);
 
                 if (wavFile.numChannels == 0)
-                    throw new WavFileException(
-                            "Number of channels specified in header is equal to zero");
+                    throw new WavFileException("Number of channels specified in header is equal to zero");
                 if (wavFile.blockAlign == 0)
-                    throw new WavFileException(
-                            "Block Align specified in header is equal to zero");
+                    throw new WavFileException("Block Align specified in header is equal to zero");
                 if (wavFile.validBits < 2)
-                    throw new WavFileException(
-                            "Valid Bits specified in header is less than 2");
+                    throw new WavFileException("Valid Bits specified in header is less than 2");
                 if (wavFile.validBits > 64)
-                    throw new WavFileException(
-                            "Valid Bits specified in header is greater than 64, this is greater than a long can hold");
+                    throw new WavFileException("Valid Bits specified in header is greater than 64, this is greater than a long can hold");
 
                 // Calculate the number of bytes required to hold 1 sample
                 wavFile.bytesPerSample = (wavFile.validBits + 7) / 8;
                 if (wavFile.bytesPerSample * wavFile.numChannels != wavFile.blockAlign)
-                    throw new WavFileException(
-                            "Block Align does not agree with bytes required for validBits and number of channels");
+                    throw new WavFileException("Block Align does not agree with bytes required for validBits and number of channels");
 
                 // Account for number of format bytes and then skip over
                 // any extra format bytes
@@ -289,15 +279,13 @@ public class WavFile {
                 // If not, throw an exception as we need the format information
                 // before we can read the data chunk
                 if (foundFormat == false)
-                    throw new WavFileException(
-                            "Data chunk found before Format chunk");
+                    throw new WavFileException("Data chunk found before Format chunk");
 
                 // Check that the chunkSize (wav data length) is a multiple of
                 // the
                 // block align (bytes per frame)
                 if (chunkSize % wavFile.blockAlign != 0)
-                    throw new WavFileException(
-                            "Data Chunk size is not multiple of Block Align");
+                    throw new WavFileException("Data Chunk size is not multiple of Block Align");
 
                 // Calculate the number of frames
                 wavFile.numFrames = chunkSize / wavFile.blockAlign;

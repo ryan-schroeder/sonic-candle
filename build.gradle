@@ -34,16 +34,12 @@ jar {
 
 repositories {
     mavenCentral()
-    maven {
-        url "http://xuggle.googlecode.com/svn/trunk/repo/share/java"
-    }
 }
 
 dependencies {
     compile group: 'commons-collections', name: 'commons-collections', version: '3.2'
     compile 'com.github.wendykierp:JTransforms:3.0'
-    //compile 'xuggle:xuggle-xuggler:5.4'
-    //^ Repo not responding properly
+    // Xuggle repo no longer available
     compile files('libs/xuggle-xuggler-5.4.jar')
     compile files('libs/xuggle-xuggler-noarch-5.4.jar')
     compile 'com.googlecode.soundlibs:jlayer:1.0.1-1'

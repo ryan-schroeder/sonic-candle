@@ -1,5 +1,6 @@
 Sonic Candle 1.2.0
 ------------------
+-GUI Tweaks to make it less tacky
 -
 
 Sonic Candle 1.1.11

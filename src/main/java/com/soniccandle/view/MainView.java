@@ -48,11 +48,14 @@ import com.soniccandle.view.components.ColorBox;
 public class MainView {
 
     // color constants
-    public static final Color BGCOLOR = new Color(17, 17, 17);
+    public static final Color BGCOLOR = new Color(70, 70, 70);
     public static final Color PANELCOLOR = new Color(45, 45, 45);
-    public static final Color SCPURPLE = new Color(91, 18, 153);
-    public static final Color SCPURPLE_LT = SCPURPLE.brighter();
-    public static final Color SCPURPLE_BACK = new Color(61, 54, 64);
+    public static final Color SCPROGRESS = new Color(40, 100, 130);
+    public static final Color SCDARK = new Color(5, 5, 5);
+    public static final Color SCWHITE = new Color(255, 255, 255);
+    public static final Color SCGREY = new Color(91, 91, 91);
+    public static final Color SCGREY_LT = SCGREY.brighter();
+    public static final Color SC_GREY_BACK = new Color(64, 64, 64);
 
     public static final String BG_OTHER_IMAGE = "Other Image";
     public static final String BG_BUILT_IN_IMAGE = "Built-in Image";
@@ -76,8 +79,7 @@ public class MainView {
                 }
             }
         } catch (Exception e) {
-            System.out
-                    .println("Nimbus look and feel not found (MainView.java)");
+            System.out.println("Nimbus look and feel not found (MainView.java)");
             e.printStackTrace();
         }
 
@@ -92,13 +94,13 @@ public class MainView {
 
         // Icon code
         Image icon;
-        InputStream input = getClass().getResourceAsStream(
-                "/sonic-candle-icon.png");
+        InputStream input = getClass().getResourceAsStream("/sonic-candle-icon.png");
         try {
             icon = ImageIO.read(input);
             frame.setIconImage(icon);
         } catch (IOException e) {
-            // Intentionally ignore exception (because it should never happen)
+            e.printStackTrace();
+            System.err.println("Could not locate icon file!");
         }
 
         m.pane = frame.getContentPane();
@@ -422,9 +424,7 @@ public class MainView {
         // Display the window.
         frame.pack();
         // Center frame on screen
-        frame.setLocation((screenWidth / 2) - (frame.getWidth() / 2),
-                (screenHeight / 2) - (frame.getHeight() / 2));
-
+        frame.setLocation((screenWidth / 2) - (frame.getWidth() / 2), (screenHeight / 2) - (frame.getHeight() / 2));
         frame.setVisible(true);
     }
 
@@ -464,25 +464,25 @@ public class MainView {
 
         JPanel panel = new JPanel();
 
-        m.barColorRed = newSCTextField("" + SCPURPLE.getRed(), 255, 0, 5);
+        m.barColorRed = newSCTextField("" + SCGREY.getRed(), 255, 0, 5);
         m.barColorRed.addKeyListener(new ColorFieldEar(m.barColorRed));
         m.barColorRed.addMouseWheelListener(new ColorFieldMouseWheelEar());
         m.barColorRed.setColumns(3);
         panel.add(m.barColorRed);
 
-        m.barColorGreen = newSCTextField("" + SCPURPLE.getGreen(), 255, 0, 5);
+        m.barColorGreen = newSCTextField("" + SCGREY.getGreen(), 255, 0, 5);
         m.barColorGreen.addKeyListener(new ColorFieldEar(m.barColorGreen));
         m.barColorGreen.addMouseWheelListener(new ColorFieldMouseWheelEar());
         m.barColorGreen.setColumns(3);
         panel.add(m.barColorGreen);
 
-        m.barColorBlue = newSCTextField("" + SCPURPLE.getBlue(), 255, 0, 5);
+        m.barColorBlue = newSCTextField("" + SCGREY.getBlue(), 255, 0, 5);
         m.barColorBlue.addKeyListener(new ColorFieldEar(m.barColorBlue));
         m.barColorBlue.addMouseWheelListener(new ColorFieldMouseWheelEar());
         m.barColorBlue.setColumns(3);
         panel.add(m.barColorBlue);
 
-        m.barAlpha = newSCTextField("" + SCPURPLE.getAlpha(), 255, 0, 5);
+        m.barAlpha = newSCTextField("" + SCGREY.getAlpha(), 255, 0, 5);
         m.barAlpha.addKeyListener(new ColorFieldEar(m.barAlpha));
         m.barAlpha.addMouseWheelListener(new ColorFieldMouseWheelEar());
         m.barAlpha.setColumns(3);
@@ -578,16 +578,16 @@ public class MainView {
         // General Changes
         // UIManager.put("defaultFont", Utils.scFont());
         UIManager.put("control", PANELCOLOR);
-        UIManager.put("text", Color.WHITE);
-        UIManager.put("nimbusLightBackground", Color.BLACK);
-        UIManager.put("nimbusFocus", SCPURPLE_LT);
-        UIManager.put("nimbusBase", Color.BLACK);
-        UIManager.put("nimbusOrange", SCPURPLE_LT);
-        UIManager.put("nimbusBorder", Color.DARK_GRAY);
-        UIManager.put("background", SCPURPLE_BACK);
-        UIManager.put("nimbusSelection", SCPURPLE);
-        UIManager.put("textHighlight", SCPURPLE);
-        UIManager.put("nimbusSelectionBackground", SCPURPLE.darker());
+        UIManager.put("text", SCWHITE);
+        UIManager.put("nimbusLightBackground", BGCOLOR);
+        UIManager.put("nimbusFocus", SCGREY_LT);
+        UIManager.put("nimbusBase", SCDARK);
+        UIManager.put("nimbusOrange", SCPROGRESS);
+        UIManager.put("nimbusBorder", SCDARK);
+        UIManager.put("background", SC_GREY_BACK);
+        UIManager.put("nimbusSelection", SCGREY);
+        UIManager.put("textHighlight", SCGREY);
+        UIManager.put("nimbusSelectionBackground", SCDARK);
 
     }
 
@@ -602,8 +602,7 @@ public class MainView {
                     Integer.parseInt(m.barAlpha.getText()));
             Color newColor = null;
             try {
-                newColor = JColorChooser
-                        .showDialog(null, "Color Picker", color);
+                newColor = JColorChooser.showDialog(null, "Color Picker", color);
             } catch (Exception e1) {
                 System.out.println("User didn't select a color");
                 return;
@@ -628,8 +627,7 @@ public class MainView {
                     Integer.parseInt(m.bgColorBlue.getText()));
             Color newColor = null;
             try {
-                newColor = JColorChooser
-                        .showDialog(null, "Color Picker", color);
+                newColor = JColorChooser.showDialog(null, "Color Picker", color);
             } catch (Exception e1) {
                 System.out.println("User didn't select a color");
                 return;
