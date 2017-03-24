@@ -30,13 +30,8 @@ public class FastSimpleRenderer extends SpectrumRenderer {
             WavFileException {
         int framesRead;
         double[] buffer = new double[framesPerVFrame * numChannels];
-        framesRead = wavFile.readFrames(buffer, framesPerVFrame); // not
-        // multiplied
-        // by number
-        // of
-        // channels;
-        // that's
-        // correct.
+        framesRead = wavFile.readFrames(buffer, framesPerVFrame);
+        // not multiplied by number of channels; that's correct.
         if (framesRead == 0) {
             throw new RuntimeException("no frames were read for vFrameNum "
                     + vFrameNum);

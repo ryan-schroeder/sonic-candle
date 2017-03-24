@@ -92,10 +92,8 @@ public class Utils {
             myFont = Font.createFont(Font.TRUETYPE_FONT, in).deriveFont(
                     style, size);
         } catch (FontFormatException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         if (myFont == null) {

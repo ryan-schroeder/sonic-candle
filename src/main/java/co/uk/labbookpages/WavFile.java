@@ -375,8 +375,7 @@ public class WavFile {
             }
 
             int v = buffer[bufferPointer];
-            if (b < bytesPerSample - 1 || bytesPerSample == 1)
-                v &= 0xFF;
+            if (b < bytesPerSample - 1 || bytesPerSample == 1) v &= 0xFF;
             val += v << (b * 8);
 
             bufferPointer++;
