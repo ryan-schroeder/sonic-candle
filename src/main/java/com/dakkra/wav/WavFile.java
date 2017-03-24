@@ -31,7 +31,7 @@ public class WavFile {
     //"fmt" in ascii
     private static final int SUBCHUNK1ID = 0x666d7420;
     //PCM uses 16. That's the only wave we will support. Read as little endian
-    private static final int SUBCHUNK1SIZE = LittleEndianInt.getBigEndianFromInt(16);
+    private static final int SUBCHUNK1SIZE = 16;
     //Format = 1 for pcm. Others mean compression
     private static final int AUDIO_FORMAT = 1;
     //"data" in ascii
@@ -93,9 +93,8 @@ public class WavFile {
         inputStream.read(intByteBuffer);
         chunkID = bytesToInt(intByteBuffer);
         //Check to see if valid RIFF file
-        if (chunkID != RIFF_CHUNK_ID) {
-            throw new WavFileException("NOT A VALID RIFF FILE");
-        }
+        if (chunkID != RIFF_CHUNK_ID)
+            throw new WavFileException("NOT A VALID RIFF FILE: chunkid [" + chunkID + "]");
 
         //ChunkSize
         inputStream.read(intByteBuffer);
@@ -119,21 +118,21 @@ public class WavFile {
         inputStream.read(intByteBuffer);
         subchunk1Size = new LittleEndianInt(bytesToInt(intByteBuffer));
         if (subchunk1Size.convert() != SUBCHUNK1SIZE)
-            throw new WavFileException("NON PCM FILES ARE UNSUPPORTED");
+            throw new WavFileException("NON PCM FILES ARE NOT SUPPORTED: chunk size[" + subchunk1Size.convert() + "]");
 
 
         //Audio Format
         inputStream.read(shortByteBuffer);
         audioFormat = new LittleEndianShort(bytesToShort(shortByteBuffer));
         if (audioFormat.convert() != AUDIO_FORMAT)
-            throw new WavFileException("COMPRESSED WAVE FILE NOT SUPPORTED");
+            throw new WavFileException("COMPRESSED WAVE FILE NOT SUPPORTED: format[" + audioFormat.convert() + "]");
 
 
         //NumChannels
         inputStream.read(shortByteBuffer);
         numChannels = new LittleEndianShort(bytesToShort(shortByteBuffer));
         if (numChannels.convert() > 2 || numChannels.convert() < 0)
-            throw new WavFileException("INVALID NUMBER OF CHANNELS");
+            throw new WavFileException("INVALID NUMBER OF CHANNELS: numChannels[" + numChannels.convert() + "]");
 
         //SampleRate
         inputStream.read(intByteBuffer);
@@ -162,20 +161,20 @@ public class WavFile {
         inputStream.read(shortByteBuffer);
         subchunk2Size = new LittleEndianInt(bytesToShort(shortByteBuffer));
 
-        //Check chunk sizes for errors
-        int theory = samplerate.convert() * bitsPerSample.convert() / 8;
-        if (subchunk2Size.convert() != theory)
-            throw new WavFileException("INVALID SUB CHUNK 2 SIZE");
-
-        if (subchunk1Size.convert() != (theory + 36))
-            throw new WavFileException("INVALID SUB CHUNK 1 SIZE");
-        
         //Everything loaded fine
         return true;
     }
 
     public int getFileSize() {
         return subchunk1Size.convert() + 8;
+    }
+
+    public int getSampleRate() {
+        return samplerate.convert();
+    }
+
+    public int getBitRate() {
+        return bitsPerSample.convert();
     }
 
     public int bytesToInt(byte bytes[]) {
