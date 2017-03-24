@@ -21,6 +21,7 @@ import java.nio.ByteOrder;
  *         The jLayer encoder will  have to be investigated later
  *         <p>
  *         Based on the specifiction provided by http://soundfile.sapp.org/doc/WaveFormat/
+ *         And http://www.signalogic.com/index.pl?page=ms_waveform
  */
 public class WavFile {
     //wave file constants
@@ -147,7 +148,8 @@ public class WavFile {
         blockAlign = new LittleEndianShort(bytesToShort(shortByteBuffer));
 
         //BitsPerSample
-        //We only support 16, 24, and 32
+        //We only support 16
+        //TODO support floating point IEEE 32bit
         inputStream.read(shortByteBuffer);
         bitsPerSample = new LittleEndianShort(bytesToShort(shortByteBuffer));
 

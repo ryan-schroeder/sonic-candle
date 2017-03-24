@@ -25,6 +25,7 @@ public class WaveFileLoadingTest {
         Assert.assertEquals(nc, wf.getNumChannles());
         Assert.assertEquals(bps, wf.getBitRate());
         Assert.assertEquals(sr, wf.getSampleRate());
+        //TODO add 32bit test
     }
 
 }
