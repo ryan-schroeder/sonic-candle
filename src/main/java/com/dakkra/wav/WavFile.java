@@ -169,6 +169,14 @@ public class WavFile {
         return subchunk1Size.convert() + 8;
     }
 
+    public boolean isStereo() {
+        return (numChannels.convert() == 2);
+    }
+
+    public int getNumChannles() {
+        return numChannels.convert();
+    }
+
     public int getSampleRate() {
         return samplerate.convert();
     }
