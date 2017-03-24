@@ -107,10 +107,8 @@ public class SimpleRenderer extends SpectrumRenderer {
             while (j < (pointsPerBar * (i + 1))) {
                 double real = fftResult[j];
                 double imaginary = fftResult[j + 1];
-                double freqencyMagnatude = Math.sqrt((real * real)
-                        + (imaginary * imaginary)); // frequency magnatude =
-                // sqrt (real * real + imag
-                // * imag)
+                double freqencyMagnatude = Math.sqrt((real * real) + (imaginary * imaginary));
+                // frequency magnatude = sqrt (real * real + imag * imag)
                 // http://stackoverflow.com/questions/6740545/need-help-understanding-fft-output
                 freqencyMagnatude = freqencyMagnatude * 1.2; // scale up.
                 if (Math.abs(fftResult[j]) > bars[i]) {
@@ -122,11 +120,9 @@ public class SimpleRenderer extends SpectrumRenderer {
         }
 
         // draw a spectrum
-        BufferedImage img = new BufferedImage(width, height,
-                BufferedImage.TYPE_INT_ARGB);
+        BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = img.createGraphics();
-        g.drawImage(backgroundImage, 0, 0, width, height, 0, 0, width, height,
-                null);
+        g.drawImage(backgroundImage, 0, 0, width, height, 0, 0, width, height, null);
         g.setColor(barColor);
 
         i = 0;
@@ -163,15 +159,8 @@ public class SimpleRenderer extends SpectrumRenderer {
         while (i < barCount) {
             // x = 60+(i*barWidth);
             // Manage inset from left
-            x = (barWidth / 2) + offset + (i * barWidth); // barwidth/2 keeps
-            // bars from
-            // clipping on left,
-            // offset centers
-            // the fft as best
-            // it can (you using
-            // integers made a
-            // perfect scale
-            // really hard)
+            x = (barWidth / 2) + offset + (i * barWidth);
+            // barwidth/2 keeps bars from clipping on left, offset centers the fft as best it can (you using integers made a perfect scale really hard)
             barDrawer.drawBar(bars[i], x);
             i++;
         }

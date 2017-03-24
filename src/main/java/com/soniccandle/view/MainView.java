@@ -66,7 +66,6 @@ public class MainView {
     private ColorBox colorBox;
 
     public void createAndShowGUI() {
-
         // use Nimbus
         try {
             for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {

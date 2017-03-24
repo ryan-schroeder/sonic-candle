@@ -53,17 +53,12 @@ public class RenderSwingWorker extends SwingWorker<Boolean, Integer> {
     @Override
     public void done() {
         c.unlockAfterRender();
-        if (outputter instanceof XuggleVideoOutputter
-                && outputTo.length() < 100) {
-            JOptionPane
-                    .showMessageDialog(
-                            null,
-                            "Ooof - looks like there was a problem, sorry.  Please check that your audio file is 16-bit wav, not 24 or 32, thanks!  Other bitrates coming soon, hopefully.");
+        if (outputter instanceof XuggleVideoOutputter && outputTo.length() < 100) {
+            JOptionPane.showMessageDialog(null, "Ooof - looks like there was a problem, sorry.  Please check that your audio file is 16-bit wav, not 24 or 32, thanks!  Other bitrates coming soon, hopefully.");
             return;
         }
         if (m.progressBar.getValue() < 99) {
-            JOptionPane.showMessageDialog(null,
-                    "Canceled - may not have created entire video =\\");
+            JOptionPane.showMessageDialog(null, "Canceled - may not have created entire video =\\");
             return;
         }
         JOptionPane.showMessageDialog(null, "Done!");
