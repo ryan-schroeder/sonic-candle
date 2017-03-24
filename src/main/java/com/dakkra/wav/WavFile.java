@@ -1,9 +1,6 @@
 package com.dakkra.wav;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
+import java.io.*;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
@@ -89,7 +86,6 @@ public class WavFile {
         //Declare buffers for use in storing bytes read in form inputStream
         byte intByteBuffer[] = new byte[4];
         byte shortByteBuffer[] = new byte[2];
-
         //ChunkID
         inputStream.read(intByteBuffer);
         chunkID = bytesToInt(intByteBuffer);
