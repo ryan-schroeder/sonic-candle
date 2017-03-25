@@ -1,17 +1,15 @@
 package com.soniccandle.model;
 
+import com.dakkra.wav.WavFile;
+import com.dakkra.wav.WavFileException;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-import co.uk.labbookpages.WavFile;
-import co.uk.labbookpages.WavFileException;
-import co.uk.labbookpages.WavFileMock;
-
 public class SpectrumRendererShunt extends SpectrumRenderer {
 
-    public SpectrumRendererShunt(File audioFile, int frameRate, int width,
-                                 int height, File outputTo) throws IOException, WavFileException {
+    public SpectrumRendererShunt(File audioFile, int frameRate, int width, int height, File outputTo) throws IOException, WavFileException {
         super(audioFile, frameRate, width, height, outputTo);
     }
 

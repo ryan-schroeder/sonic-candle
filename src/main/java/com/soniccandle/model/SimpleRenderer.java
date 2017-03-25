@@ -6,9 +6,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+import com.dakkra.wav.WavFileException;
 import org.jtransforms.fft.DoubleFFT_1D;
-
-import co.uk.labbookpages.WavFileException;
 
 import com.soniccandle.controller.MainController;
 import com.soniccandle.util.StereoData;
@@ -26,20 +25,13 @@ public class SimpleRenderer extends SpectrumRenderer {
     }
 
     @Override
-    public BufferedImage renderVFrame(long vFrameNum) throws IOException,
-            WavFileException {
+    public BufferedImage renderVFrame(long vFrameNum) throws IOException, WavFileException {
         int framesRead;
         double[] buffer = new double[framesPerVFrame * numChannels];
         framesRead = wavFile.readFrames(buffer, framesPerVFrame); // not
-        // multiplied
-        // by number
-        // of
-        // channels;
-        // that's
-        // correct.
+        // multiplied by number of channels; that's correct.
         if (framesRead == 0) {
-            throw new RuntimeException("no frames were read for vFrameNum "
-                    + vFrameNum);
+            throw new RuntimeException("no frames were read for vFrameNum " + vFrameNum);
         }
 
         DoubleFFT_1D fft = new DoubleFFT_1D(framesPerVFrame);
@@ -53,52 +45,15 @@ public class SimpleRenderer extends SpectrumRenderer {
             throw new RuntimeException("only supporting 1 or 2 channels");
         }
         fft.complexForward(fftResult);
-        System.out.println("array fftResult has this many entries: "
-                + fftResult.length);
+        System.out.println("array fftResult has this many entries: " + fftResult.length);
 
         int i = 0;
         int[] bars = new int[barCount];
         int pointsPerBar = Math.round(((framesPerVFrame * 2) / barCount) / 16); // divide
-        // by
-        // 2
-        // because
-        // size
-        // of
-        // fft
-        // result
-        // is
-        // N/2.
-        // Rest
-        // of
-        // array
-        // is
-        // mirror
-        // of
-        // first
-        // half.
-        // Divide
-        // by
-        // 4
-        // because
-        // most
-        // of
-        // the
-        // frequencies
-        // we
-        // want
-        // are
-        // actually
-        // towards
-        // the
-        // far
-        // left,
-        // so
-        // this
-        // scales
-        // us
-        // over.
-        System.out.println("total fftResult points: " + fftResult.length
-                + "; pointsPerBar: " + pointsPerBar);
+        // divide by 2 because size of fft result is N/2. Rest of array is mirror of first half.
+        // Divide by 4 because most of the frequencies we want are actually towards the far left, so this scales us over.
+
+        System.out.println("total fftResult points: " + fftResult.length + "; pointsPerBar: " + pointsPerBar);
 
         while (i < barCount) {
             bars[i] = 0;

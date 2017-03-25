@@ -6,9 +6,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
+import com.dakkra.wav.WavFileException;
 import com.soniccandle.Main;
-
-import co.uk.labbookpages.WavFileException;
 
 public class Utils {
     // Audio file types

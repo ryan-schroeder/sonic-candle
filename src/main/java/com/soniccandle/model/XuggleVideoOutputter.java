@@ -4,8 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.concurrent.TimeUnit;
 
-import co.uk.labbookpages.WavFile;
-
+import com.dakkra.wav.WavFile;
 import com.xuggle.mediatool.IMediaReader;
 import com.xuggle.mediatool.IMediaWriter;
 import com.xuggle.mediatool.ToolFactory;
@@ -24,14 +23,12 @@ public class XuggleVideoOutputter extends VideoOutputter {
         super(audioFile, outputTo);
     }
 
-    public static BufferedImage convertImageType(BufferedImage sourceImage,
-                                                 int targetType) {
+    public static BufferedImage convertImageType(BufferedImage sourceImage, int targetType) {
         BufferedImage image;
         if (sourceImage.getType() == targetType) {
             image = sourceImage;
         } else {
-            image = new BufferedImage(sourceImage.getWidth(),
-                    sourceImage.getHeight(), targetType);
+            image = new BufferedImage(sourceImage.getWidth(), sourceImage.getHeight(), targetType);
             image.getGraphics().drawImage(sourceImage, 0, 0, null);
         }
         return image;
@@ -42,31 +39,29 @@ public class XuggleVideoOutputter extends VideoOutputter {
         frameNumber = 0;
         nsecsPerFrame = (long) (((double) 1) / ((double) frameRate) * ((double) 1000000000));
 
-        WavFile wavFile = WavFile.openWavFile(audioFile);
+        WavFile wavFile = new WavFile(audioFile);
+        wavFile.open();
         int audioStreamId = 0;
         int channelCount = wavFile.getNumChannels();
-        int sampleRate = (int) wavFile.getSampleRate(); // Hz
+        int sampleRate = (int) wavFile.getSampleRate();
         wavFile.close();
-        IMediaReader audioReader = ToolFactory.makeReader(audioFile.getPath());
-        MediaConcatenator concatenator = new MediaConcatenator(
-                AUDIO_STREAM_INDEX, VIDEO_STREAM_INDEX);
+        IMediaReader audioReader = ToolFactory.makeReader(audioFile.getAbsolutePath());
+        //TODO code doesn't reach this point.
+        System.out.println("XUGGLE");
+        MediaConcatenator concatenator = new MediaConcatenator(AUDIO_STREAM_INDEX, VIDEO_STREAM_INDEX);
         audioReader.addListener(concatenator);
         writer = ToolFactory.makeWriter(outputTo.getPath());
         concatenator.addListener(writer);
-        writer.addVideoStream(VIDEO_STREAM_INDEX, 0, ICodec.ID.CODEC_ID_MPEG4,
-                width, height);
-        writer.addAudioStream(AUDIO_STREAM_INDEX, audioStreamId, channelCount,
-                sampleRate);
+        writer.addVideoStream(VIDEO_STREAM_INDEX, 0, ICodec.ID.CODEC_ID_MPEG4, width, height);
+        writer.addAudioStream(AUDIO_STREAM_INDEX, audioStreamId, channelCount, sampleRate);
         while (audioReader.readPacket() == null) {
         } // Read in the full audio
     }
 
     @Override
     public void addFrame(BufferedImage frame) throws Exception {
-        BufferedImage convertedFrame = convertImageType(frame,
-                BufferedImage.TYPE_3BYTE_BGR);
-        writer.encodeVideo(0, convertedFrame, (frameNumber * nsecsPerFrame),
-                TimeUnit.NANOSECONDS);
+        BufferedImage convertedFrame = convertImageType(frame, BufferedImage.TYPE_3BYTE_BGR);
+        writer.encodeVideo(0, convertedFrame, (frameNumber * nsecsPerFrame), TimeUnit.NANOSECONDS);
         frameNumber++;
     }
 

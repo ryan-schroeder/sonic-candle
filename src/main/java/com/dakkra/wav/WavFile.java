@@ -54,9 +54,10 @@ public class WavFile {
     //Data header
     private int subchunk2ID;
     private LittleEndianInt subchunk2Size;
-
     //Input stream
     private InputStream inputStream;
+    //Sample position in bytes
+    private long dataOffset = 0;
 
     public WavFile(File inputFile) {
         try {
@@ -80,6 +81,10 @@ public class WavFile {
      */
     public boolean open() throws Exception {
         return readHeader();
+    }
+
+    public void close() throws IOException {
+        inputStream.close();
     }
 
     private boolean readHeader() throws Exception {
@@ -163,15 +168,38 @@ public class WavFile {
         return true;
     }
 
-    public int getFileSize() {
-        return subchunk1Size.convert() + 8;
+    /**
+     * Returns a lone integer sample
+     *
+     * @return Sample in long
+     */
+    private long readSample(long offset) throws IOException {
+        long sample = 0;
+        byte buffer[] = new byte[bitsPerSample.convert() / 8];
+        inputStream.skip(offset);
+        int delta = inputStream.read(buffer);
+        if (delta != -1) {
+            dataOffset += delta;
+        }
+
+        switch (bitsPerSample.convert()) {
+            case 16: {
+                sample = bytesToShort(buffer);
+                break;
+            }
+            default:
+                break;
+        }
+
+        return sample;
     }
 
     public boolean isStereo() {
         return (numChannels.convert() == 2);
     }
 
-    public int getNumChannles() {
+    //META DATA
+    public int getNumChannels() {
         return numChannels.convert();
     }
 
@@ -181,6 +209,33 @@ public class WavFile {
 
     public int getBitRate() {
         return bitsPerSample.convert();
+    }
+
+    public int getFileSize() {
+        return subchunk1Size.convert() + 8;
+    }
+
+    public int getNumFrames() {
+        return (chunkSize.convert() / blockAlign.convert());
+    }
+
+    //FRAME GRABBING - double
+    public int readFrames(double[] frameBuffer) throws IOException {
+        return readFrames(frameBuffer, 0);
+    }
+
+    public int readFrames(double[] frameBuffer, int offset) throws IOException {
+        for (int f = 0; f < frameBuffer.length; f++) {
+            frameBuffer[f] = (double) readSample(0) / (double) (Long.MAX_VALUE >> (64 - bitsPerSample.convert()));
+        }
+        return frameBuffer.length;
+    }
+
+    //UTIL
+    public long bytesToLong(byte bytes[]) {
+        ByteBuffer bb = ByteBuffer.wrap(bytes);
+        bb.order(ByteOrder.BIG_ENDIAN);
+        return bb.getLong();
     }
 
     public int bytesToInt(byte bytes[]) {

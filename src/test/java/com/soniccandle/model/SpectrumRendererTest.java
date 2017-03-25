@@ -4,10 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
 
+import com.dakkra.wav.WavFileException;
 import org.junit.Test;
-
-import co.uk.labbookpages.WavFileException;
-import co.uk.labbookpages.WavFileMock;
 
 public class SpectrumRendererTest {
 
@@ -15,18 +13,14 @@ public class SpectrumRendererTest {
     public static int WIDTH = 1280;
     public static int HEIGHT = 720;
 
-    private SpectrumRenderer getSpectrumRendererShunt() throws IOException,
-            WavFileException {
-        SpectrumRenderer s = new SpectrumRendererShunt(null, VIDEO_FRAME_RATE,
-                WIDTH, HEIGHT, null);
+    private SpectrumRenderer getSpectrumRendererShunt() throws IOException, WavFileException {
+        SpectrumRenderer s = new SpectrumRendererShunt(null, VIDEO_FRAME_RATE, WIDTH, HEIGHT, null);
         s.outputter = new VideoOutputterShunt(null, null);
         return s;
-
     }
 
     @Test
-    public void test_frames_per_video_frame_is_calculated_by_constructor()
-            throws IOException, WavFileException {
+    public void test_frames_per_video_frame_is_calculated_by_constructor() throws IOException, WavFileException {
         SpectrumRenderer s = getSpectrumRendererShunt();
         assertEquals(WavFileMock.SAMPLE_RATE / VIDEO_FRAME_RATE,
                 s.framesPerVFrame);
@@ -41,8 +35,7 @@ public class SpectrumRendererTest {
     }
 
     @Test
-    public void test_check_done_sets_isdone_to_true_when_done()
-            throws IOException, WavFileException {
+    public void test_check_done_sets_isdone_to_true_when_done() throws IOException, WavFileException {
         SpectrumRenderer s = getSpectrumRendererShunt();
         s.currentVFrame = 100;
         s.totalVFrames = 100;

@@ -1,11 +1,11 @@
 package com.soniccandle.model;
 
+import com.dakkra.wav.WavFile;
+import com.dakkra.wav.WavFileException;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
-import co.uk.labbookpages.WavFile;
-import co.uk.labbookpages.WavFileException;
 
 public abstract class SpectrumRenderer {
 
@@ -24,11 +24,10 @@ public abstract class SpectrumRenderer {
     public double lengthInSeconds;
     public long totalVFrames;
     long currentVFrame;
-    public boolean isDone;
+    public boolean isDone = false;
     public int progress;
 
-    public SpectrumRenderer(File audioFile, int frameRate, int width,
-                            int height, File outputTo) throws IOException, WavFileException {
+    public SpectrumRenderer(File audioFile, int frameRate, int width, int height, File outputTo) throws IOException, WavFileException {
         this.wavFile = getWavFile(audioFile);
         this.frameRate = frameRate;
         this.width = width;
@@ -36,20 +35,21 @@ public abstract class SpectrumRenderer {
 
         sampleRate = wavFile.getSampleRate();
         totalFrames = wavFile.getNumFrames();
-        System.out
-                .println("sample rate (frames [one frame = several samples, one for each channel] per second): "
-                        + sampleRate + ", total frames: " + totalFrames);
+        System.out.println("sample rate (frames [one frame = several samples, one for each channel] per second): " + sampleRate + ", total frames: " + totalFrames);
         framesPerVFrame = (int) (sampleRate / frameRate);
-        System.out.println("this means, at " + frameRate
-                + " frames per second, we will have " + framesPerVFrame
-                + " audio frames per each video frame.");
+        System.out.println("this means, at " + frameRate + " frames per second, we will have " + framesPerVFrame + " audio frames per each video frame.");
         numChannels = wavFile.getNumChannels();
     }
 
     // exposed for unit tests only!
-    public WavFile getWavFile(File audioFile) throws IOException,
-            WavFileException {
-        return WavFile.openWavFile(audioFile);
+    public WavFile getWavFile(File audioFile) throws IOException, WavFileException {
+        WavFile wf = new WavFile(audioFile);
+        try {
+            wf.open();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return wf;
     }
 
     public void start() throws Exception {
@@ -57,9 +57,7 @@ public abstract class SpectrumRenderer {
         lengthInSeconds = (((double) totalFrames) / ((double) sampleRate));
         currentVFrame = 0;
         totalVFrames = (long) (lengthInSeconds * frameRate);
-        System.out.println("audio is " + lengthInSeconds
-                + " seconds long, which means we have " + totalVFrames
-                + " total video frames (" + frameRate + " fps).");
+        System.out.println("audio is " + lengthInSeconds + " seconds long, which means we have " + totalVFrames + " total video frames (" + frameRate + " fps).");
     }
 
     public void checkDone() {
@@ -75,8 +73,7 @@ public abstract class SpectrumRenderer {
         if (isDone) {
             return;
         }
-        System.out.println("rendering frame " + currentVFrame + " of "
-                + totalVFrames);
+        System.out.println("rendering frame " + currentVFrame + " of " + totalVFrames);
         outputter.addFrame(renderVFrame(currentVFrame));
         currentVFrame++;
         progress = (int) (((double) currentVFrame) / ((double) totalVFrames) * 100);
