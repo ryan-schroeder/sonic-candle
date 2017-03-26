@@ -58,6 +58,8 @@ public class WavFile {
     private InputStream inputStream;
     //Sample position in bytes
     private long dataOffset = 0;
+    //ByteBuffer for conversion from byte[] to integers
+    private ByteBuffer bb;
 
     public WavFile(File inputFile) {
         try {
@@ -233,19 +235,19 @@ public class WavFile {
 
     //UTIL
     public long bytesToLong(byte bytes[]) {
-        ByteBuffer bb = ByteBuffer.wrap(bytes);
+        bb = ByteBuffer.wrap(bytes);
         bb.order(ByteOrder.BIG_ENDIAN);
         return bb.getLong();
     }
 
     public int bytesToInt(byte bytes[]) {
-        ByteBuffer bb = ByteBuffer.wrap(bytes);
+        bb = ByteBuffer.wrap(bytes);
         bb.order(ByteOrder.BIG_ENDIAN);
         return bb.getInt();
     }
 
     public short bytesToShort(byte bytes[]) {
-        ByteBuffer bb = ByteBuffer.wrap(bytes);
+        bb = ByteBuffer.wrap(bytes);
         bb.order(ByteOrder.BIG_ENDIAN);
         return bb.getShort();
     }
