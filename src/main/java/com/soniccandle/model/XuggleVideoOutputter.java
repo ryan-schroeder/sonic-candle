@@ -46,8 +46,7 @@ public class XuggleVideoOutputter extends VideoOutputter {
         int sampleRate = (int) wavFile.getSampleRate();
         wavFile.close();
         IMediaReader audioReader = ToolFactory.makeReader(audioFile.getAbsolutePath());
-        //TODO code doesn't reach this point.
-        System.out.println("XUGGLE");
+        //TODO Xuggle is broken. No more binaries are available. Must use another encoder
         MediaConcatenator concatenator = new MediaConcatenator(AUDIO_STREAM_INDEX, VIDEO_STREAM_INDEX);
         audioReader.addListener(concatenator);
         writer = ToolFactory.makeWriter(outputTo.getPath());
