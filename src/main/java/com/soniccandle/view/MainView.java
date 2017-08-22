@@ -145,7 +145,7 @@ public class MainView {
         vpC.gridy = 0;
         vpPanel.add(m.videoSetFrameRate, vpC);
 
-        JLabel frameWidth = newSCLabel("Video Width (Minumum 400):");
+        JLabel frameWidth = newSCLabel("Video Width (Minimum 400):");
         vpC.gridwidth = 1;
         vpC.gridx = 0;
         vpC.gridy = 1;
