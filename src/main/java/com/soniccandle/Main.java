@@ -18,17 +18,17 @@ public class Main {
     private static int screenHeight = gd.getDisplayMode().getHeight();
 
     // set default video property constants
-    public static final int VIDEO_FRAME_RATE = 30;
+    public static final int DEFAULT_VIDEO_FRAME_RATE = 30;
     public static final int WIDTH = screenWidth;
     public static final int HEIGHT = screenHeight;
 
     // set variables for changing video properties
-    private static int mainVideoFrameRate = VIDEO_FRAME_RATE;
+    private static int mainVideoFrameRate = DEFAULT_VIDEO_FRAME_RATE;
     private static int mainVideoWidth = WIDTH;
     private static int mainVideoHeight = HEIGHT;
 
     // set video properties methods
-    public static void setVideoFrameRate(int mainVideoFrameRateNew) {
+    public static void setDefaultVideoFrameRate(int mainVideoFrameRateNew) {
         mainVideoFrameRate = mainVideoFrameRateNew;
     }
 
@@ -41,7 +41,7 @@ public class Main {
     }
 
     // get Video Properties Methods
-    public static int getVideoFrameRate() {
+    public static int getDefaultVideoFrameRate() {
         return (mainVideoFrameRate);
     }
 

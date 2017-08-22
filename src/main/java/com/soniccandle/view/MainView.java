@@ -138,7 +138,7 @@ public class MainView {
         vpPanel.add(fps, vpC);
 
         m.videoSetFrameRate = newSCTextField(
-                Integer.toString(Main.VIDEO_FRAME_RATE), 120, 1, 10);
+                Integer.toString(Main.DEFAULT_VIDEO_FRAME_RATE), 120, 1, 10);
         m.videoSetFrameRate.setColumns(3);
         vpC.gridwidth = 1;
         vpC.gridx = 1;

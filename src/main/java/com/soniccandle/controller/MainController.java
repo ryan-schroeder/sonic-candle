@@ -67,7 +67,7 @@ public class MainController implements ActionListener {
         if (Integer.parseInt(m.videoSetFrameRate.getText()) > 0)// set minimum
         // to 1
         {
-            Main.setVideoFrameRate(Integer.parseInt(m.videoSetFrameRate
+            Main.setDefaultVideoFrameRate(Integer.parseInt(m.videoSetFrameRate
                     .getText()));
         } else {
             JOptionPane.showMessageDialog(m.pane,
@@ -294,7 +294,7 @@ public class MainController implements ActionListener {
         rs.audioFile = m.audioFile;
         rs.outputTo = m.outputTo;
         rs.outputter = outputter;
-        rs.videoFrameRate = Main.getVideoFrameRate();
+        rs.videoFrameRate = Main.getDefaultVideoFrameRate();
         rs.width = Main.getVideoWidth();
         rs.height = Main.getVideoHeight();
 
