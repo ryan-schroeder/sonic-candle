@@ -28,7 +28,6 @@ import com.soniccandle.model.ImageSeqVideoOutputter;
 import com.soniccandle.model.MainModel;
 import com.soniccandle.model.RenderSettings;
 import com.soniccandle.model.VideoOutputter;
-import com.soniccandle.model.XuggleVideoOutputter;
 import com.soniccandle.util.ImageFilter;
 import com.soniccandle.util.InputFilter;
 import com.soniccandle.util.Utils;
@@ -133,14 +132,6 @@ public class MainController implements ActionListener {
 
             if (returnVal != JFileChooser.APPROVE_OPTION) { // they hit cancel
                 return;
-            }
-
-            if (!m.fcOut.getSelectedFile().getName().endsWith(".mp4")
-                    && (m.outputMethod.getSelectedItem()
-                    .equals(MainView.OUTPUT_MP4_TITLE))) {
-                File addedMp4 = new File(m.fcOut.getSelectedFile().getParent(),
-                        m.fcOut.getSelectedFile().getName() + ".mp4");
-                m.fcOut.setSelectedFile(addedMp4);
             }
 
             if (m.fcOut.getSelectedFile().exists()
@@ -280,15 +271,11 @@ public class MainController implements ActionListener {
                 }
             }
 
-            if (m.outputMethod.getSelectedItem().equals(MainView.OUTPUT_MP4_TITLE)) {
-                outputter = new XuggleVideoOutputter(m.audioFile, m.outputTo);
-            } else {
-                if (!m.outputTo.isDirectory()) {
-                    JOptionPane.showMessageDialog(m.pane, "You must choose an output folder if you want to render an image sequence.");
-                    throw new Exception();
-                }
-                outputter = new ImageSeqVideoOutputter(m.audioFile, m.outputTo);
+            if (!m.outputTo.isDirectory()) {
+                JOptionPane.showMessageDialog(m.pane, "You must choose an output folder if you want to render an image sequence.");
+                throw new Exception();
             }
+            outputter = new ImageSeqVideoOutputter(m.audioFile, m.outputTo);
         }
 
         rs.audioFile = m.audioFile;
@@ -298,20 +285,26 @@ public class MainController implements ActionListener {
         rs.width = Main.getVideoWidth();
         rs.height = Main.getVideoHeight();
 
-        if (getOutputter) {
+        if (getOutputter)
+
+        {
             rs.outputter = outputter;
             rs.outputter.width = rs.width;
             rs.outputter.height = rs.height;
             rs.outputter.frameRate = rs.videoFrameRate;
         }
 
-        if (m.flatColorRb.isSelected()) {
+        if (m.flatColorRb.isSelected())
+
+        {
             BufferedImage backgroundImage = new BufferedImage(rs.width, rs.height, BufferedImage.TYPE_INT_ARGB);
             Graphics2D backgroundImageG = backgroundImage.createGraphics();
             backgroundImageG.setColor(new Color(Integer.parseInt(m.bgColorRed.getText()), Integer.parseInt(m.bgColorGreen.getText()), Integer.parseInt(m.bgColorBlue.getText())));
             backgroundImageG.fillRect(0, 0, rs.width, rs.height);
             rs.backgroundImage = backgroundImage;
-        } else if (m.builtInImageRb.isSelected()) {
+        } else if (m.builtInImageRb.isSelected())
+
+        {
             ClassLoader loader = Thread.currentThread().getContextClassLoader();
             BufferedImage backgroundImage = null;
             BufferedImage resizedBackgroundImage = null;
@@ -337,7 +330,9 @@ public class MainController implements ActionListener {
             }
             rs.backgroundImage = resizedBackgroundImage;
             g.dispose();
-        } else if (m.otherImageRb.isSelected()) {
+        } else if (m.otherImageRb.isSelected())
+
+        {
             if (m.backgroundImageFile == null) {
                 JOptionPane.showMessageDialog(m.pane, "You didn't select an image, silly!");
                 throw new Exception();

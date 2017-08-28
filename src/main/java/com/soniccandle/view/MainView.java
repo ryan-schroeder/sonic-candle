@@ -60,7 +60,6 @@ public class MainView {
     public static final String BG_OTHER_IMAGE = "Other Image";
     public static final String BG_BUILT_IN_IMAGE = "Built-in Image";
     public static final String BG_FLAT_COLOR = "Flat Color";
-    public static final String OUTPUT_MP4_TITLE = "Mp4 video file";
     public static final String OUTPUT_SEQUENCE_TITLE = "Image Sequence (png) (select a folder for output)";
 
     public MainModel m;
@@ -211,7 +210,7 @@ public class MainView {
         inOutC.gridy = 1;
         inOutPanel.add(label, inOutC);
 
-        String[] outputMethods = {OUTPUT_MP4_TITLE, OUTPUT_SEQUENCE_TITLE};
+        String[] outputMethods = {OUTPUT_SEQUENCE_TITLE};
         m.outputMethod = newSCComboBoxString(outputMethods);
         inOutC.weightx = 0.2;
         inOutC.gridwidth = 1;

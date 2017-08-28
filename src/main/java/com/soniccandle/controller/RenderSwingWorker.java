@@ -11,7 +11,6 @@ import com.soniccandle.model.FastSimpleRenderer;
 import com.soniccandle.model.MainModel;
 import com.soniccandle.model.RenderSettings;
 import com.soniccandle.model.VideoOutputter;
-import com.soniccandle.model.XuggleVideoOutputter;
 
 public class RenderSwingWorker extends SwingWorker<Boolean, Integer> {
 
@@ -53,7 +52,7 @@ public class RenderSwingWorker extends SwingWorker<Boolean, Integer> {
     @Override
     public void done() {
         c.unlockAfterRender();
-        if (outputter instanceof XuggleVideoOutputter && outputTo.length() < 100) {
+        if (outputTo.length() < 100) {
             JOptionPane.showMessageDialog(null, "Ooof - looks like there was a problem, sorry.  Please check that your audio file is 16-bit wav, not 24 or 32, thanks!  Other bitrates coming soon, hopefully.");
             return;
         }
